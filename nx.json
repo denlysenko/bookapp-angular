@@ -1,5 +1,8 @@
 {
   "npmScope": "bookapp-angular",
   "projects": {
+    "web": {
+      "tags": []
+    }
   }
 }
