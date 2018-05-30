@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
-  imports: [CoreModule, MatToolbarModule],
+  imports: [CoreModule, LayoutModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
