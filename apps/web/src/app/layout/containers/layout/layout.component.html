@@ -1,5 +1,12 @@
-<ba-header></ba-header>
-<div class="content">
-  <router-outlet></router-outlet>
+<div class="layout">
+  <ba-header></ba-header>
+  <mat-sidenav-container class="content">
+    <mat-sidenav mode="side"
+                 opened>Sidenav content</mat-sidenav>
+    <mat-sidenav-content>
+      <!-- <router-outlet></router-outlet> -->
+      conter
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <ba-footer></ba-footer>
 </div>
-<ba-footer></ba-footer>

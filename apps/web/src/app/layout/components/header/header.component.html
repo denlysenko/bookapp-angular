@@ -1,3 +1,9 @@
 <mat-toolbar color="primary">
-  {{ title }}
+  <a [routerLink]="['/']"
+     class="mat-button">
+    <span class="mat-button-wrapper">
+      <i class="material-icons">
+        book
+      </i> {{ title }}</span>
+  </a>
 </mat-toolbar>
