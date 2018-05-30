@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoragePlatformService } from '@bookapp-angular/core/services/storage.platform.service';
 import { GraphQLModule } from '@bookapp-angular/graphql/graphql.module';
@@ -12,6 +13,7 @@ import { StorageService } from './services/storage.service';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     NxModule.forRoot(),
     HttpClientModule,

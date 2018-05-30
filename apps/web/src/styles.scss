@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import './theme.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica,
+    Arial, 'Lucida Grande', sans-serif;
+  font-size: 14px;
+}
