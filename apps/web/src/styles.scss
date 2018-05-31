@@ -17,3 +17,10 @@ body {
     Arial, 'Lucida Grande', sans-serif;
   font-size: 14px;
 }
+
+// https://github.com/angular/flex-layout/issues/171#issuecomment-353973748
+router-outlet.router-flex + * {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

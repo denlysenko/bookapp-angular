@@ -1,0 +1,49 @@
+@import '../../../../../variables.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.auth-form {
+  width: 600px;
+
+  @media (max-width: 599px) {
+    width: 100%;
+  }
+
+  .mat-card-header {
+    margin: -50px 0 20px;
+    padding: 16px;
+    background-color: $orange;
+    color: $black-primary-text;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(241, 100, 65, 0.4);
+    border-radius: 2px;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: $light-blue !important;
+  }
+
+  .mat-card-actions {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: right;
+
+    button {
+      min-width: 150px;
+      text-transform: uppercase;
+    }
+  }
+}

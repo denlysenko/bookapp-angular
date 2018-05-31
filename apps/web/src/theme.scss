@@ -14,3 +14,16 @@ $custom-theme: mat-light-theme(
 );
 
 @include angular-material-theme($custom-theme);
+
+// custom inputs border color
+.mat-form-field-appearance-outline {
+  .mat-form-field-outline-thick {
+    color: $light-blue;
+  }
+
+  &.mat-focused {
+    .mat-form-field-outline-thick {
+      color: $light-blue;
+    }
+  }
+}
