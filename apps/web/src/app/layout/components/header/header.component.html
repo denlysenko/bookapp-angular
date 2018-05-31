@@ -1,4 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary"
+             [class.is-mobile]="isMobile">
+  <button mat-icon-button
+          class="menu-toggler"
+          (click)="toggleSidenav()">
+    <i class="material-icons">
+      menu
+    </i>
+  </button>
   <a [routerLink]="['/']"
      class="mat-button">
     <span class="mat-button-wrapper">

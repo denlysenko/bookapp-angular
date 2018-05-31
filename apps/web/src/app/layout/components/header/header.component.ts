@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'ba-header',
@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   title = 'Book App';
+
+  @Input() isMobile: boolean;
+
+  @Output() onToggleSidenav = new EventEmitter<void>();
+
+  toggleSidenav() {
+    this.onToggleSidenav.emit();
+  }
 }

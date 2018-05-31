@@ -1,5 +1,15 @@
 @import '../../../../variables.scss';
 
+.menu-toggler {
+  display: none;
+}
+
+.is-mobile {
+  .menu-toggler {
+    display: inline-block;
+  }
+}
+
 a {
   color: $primary-text;
   text-decoration: none;
