@@ -1,46 +1,54 @@
 <div class="auth-form">
   <mat-card>
-    <form>
+    <form [formGroup]="form"
+          (submit)="submit()">
       <mat-card-header>
-        <mat-card-title>Create account</mat-card-title>
+        <mat-card-title>{{ isLoggingIn ? 'Login into account' : 'Create account' }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div>
+        <div *ngIf="!isLoggingIn">
           <mat-form-field appearance="outline">
             <mat-label>First Name</mat-label>
             <input matInput
-                   placeholder="First Name">
-            <mat-error>Hint</mat-error>
+                   placeholder="First Name"
+                   formControlName="firstName">
           </mat-form-field>
         </div>
-        <div>
+        <div *ngIf="!isLoggingIn">
           <mat-form-field appearance="outline">
             <mat-label>Last Name</mat-label>
             <input matInput
-                   placeholder="Last Name">
-            <mat-error>Hint</mat-error>
+                   placeholder="Last Name"
+                   formControlName="lastName">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput
-                   placeholder="Email">
-            <mat-error>Hint</mat-error>
+                   placeholder="Email"
+                   formControlName="email">
+            <mat-error>This field is required</mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput
-                   placeholder="Password">
-            <mat-error>Hint</mat-error>
+            <input type="password" matInput
+                   placeholder="Password"
+                   formControlName="password">
+            <mat-error>This field is required</mat-error>
           </mat-form-field>
         </div>
       </mat-card-content>
       <mat-card-actions>
+        <span>{{ isLoggingIn ? 'Don\'t have an account?' : 'Already have an account?' }}
+          <a mat-button
+             href="javascript:void(0)"
+             (click)="toggleAuthMode()">{{ isLoggingIn ? 'Create one' : 'Back to Login' }}</a>
+        </span>
         <button mat-raised-button
-                color="accent">Create</button>
+                color="accent">{{ isLoggingIn ? 'Login' : 'Create' }}</button>
       </mat-card-actions>
     </form>
   </mat-card>
