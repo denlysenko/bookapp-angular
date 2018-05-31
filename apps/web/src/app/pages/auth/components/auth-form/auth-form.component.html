@@ -28,13 +28,15 @@
             <input matInput
                    placeholder="Email"
                    formControlName="email">
-            <mat-error>This field is required</mat-error>
+            <mat-error>{{ form.get('email').hasError('required') ? 'This field is required' : form.get('email').hasError('email') ?
+              'Not a valid email' : '' }}</mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input type="password" matInput
+            <input type="password"
+                   matInput
                    placeholder="Password"
                    formControlName="password">
             <mat-error>This field is required</mat-error>
