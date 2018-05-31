@@ -55,7 +55,8 @@
     "rxjs": "6.2.0",
     "rxjs-compat": "6.2.0",
     "subscriptions-transport-ws": "^0.9.9",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@bookapp-angular/scss": "file:libs/scss"
   },
   "devDependencies": {
     "@angular/compiler-cli": "6.0.1",
