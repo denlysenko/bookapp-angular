@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 
-import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core/src';
+import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';

@@ -1,6 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-@NgModule({
-  imports: [CommonModule]
-})
-export class AuthCoreModule {}
+import { ModuleWithProviders, NgModule } from '@angular/core';
+
+import { AuthService } from '@bookapp-angular/auth-core/src/lib/services';
+
+@NgModule()
+export class AuthCoreModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthCoreModule,
+      providers: [AuthService]
+    };
+  }
+}
