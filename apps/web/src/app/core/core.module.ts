@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { StoragePlatformService } from '@bookapp-angular/core/services/storage.platform.service';
-import { GraphQLModule } from '@bookapp-angular/graphql/graphql.module';
+import { StoragePlatformService } from '@bookapp-angular/core/src';
+import { GraphQLModule } from '@bookapp-angular/graphql/src';
 import { NxModule } from '@nrwl/nx';
 
 import { StorageService } from './services/storage.service';

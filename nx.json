@@ -6,6 +6,12 @@
     },
     "auth-core": {
       "tags": []
+    },
+    "graphql": {
+      "tags": []
+    },
+    "core": {
+      "tags": []
     }
   }
 }

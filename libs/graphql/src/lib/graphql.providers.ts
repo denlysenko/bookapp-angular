@@ -1,17 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
-import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { StoragePlatformService } from '@bookapp-angular/core/services/storage.platform.service';
-import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
+import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core/src';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-
-import { AUTH_TOKEN } from '../core/constants';
-import { environment } from '../core/environments/environment';
 
 interface Definintion {
   kind: string;
@@ -62,20 +58,10 @@ export function createApolloFactory(
   };
 }
 
-@NgModule({
-  imports: [ApolloModule, HttpLinkModule]
-})
-export class GraphQLModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: GraphQLModule,
-      providers: [
-        {
-          provide: APOLLO_OPTIONS,
-          useFactory: createApolloFactory,
-          deps: [HttpLink, StoragePlatformService]
-        }
-      ]
-    };
+export const PROVIDERS = [
+  {
+    provide: APOLLO_OPTIONS,
+    useFactory: createApolloFactory,
+    deps: [HttpLink, StoragePlatformService]
   }
-}
+];
