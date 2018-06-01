@@ -5,7 +5,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/mater
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { StoragePlatformService } from '@bookapp-angular/core';
+import { RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
 import { NxModule } from '@nrwl/nx';
 
@@ -22,6 +22,7 @@ import { StorageService } from './services/storage.service';
     MatSnackBarModule
   ],
   providers: [
+    RouterExtensions,
     {
       provide: StoragePlatformService,
       useClass: StorageService
