@@ -105,6 +105,32 @@
           }
         }
       }
+    },
+    "auth-core": {
+      "root": "libs/auth-core",
+      "sourceRoot": "libs/auth-core/src",
+      "projectType": "library",
+      "prefix": "ba",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/auth-core/src/test.ts",
+            "tsConfig": "libs/auth-core/tsconfig.spec.json",
+            "karmaConfig": "libs/auth-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/auth-core/tsconfig.lib.json",
+              "libs/auth-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

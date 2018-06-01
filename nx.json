@@ -3,6 +3,9 @@
   "projects": {
     "web": {
       "tags": []
+    },
+    "auth-core": {
+      "tags": []
     }
   }
 }
