@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { tap } from 'rxjs/operators';
+
 import { Credentials } from '@bookapp-angular/auth-core';
 import { AUTH_TOKEN, StoragePlatformService } from '@bookapp-angular/core';
 import { LOGIN_MUTATION, ME_QUERY, SIGNUP_MUTATION } from '@bookapp-angular/graphql';
@@ -13,7 +15,7 @@ export class AuthService {
   ) {}
 
   login(email: string, password: string) {
-    this.apollo
+    return this.apollo
       .mutate({
         mutation: LOGIN_MUTATION,
         variables: {
@@ -21,24 +23,32 @@ export class AuthService {
           password
         }
       })
-      .subscribe(({ data: { login: { token } } }) => {
-        this.storagePlatformService.setItem(AUTH_TOKEN, token);
-        this.getUserSelf();
-      });
+      .pipe(
+        tap(({ data }) => {
+          if (data) {
+            const { login: { token } } = data;
+            this.storagePlatformService.setItem(AUTH_TOKEN, token);
+          }
+        })
+      );
   }
 
   signup(user: Credentials) {
-    this.apollo
+    return this.apollo
       .mutate({
         mutation: SIGNUP_MUTATION,
         variables: {
           user
         }
       })
-      .subscribe(({ data: { signin: { token } } }) => {
-        this.storagePlatformService.setItem(AUTH_TOKEN, token);
-        this.getUserSelf();
-      });
+      .pipe(
+        tap(({ data }) => {
+          if (data) {
+            const { login: { token } } = data;
+            this.storagePlatformService.setItem(AUTH_TOKEN, token);
+          }
+        })
+      );
   }
 
   getUserSelf() {

@@ -6,6 +6,7 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
@@ -13,6 +14,18 @@ interface Definintion {
   kind: string;
   operation?: string;
 }
+
+const defaultOptions = {
+  watchQuery: {
+    errorPolicy: 'all'
+  },
+  query: {
+    errorPolicy: 'all'
+  },
+  mutate: {
+    errorPolicy: 'all'
+  }
+};
 
 export function createApolloFactory(
   httpLink: HttpLink,
@@ -52,9 +65,17 @@ export function createApolloFactory(
     auth.concat(http)
   );
 
+  const errorLink = onError(({ networkError }) => {
+    // TODO add handler to show snackbar
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  });
+
   return {
-    link,
-    cache: new InMemoryCache()
+    link: errorLink.concat(link),
+    cache: new InMemoryCache(),
+    defaultOptions
   };
 }
 

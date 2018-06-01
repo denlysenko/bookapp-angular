@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
-import { AuthFormBaseComponent } from '@bookapp-angular/auth-core/src';
+import { AuthFormBaseComponent } from '@bookapp-angular/auth-core';
 
 @Component({
   selector: 'ba-auth-form',
@@ -10,7 +11,7 @@ import { AuthFormBaseComponent } from '@bookapp-angular/auth-core/src';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthFormComponent extends AuthFormBaseComponent {
-  constructor(protected fb: FormBuilder) {
+  constructor(protected fb: FormBuilder, protected snackBar: MatSnackBar) {
     super();
   }
 }

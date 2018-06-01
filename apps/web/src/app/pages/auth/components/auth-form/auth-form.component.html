@@ -28,8 +28,7 @@
             <input matInput
                    placeholder="Email"
                    formControlName="email">
-            <mat-error>{{ form.get('email').hasError('required') ? 'This field is required' : form.get('email').hasError('email') ?
-              'Not a valid email' : '' }}</mat-error>
+            <mat-error>{{ getEmailError() }}</mat-error>
           </mat-form-field>
         </div>
         <div>

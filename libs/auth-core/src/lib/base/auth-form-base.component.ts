@@ -1,11 +1,19 @@
-import { EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthForm } from '@bookapp-angular/auth-core';
+import { FormBaseComponent } from '@bookapp-angular/core';
 
-export abstract class AuthFormBaseComponent implements OnInit {
-  form: FormGroup;
+export abstract class AuthFormBaseComponent extends FormBaseComponent
+  implements OnInit {
   isLoggingIn = true;
+
+  @Input()
+  set error(value) {
+    if (value) {
+      this.handleError(value);
+    }
+  }
 
   @Output() onFormSubmit = new EventEmitter<AuthForm>();
 
@@ -16,6 +24,15 @@ export abstract class AuthFormBaseComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+  }
+
+  getEmailError() {
+    const emailField = this.form.get('email');
+    return emailField.invalid && emailField.hasError('required')
+      ? 'This field is required'
+      : emailField.hasError('email')
+        ? 'Not a valid email'
+        : emailField.hasError('serverError') ? this.errors['email'] : '';
   }
 
   toggleAuthMode() {
