@@ -3,7 +3,7 @@
   <ba-header [isMobile]="mobileQuery.matches"
              (onToggleSidenav)="snav.toggle()"></ba-header>
   <mat-sidenav-container class="content">
-    <mat-sidenav style="display: none" #snav
+    <mat-sidenav #snav
                  [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [opened]="!mobileQuery.matches"
                  [fixedInViewport]="mobileQuery.matches"
