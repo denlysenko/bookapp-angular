@@ -1,11 +1,13 @@
 import { EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AuthForm } from '@bookapp-angular/auth-core';
+
 export abstract class AuthFormBaseComponent implements OnInit {
   form: FormGroup;
   isLoggingIn = true;
 
-  @Output() onFormSubmit = new EventEmitter<any>();
+  @Output() onFormSubmit = new EventEmitter<AuthForm>();
 
   protected abstract fb: FormBuilder;
 
@@ -23,7 +25,10 @@ export abstract class AuthFormBaseComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.onFormSubmit.emit(this.form.value);
+      this.onFormSubmit.emit({
+        credentials: this.form.value,
+        isLoggingIn: this.isLoggingIn
+      });
     }
   }
 

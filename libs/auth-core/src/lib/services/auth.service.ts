@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { User } from '@bookapp-angular/auth-core/src';
+import { Credentials } from '@bookapp-angular/auth-core';
 import { AUTH_TOKEN, StoragePlatformService } from '@bookapp-angular/core';
 import { LOGIN_MUTATION, ME_QUERY, SIGNUP_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
@@ -27,7 +27,7 @@ export class AuthService {
       });
   }
 
-  signup(user: User) {
+  signup(user: Credentials) {
     this.apollo
       .mutate({
         mutation: SIGNUP_MUTATION,

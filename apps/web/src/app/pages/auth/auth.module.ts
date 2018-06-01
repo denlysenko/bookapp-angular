@@ -5,6 +5,8 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { AuthCoreModule } from '@bookapp-angular/auth-core';
+
 import { components } from './components';
 import { containers } from './containers';
 
@@ -12,6 +14,7 @@ import { containers } from './containers';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AuthCoreModule.forRoot(),
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
