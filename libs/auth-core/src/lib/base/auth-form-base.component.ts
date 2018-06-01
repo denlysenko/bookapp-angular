@@ -8,6 +8,7 @@ export abstract class AuthFormBaseComponent extends FormBaseComponent
   implements OnInit {
   isLoggingIn = true;
 
+  @Input() loading: boolean;
   @Input()
   set error(value) {
     if (value) {

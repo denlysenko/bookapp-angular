@@ -1,23 +1,77 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+
+import { takeUntil } from 'rxjs/operators';
+
+import { User } from '@bookapp-angular/auth-core';
+import { BaseComponent, RouterExtensions } from '@bookapp-angular/core';
+import { ME_QUERY } from '@bookapp-angular/graphql';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   selector: 'ba-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnDestroy {
+export class LayoutComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
+  user: User;
 
   private mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private media: MediaMatcher,
+    private apollo: Apollo,
+    private routerExtensions: RouterExtensions
+  ) {
+    super();
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
+  ngOnInit() {
+    this.apollo
+      .watchQuery<any>({
+        query: ME_QUERY
+      })
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(
+        ({ data, errors }) => {
+          if (data) {
+            this.user = data.me;
+          }
+
+          if (errors) {
+            this.routerExtensions.navigate(['auth'], {
+              // for nativescript
+              clearHistory: true,
+              transition: {
+                name: 'flip',
+                duration: 300,
+                curve: 'linear'
+              }
+            });
+          }
+        },
+        () => {
+          this.routerExtensions.navigate(['auth'], {
+            // for nativescript
+            clearHistory: true,
+            transition: {
+              name: 'flip',
+              duration: 300,
+              curve: 'linear'
+            }
+          });
+        }
+      );
+  }
+
   ngOnDestroy() {
     this.mobileQuery.removeListener(this.mobileQueryListener);
+    super.ngOnDestroy();
   }
 }

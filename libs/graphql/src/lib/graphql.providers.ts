@@ -68,7 +68,7 @@ export function createApolloFactory(
   const errorLink = onError(({ networkError }) => {
     // TODO add handler to show snackbar
     if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
+      console.log(`[Network error]`, networkError);
     }
   });
 

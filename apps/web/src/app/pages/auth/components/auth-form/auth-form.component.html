@@ -46,10 +46,12 @@
         <span>{{ isLoggingIn ? 'Don\'t have an account?' : 'Already have an account?' }}
           <a mat-button
              href="javascript:void(0)"
-             (click)="toggleAuthMode()">{{ isLoggingIn ? 'Create one' : 'Back to Login' }}</a>
+             (click)="toggleAuthMode()"
+             [disabled]="loading">{{ isLoggingIn ? 'Create one' : 'Back to Login' }}</a>
         </span>
         <button mat-raised-button
-                color="primary">{{ isLoggingIn ? 'Login' : 'Create' }}</button>
+                color="primary"
+                [disabled]="loading">{{ isLoggingIn ? 'Login' : 'Create' }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

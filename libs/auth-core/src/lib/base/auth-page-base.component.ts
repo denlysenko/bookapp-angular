@@ -1,8 +1,11 @@
+import { tap } from 'rxjs/operators';
+
 import { AuthForm, AuthService, Credentials } from '@bookapp-angular/auth-core';
 import { RouterExtensions } from '@bookapp-angular/core';
 
 export abstract class AuthPageBaseComponent {
   error: any;
+  isLoading = false;
 
   protected authService: AuthService;
   protected routerExtensions: RouterExtensions;
@@ -17,8 +20,15 @@ export abstract class AuthPageBaseComponent {
   }
 
   private login(email, password) {
+    this.isLoading = true;
+
     return this.authService
       .login(email, password)
+      .pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      )
       .subscribe(({ data, errors }) => {
         if (data) {
           this.routerExtensions.navigate([''], {
@@ -39,8 +49,15 @@ export abstract class AuthPageBaseComponent {
   }
 
   private signup(credentials: Credentials) {
+    this.isLoading = true;
+
     return this.authService
       .signup(credentials)
+      .pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      )
       .subscribe(({ data, errors }) => {
         if (data) {
           this.routerExtensions.navigate([''], {

@@ -17,14 +17,19 @@ export const SIGNUP_MUTATION = gql`
 `;
 
 export const ME_QUERY = gql`
-  query me {
-    id
-    email
-    firstName
-    lastName
-    displayName
-    avatar
-    roles
-    reading
+  query {
+    me {
+      id
+      email
+      firstName
+      lastName
+      displayName
+      avatar
+      roles
+      reading {
+        epubUrl
+        bookmark
+      }
+    }
   }
 `;
