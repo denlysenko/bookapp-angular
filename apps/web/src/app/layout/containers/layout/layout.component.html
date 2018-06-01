@@ -1,7 +1,9 @@
 <div class="layout"
      [class.is-mobile]="mobileQuery.matches">
   <ba-header [isMobile]="mobileQuery.matches"
-             (onToggleSidenav)="snav.toggle()"></ba-header>
+             [user]="user"
+             (onToggleSidenav)="snav.toggle()"
+             (onLogout)="logout()"></ba-header>
   <mat-sidenav-container class="content">
     <mat-sidenav #snav
                  [mode]="mobileQuery.matches ? 'over' : 'side'"

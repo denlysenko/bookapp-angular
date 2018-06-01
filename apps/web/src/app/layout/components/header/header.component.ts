@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { User } from '@bookapp-angular/auth-core';
+
 @Component({
   selector: 'ba-header',
   templateUrl: './header.component.html',
@@ -10,10 +12,16 @@ export class HeaderComponent {
   title = 'Book App';
 
   @Input() isMobile: boolean;
+  @Input() user: User;
 
   @Output() onToggleSidenav = new EventEmitter<void>();
+  @Output() onLogout = new EventEmitter<void>();
 
   toggleSidenav() {
     this.onToggleSidenav.emit();
+  }
+
+  logout() {
+    this.onLogout.emit();
   }
 }

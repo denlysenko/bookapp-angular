@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { User } from '@bookapp-angular/auth-core';
+import { AuthService, User } from '@bookapp-angular/auth-core';
 import { BaseComponent, RouterExtensions } from '@bookapp-angular/core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
@@ -24,7 +24,8 @@ export class LayoutComponent extends BaseComponent
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
     private apollo: Apollo,
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private authService: AuthService
   ) {
     super();
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -45,33 +46,34 @@ export class LayoutComponent extends BaseComponent
           }
 
           if (errors) {
-            this.routerExtensions.navigate(['auth'], {
-              // for nativescript
-              clearHistory: true,
-              transition: {
-                name: 'flip',
-                duration: 300,
-                curve: 'linear'
-              }
-            });
+            this.navigateToAuth();
           }
         },
         () => {
-          this.routerExtensions.navigate(['auth'], {
-            // for nativescript
-            clearHistory: true,
-            transition: {
-              name: 'flip',
-              duration: 300,
-              curve: 'linear'
-            }
-          });
+          this.navigateToAuth();
         }
       );
+  }
+
+  logout() {
+    this.authService.logout();
+    this.navigateToAuth();
   }
 
   ngOnDestroy() {
     this.mobileQuery.removeListener(this.mobileQueryListener);
     super.ngOnDestroy();
+  }
+
+  private navigateToAuth() {
+    this.routerExtensions.navigate(['auth'], {
+      // for nativescript
+      clearHistory: true,
+      transition: {
+        name: 'flip',
+        duration: 300,
+        curve: 'linear'
+      }
+    });
   }
 }

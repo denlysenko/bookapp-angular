@@ -14,4 +14,23 @@
         book
       </i> {{ title }}</span>
   </a>
+  <div *ngIf="user"
+       class="user-menu">
+    <button mat-button
+            [matMenuTriggerFor]="menu">
+      <img class="avatar"
+           src="/assets/images/no-avatar.svg"
+           alt="avatar"> {{ user.displayName }}
+      <i class="material-icons">
+        expand_more
+      </i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item>Edit Profile</a>
+      <a mat-menu-item>Change Password</a>
+      <mat-divider></mat-divider>
+      <a mat-menu-item
+         (click)="logout()">Signout</a>
+    </mat-menu>
+  </div>
 </mat-toolbar>

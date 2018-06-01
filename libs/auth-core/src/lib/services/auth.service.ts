@@ -60,6 +60,7 @@ export class AuthService {
   }
 
   logout() {
+    this.storagePlatformService.removeItem(AUTH_TOKEN);
     this.apollo.getClient().resetStore();
   }
 }
