@@ -5,6 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start:web": "ng serve --port=4500",
+    "start:ios": "cd apps/mobile && tns run ios --emulator",
+    "start:android": "cd apps/mobile && tns run android --emulator",
     "build": "ng build",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
@@ -22,7 +24,9 @@
     "update:skip": "./node_modules/.bin/nx update:skip",
     "workspace-schematic": "./node_modules/.bin/nx workspace-schematic",
     "dep-graph": "./node_modules/.bin/nx dep-graph",
-    "help": "./node_modules/.bin/nx help"
+    "help": "./node_modules/.bin/nx help",
+    "clean.nativescript.mobile":
+      "cd apps/mobile && npx rimraf -- hooks node_modules platforms package-lock.json && npm i"
   },
   "private": true,
   "dependencies": {

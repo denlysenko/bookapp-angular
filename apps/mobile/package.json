@@ -1,0 +1,80 @@
+{
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "readme": "NativeScript Application",
+  "repository": "<fill-your-repository-here>",
+  "nativescript": {
+    "id": "org.nativescript.bookapp",
+    "tns-ios": {
+      "version": "4.0.1"
+    },
+    "tns-android": {
+      "version": "4.1.1"
+    }
+  },
+  "dependencies": {
+    "@angular/animations": "file:../../node_modules/@angular/animations",
+    "@angular/common": "file:../../node_modules/@angular/common",
+    "@angular/compiler": "file:../../node_modules/@angular/compiler",
+    "@angular/core": "file:../../node_modules/@angular/core",
+    "@angular/forms": "file:../../node_modules/@angular/forms",
+    "@angular/platform-browser": "file:../../node_modules/@angular/platform-browser",
+    "@angular/platform-browser-dynamic": "file:../../node_modules/@angular/platform-browser-dynamic",
+    "@angular/router": "file:../../node_modules/@angular/router",
+    "@ngrx/effects": "file:../../node_modules/@ngrx/effects",
+    "@ngrx/router-store": "file:../../node_modules/@ngrx/router-store",
+    "@ngrx/store": "file:../../node_modules/@ngrx/store",
+    "@nrwl/nx": "file:../../node_modules/@nrwl/nx",
+    "nativescript-angular": "~6.0.0",
+    "nativescript-ngx-fonticon": "~4.0.0",
+    "nativescript-theme-core": "~1.0.4",
+    "reflect-metadata": "~0.1.8",
+    "rxjs": "file:../../node_modules/rxjs",
+    "rxjs-compat": "^6.1.0",
+    "tns-core-modules": "~4.0.0",
+    "zone.js": "file:../../node_modules/zone.js"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "file:../../node_modules/@angular/compiler-cli",
+    "@ngtools/webpack": "^1.10.2",
+    "angular-router-loader": "~0.8.1",
+    "babel-traverse": "6.26.0",
+    "babel-types": "6.26.0",
+    "babylon": "6.18.0",
+    "clean-webpack-plugin": "~0.1.19",
+    "copy-webpack-plugin": "~4.5.1",
+    "css-loader": "~0.28.7",
+    "extract-text-webpack-plugin": "~3.0.2",
+    "lazy": "1.0.11",
+    "nativescript-css-loader": "~0.26.0",
+    "nativescript-dev-sass": "^1.5.0",
+    "nativescript-dev-typescript": "~0.7.0",
+    "nativescript-dev-webpack": "~0.11.0",
+    "nativescript-worker-loader": "~0.8.1",
+    "raw-loader": "~0.5.1",
+    "resolve-url-loader": "~2.3.0",
+    "sass-loader": "~6.0.6",
+    "tns-platform-declarations": "~4.0.0",
+    "typescript": "file:../../node_modules/typescript",
+    "uglifyjs-webpack-plugin": "~1.1.6",
+    "webpack": "~3.11.0",
+    "webpack-bundle-analyzer": "~2.11.1",
+    "webpack-parallel-uglify-plugin": "~1.0.2",
+    "webpack-sources": "~1.1.0"
+  },
+  "scripts": {
+    "reset": "rm -rf hooks node_modules platforms && npm run css.clean && npm run js.clean",
+    "clean": "npm run js.clean && npm run css",
+    "css.clean": "find app -type f -iname '*.css' -and ! -iname 'font-awesome.min.css' -delete",
+    "css.generate": "node -e 'require(\"./node_modules/nativescript-dev-sass/lib/converter.js\").convert(console, \".\");'",
+    "css": "npm run css.clean && npm run css.generate",
+    "js.clean": "npx rimraf -- app/**/*.js",
+    "ns-bundle": "ns-bundle",
+    "publish-ios-bundle": "npm run ns-bundle --ios --publish-app",
+    "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
+    "start-android-bundle": "npm run ns-bundle --android --run-app",
+    "start-ios-bundle": "npm run ns-bundle --ios --run-app",
+    "build-android-bundle": "npm run ns-bundle --android --build-app",
+    "build-ios-bundle": "npm run ns-bundle --ios --build-app"
+  }
+}
