@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatListModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule,
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { components } from './components';
@@ -14,7 +21,8 @@ import { containers } from './containers';
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule
   ],
   declarations: [...containers, ...components],
   exports: [...containers]
