@@ -8,6 +8,9 @@
 # dependencies
 /node_modules
 
+/**/*.js
+/**/*.js.map
+
 # IDEs and editors
 /.idea
 .project

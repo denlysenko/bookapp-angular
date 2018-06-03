@@ -13,12 +13,17 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["app/*"],
+      "@bookapp-angular/*": ["../../libs/*"],
+      "@bookapp-angular/auth-core": ["../../libs/auth-core/src/index.ts"],
+      "@bookapp-angular/graphql": ["../../libs/graphql/src/index.ts"],
+      "@bookapp-angular/core": ["../../libs/core/src/index.ts"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }
   },
   "include": [
     "references.d.ts",
     "app/main.aot.ts",
+    "app/main.ts",
     "app/vendor*",
     "app/**/*.module.ts"
   ]
