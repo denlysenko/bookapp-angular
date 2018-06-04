@@ -5,6 +5,7 @@ import { GraphQLModule } from '@bookapp-angular/graphql';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { RouterExtensions as TNSRouterExtensions } from 'nativescript-angular/router';
+
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { StorageService } from './services/storage.service';

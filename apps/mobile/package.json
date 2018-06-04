@@ -36,6 +36,7 @@
     "graphql": "file:../../node_modules/graphql",
     "graphql-tag": "file:../../node_modules/graphql-tag",
     "nativescript-angular": "~6.0.0",
+    "nativescript-ng-shadow": "^2.1.0",
     "nativescript-ngx-fonticon": "~4.0.0",
     "nativescript-theme-core": "~1.0.4",
     "reflect-metadata": "~0.1.8",

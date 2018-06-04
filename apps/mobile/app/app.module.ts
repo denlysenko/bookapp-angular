@@ -1,13 +1,14 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
+import { AuthModule } from '~/modules/auth/auth.module';
+import { CoreModule } from '~/modules/core/core.module';
+import { SharedModule } from '~/modules/shared/shared.module';
+
 import { AppComponent } from './app.component';
-import { CoreModule } from './modules/core/core.module';
+import { AppRoutingModule } from './app.routing';
 
 @NgModule({
-  imports: [
-    CoreModule
-    // AppRoutingModule
-  ],
+  imports: [CoreModule, SharedModule, AppRoutingModule, AuthModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
