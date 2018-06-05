@@ -11,7 +11,14 @@ import { AuthFormBaseComponent } from '@bookapp-angular/auth-core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthFormComponent extends AuthFormBaseComponent {
+  submitting = false;
+
   constructor(protected fb: FormBuilder) {
     super();
+  }
+
+  submit() {
+    this.submitting = true;
+    super.submit();
   }
 }

@@ -2,13 +2,18 @@ import { NgModule } from '@angular/core';
 
 import { RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
+import { registerElement } from 'nativescript-angular/element-registry';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { RouterExtensions as TNSRouterExtensions } from 'nativescript-angular/router';
-
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { StorageService } from './services/storage.service';
+
+registerElement(
+  'PreviousNextView',
+  () => require('nativescript-iqkeyboardmanager').PreviousNextView
+);
 
 @NgModule({
   imports: [
