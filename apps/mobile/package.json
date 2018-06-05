@@ -7,6 +7,9 @@
     "id": "org.nativescript.bookapp",
     "tns-android": {
       "version": "4.1.1"
+    },
+    "tns-ios": {
+      "version": "4.1.0"
     }
   },
   "dependencies": {
@@ -30,6 +33,7 @@
     "apollo-angular-link-http": "file:../../node_modules/apollo-angular-link-http",
     "apollo-cache-inmemory": "file:../../node_modules/apollo-cache-inmemory",
     "apollo-client": "file:../../node_modules/apollo-client",
+    "apollo-link": "file:../../node_modules/apollo-link",
     "apollo-link-context": "file:../../node_modules/apollo-link-context",
     "apollo-link-error": "file:../../node_modules/apollo-link-error",
     "apollo-link-ws": "file:../../node_modules/apollo-link-ws",

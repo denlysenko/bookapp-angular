@@ -5,13 +5,14 @@
 @import '~@bookapp-angular/scss/variables';
 
 // add your own variables here or override those coming from the theme above...
+// colors
 $primary-color: #2f364a;
 
+// buttons
 $btn-color: $primary-color;
 $btn-color-secondary: $orange;
 $enable-rounded: true;
 $btn-margin-x: 0;
-$btn-padding-y: 18;
 $btn-color-outline-highlighted: $primary-color;
 
 // ActionBar
