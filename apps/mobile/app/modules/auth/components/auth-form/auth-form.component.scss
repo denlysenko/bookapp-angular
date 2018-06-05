@@ -1,5 +1,19 @@
+@import '~/scss/variables';
+
 .mat-card {
   padding: 10;
   background-color: white;
   color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-header {
+  text-align: center;
+  margin-bottom: 20;
+  padding: 16;
+  background-color: $primary-color;
+
+  Label {
+    text-transform: uppercase;
+    color: $dark-primary-text;
+  }
 }

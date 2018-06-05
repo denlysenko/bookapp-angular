@@ -5,6 +5,7 @@
 // theme standard rulesets
 @import '~nativescript-theme-core/scss/index';
 // define our custom styles here...
+@import 'buttons';
 
 Page {
   /**
@@ -12,7 +13,7 @@ Page {
     * will help prevent white flashes when changing routes
     * sample app uses a white background so just using $white here
     **/
-  background-color: $white;
+  background-color: $surface-backgroud;
 }
 
 /**
