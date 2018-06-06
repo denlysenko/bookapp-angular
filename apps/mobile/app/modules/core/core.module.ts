@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
+import { FeedbackPlatformService, RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
 import { registerElement } from 'nativescript-angular/element-registry';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
@@ -8,7 +8,10 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { RouterExtensions as TNSRouterExtensions } from 'nativescript-angular/router';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
+import { FeedbackService } from './services/feedback.service';
 import { StorageService } from './services/storage.service';
+
+require('nativescript-websockets');
 
 registerElement(
   'PreviousNextView',
@@ -22,7 +25,7 @@ registerElement(
     TNSFontIconModule.forRoot({
       mdi: 'material-design-icons.css'
     }),
-    GraphQLModule.forRoot()
+    GraphQLModule.forRoot(WebSocket)
   ],
   providers: [
     {
@@ -32,6 +35,10 @@ registerElement(
     {
       provide: RouterExtensions,
       useClass: TNSRouterExtensions
+    },
+    {
+      provide: FeedbackPlatformService,
+      useClass: FeedbackService
     }
   ]
 })

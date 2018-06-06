@@ -44,5 +44,6 @@
         "app/main.ts",
         "app/vendor*.ts",
         "app/**/*.module.ts"
-    ]
+    ],
+    "exclude": ["node_modules"]
 }

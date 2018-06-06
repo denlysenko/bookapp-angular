@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { AuthFormBaseComponent } from '@bookapp-angular/auth-core';
+import { FeedbackPlatformService } from '@bookapp-angular/core';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,10 @@ import { AuthFormBaseComponent } from '@bookapp-angular/auth-core';
 export class AuthFormComponent extends AuthFormBaseComponent {
   submitting = false;
 
-  constructor(protected fb: FormBuilder) {
+  constructor(
+    protected fb: FormBuilder,
+    protected feedbackService: FeedbackPlatformService
+  ) {
     super();
   }
 

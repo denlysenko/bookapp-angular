@@ -17,5 +17,5 @@
       "@bookapp-angular/core": ["libs/core/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp", "apps/mobile/node_modules"]
 }

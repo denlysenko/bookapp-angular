@@ -36,6 +36,13 @@ export abstract class AuthFormBaseComponent extends FormBaseComponent
         : emailField.hasError('serverError') ? this.errors['email'] : '';
   }
 
+  getPasswordError() {
+    const passwordField = this.form.get('password');
+    return passwordField.invalid && passwordField.hasError('required')
+      ? 'This field is required'
+      : passwordField.hasError('serverError') ? this.errors['password'] : '';
+  }
+
   toggleAuthMode() {
     this.isLoggingIn = !this.isLoggingIn;
     this.isLoggingIn ? this.disableFields() : this.enableFields();

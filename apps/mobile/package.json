@@ -5,11 +5,11 @@
   "repository": "<fill-your-repository-here>",
   "nativescript": {
     "id": "org.nativescript.bookapp",
-    "tns-android": {
-      "version": "4.1.1"
-    },
     "tns-ios": {
       "version": "4.1.0"
+    },
+    "tns-android": {
+      "version": "4.1.2"
     }
   },
   "dependencies": {
@@ -40,10 +40,12 @@
     "graphql": "file:../../node_modules/graphql",
     "graphql-tag": "file:../../node_modules/graphql-tag",
     "nativescript-angular": "~6.0.0",
+    "nativescript-feedback": "^1.2.0",
     "nativescript-iqkeyboardmanager": "^1.3.0",
     "nativescript-ng-shadow": "^2.1.0",
     "nativescript-ngx-fonticon": "~4.0.0",
     "nativescript-theme-core": "~1.0.4",
+    "nativescript-websockets": "^1.5.0",
     "reflect-metadata": "~0.1.8",
     "rxjs": "file:../../node_modules/rxjs",
     "rxjs-compat": "^6.1.0",

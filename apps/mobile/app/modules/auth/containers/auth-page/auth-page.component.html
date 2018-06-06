@@ -1,3 +1,5 @@
 <ScrollView>
-  <ba-auth-form></ba-auth-form>
+  <ba-auth-form [loading]="isLoading"
+                [error]="error"
+                (onFormSubmit)="submit($event)"></ba-auth-form>
 </ScrollView>
