@@ -1,11 +1,12 @@
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+
+import { FeedbackPlatformService } from '@bookapp-angular/core';
 
 export abstract class FormBaseComponent {
   form: FormGroup;
   errors: { [key: string]: string } = {};
 
-  protected snackBar: MatSnackBar;
+  protected feedbackService: FeedbackPlatformService;
 
   protected handleError(err: any) {
     if (err.errors) {
@@ -18,7 +19,7 @@ export abstract class FormBaseComponent {
         }
       });
     } else if (err.message && err.message.message) {
-      this.snackBar.open(err.message.message);
+      this.feedbackService.error(err.message.message);
     }
   }
 }
