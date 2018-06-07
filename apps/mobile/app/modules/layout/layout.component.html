@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<ActionBar class="action-bar" flat="true">
+  <NavigationButton ios:visibility="collapsed"
+                    icon="res://menu"
+                    (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://nav/menu"
+              android:visibility="collapsed"
+              (tap)="onDrawerButtonTap()"
+              ios.position="left">
+  </ActionItem>
+  <Label class="action-bar-title"
+         [text]="selectedPage"></Label>
+</ActionBar>
+<RadSideDrawer #drawer
+               showOverNavigation="true"
+               [drawerTransition]="sideDrawerTransition">
+  <StackLayout tkDrawerContent scrollableContent=true>
+    <GridLayout rows="auto, *"
+                class="sidedrawer sidedrawer-left">
+      <StackLayout row="0"
+                   class="sidedrawer-header">
+        <Label text="user info goes here"></Label>
+      </StackLayout>
+      <ScrollView row="1">
+        <StackLayout class="sidedrawer-content">
+        <StackLayout class="divider"></StackLayout>
+          <GridLayout *ngFor="let item of navItems" columns="auto, *"
+                      class="sidedrawer-list-item"
+                      [class.selected]="isSelected(item.label)"
+                      (tap)="selectPageAndNavigate(item)">
+            <Label col="0"
+                   [text]="item.icon"
+                   class="mdi"></Label>
+            <Label col="1"
+                   [text]="item.label"
+                   class="p-r-10"></Label>
+          </GridLayout>
+          <StackLayout class="divider"></StackLayout>
+          <GridLayout *ngFor="let item of categoryItems" columns="auto, *"
+                      class="sidedrawer-list-item"
+                      [class.selected]="isSelected(item.label)"
+                      (tap)="selectPageAndNavigate(item)">
+            <Label col="0"
+                   [text]="item.icon"
+                   class="mdi" [style.color]="item.color"></Label>
+            <Label col="1"
+                   [text]="item.label"
+                   class="p-r-10"></Label>
+          </GridLayout>
+        </StackLayout>
+      </ScrollView>
+    </GridLayout>
+  </StackLayout>
+  <GridLayout class="page page-content"
+              tkMainContent>
+    <router-outlet></router-outlet>
+  </GridLayout>
+</RadSideDrawer>

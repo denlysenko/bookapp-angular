@@ -3,13 +3,12 @@ import { Routes } from '@angular/router';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { AuthPageComponent } from '~/modules/auth/containers/auth-page/auth-page.component';
-import { SharedModule } from '~/modules/shared/shared.module';
+import { LayoutComponent } from '~/modules/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/auth',
-    pathMatch: 'full'
+    component: LayoutComponent
   },
   {
     path: 'auth',
