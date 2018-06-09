@@ -23,3 +23,12 @@ Page {
 .mdi {
   font-family: 'Material Icons', 'MaterialIcons-Regular';
 }
+
+.divider {
+  height: 5;
+  background: #19202e;
+  border-top-width: 1;
+  border-top-color: rgba(0, 0, 0, 0.3);
+  border-bottom-width: 1;
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+}

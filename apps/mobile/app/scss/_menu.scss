@@ -1,0 +1,22 @@
+@import 'variables';
+
+.menu-item {
+  padding: 10 15;
+
+  Label {
+    font-size: 16;
+    vertical-align: center;
+  }
+
+  .mdi {
+    margin-right: 10;
+  }
+
+  &.selected {
+    background-color: $light-blue;
+
+    Label {
+      color: white;
+    }
+  }
+}

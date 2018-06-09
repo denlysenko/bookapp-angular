@@ -1,23 +1,31 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { categories, MenuItem, navs, userMenu } from '@bookapp-angular/core';
 import { RouterExtensions } from 'nativescript-angular/router/router-extensions';
 import { DrawerTransitionBase, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
-import { categories, navs } from './menu';
-
 @Component({
   moduleId: module.id,
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  animations: [
+    trigger('state', [
+      state('in', style({ opacity: 1, transform: 'translateY(0)' })),
+      state('out', style({ opacity: 0, transform: 'translateY(-100%)' })),
+      transition('in <=> out', [animate('300ms ease-out')])
+    ])
+  ]
 })
 export class LayoutComponent implements OnInit {
   selectedPage: string;
   navItems = navs;
   categoryItems = categories;
-  items: any;
+  userMenuItems = userMenu;
+  isUserMenuOpen = false;
 
   @ViewChild('drawer') drawerComponent: RadSideDrawerComponent;
 
@@ -50,11 +58,7 @@ export class LayoutComponent implements OnInit {
     this.drawerComponent.sideDrawer.toggleDrawerState();
   }
 
-  isSelected(page: string): boolean {
-    return page === this.selectedPage;
-  }
-
-  selectPageAndNavigate(navItem: any) {
+  selectPageAndNavigate(navItem: MenuItem) {
     this.selectedPage = navItem.label;
     this.drawerComponent.sideDrawer.closeDrawer();
     this.routerExtensions.navigate(['layout', navItem.path], {

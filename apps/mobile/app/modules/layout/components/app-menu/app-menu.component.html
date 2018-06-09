@@ -1,0 +1,28 @@
+<StackLayout>
+  <GridLayout *ngFor="let item of navItems"
+              columns="auto, *"
+              class="menu-item"
+              [class.selected]="isSelected(item.label)"
+              (tap)="select(item)">
+    <Label col="0"
+           [text]="item.icon"
+           class="mdi"></Label>
+    <Label col="1"
+           [text]="item.label"
+           class="p-r-10"></Label>
+  </GridLayout>
+  <StackLayout class="divider"></StackLayout>
+  <GridLayout *ngFor="let item of categoryItems"
+              columns="auto, *"
+              class="menu-item"
+              [class.selected]="isSelected(item.label)"
+              (tap)="select(item)">
+    <Label col="0"
+           [text]="item.icon"
+           class="mdi"
+           [style.color]="item.color"></Label>
+    <Label col="1"
+           [text]="item.label"
+           class="p-r-10"></Label>
+  </GridLayout>
+</StackLayout>

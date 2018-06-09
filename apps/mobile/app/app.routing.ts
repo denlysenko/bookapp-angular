@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { AuthPageComponent } from '~/modules/auth/containers/auth-page/auth-page.component';
-import { LayoutComponent } from '~/modules/layout/layout.component';
+import { LayoutComponent } from '~/modules/layout/containers/layout/layout.component';
 
 const routes: Routes = [
   {

@@ -1,4 +1,11 @@
-export const navs = [
+export interface MenuItem {
+  label: string;
+  path: string;
+  icon: string;
+  color?: string;
+}
+
+export const navs: MenuItem[] = [
   {
     label: 'Now Reading',
     path: 'reading',
@@ -31,7 +38,7 @@ export const navs = [
   }
 ];
 
-export const categories = [
+export const categories: MenuItem[] = [
   {
     label: 'Must Read Titles',
     path: 'mustread',
@@ -43,5 +50,18 @@ export const categories = [
     path: 'best',
     icon: 'fiber_manual_record',
     color: '#ffab00'
+  }
+];
+
+export const userMenu: MenuItem[] = [
+  {
+    label: 'Edit Profile',
+    path: 'profile',
+    icon: 'account_circle'
+  },
+  {
+    label: 'Change Password',
+    path: 'change-password',
+    icon: 'security'
   }
 ];

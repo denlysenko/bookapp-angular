@@ -26,8 +26,8 @@
       </i>
     </button>
     <mat-menu #menu="matMenu">
-      <a mat-menu-item>Edit Profile</a>
-      <a mat-menu-item>Change Password</a>
+      <a *ngFor="let item of userMenu"
+         mat-menu-item>{{item.label}}</a>
       <mat-divider></mat-divider>
       <a mat-menu-item
          (click)="logout()">Signout</a>

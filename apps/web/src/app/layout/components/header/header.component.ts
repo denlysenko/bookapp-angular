@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { User } from '@bookapp-angular/auth-core';
+import { userMenu } from '@bookapp-angular/core';
 
 @Component({
   selector: 'ba-header',
@@ -10,6 +11,7 @@ import { User } from '@bookapp-angular/auth-core';
 })
 export class HeaderComponent {
   title = 'Book App';
+  userMenu = userMenu;
 
   @Input() isMobile: boolean;
   @Input() user: User;

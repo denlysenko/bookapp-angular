@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FeedbackPlatformService, RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
 import { registerElement } from 'nativescript-angular/element-registry';
+import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { RouterExtensions as TNSRouterExtensions } from 'nativescript-angular/router';
@@ -22,6 +23,7 @@ registerElement(
   imports: [
     NativeScriptModule,
     NativeScriptHttpClientModule,
+    NativeScriptAnimationsModule,
     TNSFontIconModule.forRoot({
       mdi: 'material-design-icons.css'
     }),

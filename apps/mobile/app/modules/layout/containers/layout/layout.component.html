@@ -30,7 +30,8 @@
             </StackLayout>
           </FlexboxLayout>
           <StackLayout row="1"
-                       class="user">
+                       class="user"
+                       (tap)="isUserMenuOpen = !isUserMenuOpen">
             <Label [text]="'Display Name'"
                    class="name"></Label>
             <GridLayout columns="*, auto">
@@ -39,7 +40,8 @@
                      class="email"></Label>
               <Label col="1"
                      text="arrow_drop_down"
-                     class="mdi"></Label>
+                     class="mdi"
+                     [ngClass]="{opened: isUserMenuOpen, closed: !isUserMenuOpen}"></Label>
             </GridLayout>
           </StackLayout>
         </GridLayout>
@@ -47,32 +49,20 @@
       <ScrollView row="1">
         <StackLayout class="sidedrawer-content">
           <StackLayout class="divider"></StackLayout>
-          <GridLayout *ngFor="let item of navItems"
-                      columns="auto, *"
-                      class="sidedrawer-list-item"
-                      [class.selected]="isSelected(item.label)"
-                      (tap)="selectPageAndNavigate(item)">
-            <Label col="0"
-                   [text]="item.icon"
-                   class="mdi"></Label>
-            <Label col="1"
-                   [text]="item.label"
-                   class="p-r-10"></Label>
-          </GridLayout>
-          <StackLayout class="divider"></StackLayout>
-          <GridLayout *ngFor="let item of categoryItems"
-                      columns="auto, *"
-                      class="sidedrawer-list-item"
-                      [class.selected]="isSelected(item.label)"
-                      (tap)="selectPageAndNavigate(item)">
-            <Label col="0"
-                   [text]="item.icon"
-                   class="mdi"
-                   [style.color]="item.color"></Label>
-            <Label col="1"
-                   [text]="item.label"
-                   class="p-r-10"></Label>
-          </GridLayout>
+          <StackLayout [@state]="isUserMenuOpen ? 'out' : 'in'"
+                       [visibility]="!isUserMenuOpen ? 'visible' : 'collapsed'">
+            <ba-app-menu [navItems]="navItems"
+                         [categoryItems]="categoryItems"
+                         [selectedPage]="selectedPage"
+                         (itemSelected)="selectPageAndNavigate($event)"></ba-app-menu>
+          </StackLayout>
+          <StackLayout [@state]="isUserMenuOpen ? 'in' : 'out'"
+                       [visibility]="isUserMenuOpen ? 'visible' : 'collapsed'">
+            <ba-user-menu [items]="userMenuItems"
+                          [selectedPage]="selectedPage"
+                          (itemSelected)="selectPageAndNavigate($event)"
+                          (onLogout)="logout()"></ba-user-menu>
+          </StackLayout>
         </StackLayout>
       </ScrollView>
     </GridLayout>
