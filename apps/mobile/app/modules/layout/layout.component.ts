@@ -17,6 +17,7 @@ export class LayoutComponent implements OnInit {
   selectedPage: string;
   navItems = navs;
   categoryItems = categories;
+  items: any;
 
   @ViewChild('drawer') drawerComponent: RadSideDrawerComponent;
 

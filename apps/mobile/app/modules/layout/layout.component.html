@@ -1,8 +1,9 @@
-<ActionBar class="action-bar" flat="true">
+<ActionBar class="action-bar"
+           flat="true">
   <NavigationButton ios:visibility="collapsed"
                     icon="res://menu"
                     (tap)="onDrawerButtonTap()"></NavigationButton>
-  <ActionItem icon="res://nav/menu"
+  <ActionItem icon="res://menu"
               android:visibility="collapsed"
               (tap)="onDrawerButtonTap()"
               ios.position="left">
@@ -13,17 +14,41 @@
 <RadSideDrawer #drawer
                showOverNavigation="true"
                [drawerTransition]="sideDrawerTransition">
-  <StackLayout tkDrawerContent scrollableContent=true>
+  <StackLayout tkDrawerContent
+               scrollableContent=true>
     <GridLayout rows="auto, *"
                 class="sidedrawer sidedrawer-left">
       <StackLayout row="0"
                    class="sidedrawer-header">
-        <Label text="user info goes here"></Label>
+        <GridLayout rows="*, auto">
+          <FlexboxLayout row="0"
+                         alignItems="flex-start">
+            <StackLayout class="avatar">
+              <Image width="60"
+                     height="60"
+                     src="res://noavatar"></Image>
+            </StackLayout>
+          </FlexboxLayout>
+          <StackLayout row="1"
+                       class="user">
+            <Label [text]="'Display Name'"
+                   class="name"></Label>
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     [text]="'email@test.com'"
+                     class="email"></Label>
+              <Label col="1"
+                     text="arrow_drop_down"
+                     class="mdi"></Label>
+            </GridLayout>
+          </StackLayout>
+        </GridLayout>
       </StackLayout>
       <ScrollView row="1">
         <StackLayout class="sidedrawer-content">
-        <StackLayout class="divider"></StackLayout>
-          <GridLayout *ngFor="let item of navItems" columns="auto, *"
+          <StackLayout class="divider"></StackLayout>
+          <GridLayout *ngFor="let item of navItems"
+                      columns="auto, *"
                       class="sidedrawer-list-item"
                       [class.selected]="isSelected(item.label)"
                       (tap)="selectPageAndNavigate(item)">
@@ -35,13 +60,15 @@
                    class="p-r-10"></Label>
           </GridLayout>
           <StackLayout class="divider"></StackLayout>
-          <GridLayout *ngFor="let item of categoryItems" columns="auto, *"
+          <GridLayout *ngFor="let item of categoryItems"
+                      columns="auto, *"
                       class="sidedrawer-list-item"
                       [class.selected]="isSelected(item.label)"
                       (tap)="selectPageAndNavigate(item)">
             <Label col="0"
                    [text]="item.icon"
-                   class="mdi" [style.color]="item.color"></Label>
+                   class="mdi"
+                   [style.color]="item.color"></Label>
             <Label col="1"
                    [text]="item.label"
                    class="p-r-10"></Label>

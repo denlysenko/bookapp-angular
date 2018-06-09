@@ -8,24 +8,33 @@
 .sidedrawer {
   background-color: $sidenav-background;
   color: $dark-primary-text;
-  // &.sidedrawer-left {
-  //   .sidedrawer-header-image {
-  //     color: $accent-darker;
-  //     height: $sidedrawer-header-image-size;
-  //     width: $sidedrawer-header-image-size;
-  //     font-size: $sidedrawer-header-image-size;
-  //     padding: 0;
-  //     margin-bottom: $sidedrawer-header-image-offset-bottom;
-  //     margin-top: $sidedrawer-header-image-offset-top;
-  //   }
-
-  //   .footnote {
-  //     color: rgba($ab-color, 0.5);
-  //   }
-  // }
 
   .sidedrawer-header {
     background-color: $sidenav-background;
+  }
+
+  .avatar {
+    width: 60;
+    height: 60;
+    border-width: 2;
+    border-color: white;
+    border-radius: 50%;
+  }
+
+  .user {
+    padding-bottom: 10;
+
+    .name {
+      font-size: 18;
+    }
+
+    .email {
+      font-size: 16;
+    }
+
+    .mdi {
+      font-size: 22;
+    }
   }
 
   .divider {
