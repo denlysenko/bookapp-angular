@@ -12,6 +12,9 @@
     },
     "core": {
       "tags": []
+    },
+    "profile-core": {
+      "tags": []
     }
   }
 }

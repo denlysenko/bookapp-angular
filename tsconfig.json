@@ -14,8 +14,14 @@
       "@bookapp-angular/*": ["libs/*"],
       "@bookapp-angular/auth-core": ["libs/auth-core/src/index.ts"],
       "@bookapp-angular/graphql": ["libs/graphql/src/index.ts"],
-      "@bookapp-angular/core": ["libs/core/src/index.ts"]
+      "@bookapp-angular/core": ["libs/core/src/index.ts"],
+      "@bookapp-angular/profile-core": ["libs/profile-core/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "apps/mobile/node_modules"]
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "apps/mobile/node_modules",
+    "apps/mobile/platforms"
+  ]
 }

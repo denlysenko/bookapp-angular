@@ -183,6 +183,32 @@
           }
         }
       }
+    },
+    "profile-core": {
+      "root": "libs/profile-core",
+      "sourceRoot": "libs/profile-core/src",
+      "projectType": "library",
+      "prefix": "ba",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/profile-core/src/test.ts",
+            "tsConfig": "libs/profile-core/tsconfig.spec.json",
+            "karmaConfig": "libs/profile-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/profile-core/tsconfig.lib.json",
+              "libs/profile-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

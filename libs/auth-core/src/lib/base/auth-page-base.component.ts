@@ -7,8 +7,8 @@ export abstract class AuthPageBaseComponent {
   error: any;
   isLoading = false;
 
-  protected authService: AuthService;
-  protected routerExtensions: RouterExtensions;
+  protected abstract authService: AuthService;
+  protected abstract routerExtensions: RouterExtensions;
 
   submit($event: AuthForm) {
     const { isLoggingIn, credentials } = $event;
