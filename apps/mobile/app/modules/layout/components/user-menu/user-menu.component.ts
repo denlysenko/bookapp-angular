@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { MenuItem } from '@bookapp-angular/core';
 import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';

@@ -27,7 +27,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <a *ngFor="let item of userMenu"
-         mat-menu-item>{{item.label}}</a>
+         mat-menu-item [routerLink]="item.path">{{item.label}}</a>
       <mat-divider></mat-divider>
       <a mat-menu-item
          (click)="logout()">Signout</a>

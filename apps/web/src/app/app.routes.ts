@@ -12,6 +12,10 @@ export const routes: Route[] = [
       {
         path: '',
         component: HomeComponent
+      },
+      {
+        path: 'profile',
+        loadChildren: './pages/profile/profile.module#ProfileModule'
       }
     ]
   },
