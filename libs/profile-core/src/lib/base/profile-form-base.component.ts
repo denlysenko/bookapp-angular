@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { User } from '@bookapp-angular/auth-core';
@@ -6,14 +6,32 @@ import { FormBaseComponent } from '@bookapp-angular/core';
 
 export abstract class ProfileFormBaseComponent extends FormBaseComponent {
   abstract user: User;
-  abstract formSubmitted: EventEmitter<User>;
+
+  @Input() loading: boolean;
+
+  @Input()
+  set error(value) {
+    if (value) {
+      this.handleError(value);
+    }
+  }
+  @Output() onFormSubmit = new EventEmitter<User>();
 
   protected abstract fb: FormBuilder;
 
   submit() {
     if (this.form.valid) {
-      this.formSubmitted.emit(this.form.value);
+      this.onFormSubmit.emit(this.form.value);
     }
+  }
+
+  getEmailError() {
+    const emailField = this.form.get('email');
+    return emailField.invalid && emailField.hasError('required')
+      ? 'This field is required'
+      : emailField.hasError('email')
+        ? 'Not a valid email'
+        : emailField.hasError('serverError') ? this.errors['email'] : '';
   }
 
   protected initForm() {

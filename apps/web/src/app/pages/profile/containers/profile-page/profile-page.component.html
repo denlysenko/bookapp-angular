@@ -1,3 +1,4 @@
 <ba-profile-form [user]="user$ | async"
                  [error]="error"
-                 (formSubmitted)="updateProfile($event)"></ba-profile-form>
+                 [loading]="isLoading"
+                 (onFormSubmit)="updateProfile($event)"></ba-profile-form>

@@ -1,10 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import { Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { User } from '@bookapp-angular/auth-core';
@@ -28,18 +23,13 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     return this._user;
   }
 
-  @Input()
-  set error(value: any) {
-    if (value) {
-      this.handleError(value);
-    }
-  }
-
-  @Output() formSubmitted = new EventEmitter<User>();
-
   private _user: User;
 
-  constructor(protected fb: FormBuilder) {
+  constructor(protected fb: FormBuilder, private location: Location) {
     super();
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
