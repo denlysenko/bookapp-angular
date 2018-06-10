@@ -1,7 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { categories, MenuItem, navs, userMenu } from '@bookapp-angular/core';
+import { takeUntil } from 'rxjs/operators';
+
+import { AuthService, User } from '@bookapp-angular/auth-core';
+import { BaseComponent, categories, MenuItem, navs, userMenu } from '@bookapp-angular/core';
+import { ME_QUERY } from '@bookapp-angular/graphql';
+import { Apollo } from 'apollo-angular';
 import { RouterExtensions } from 'nativescript-angular/router/router-extensions';
 import { DrawerTransitionBase, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
@@ -20,7 +25,9 @@ import { isIOS } from 'tns-core-modules/platform';
     ])
   ]
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent extends BaseComponent
+  implements OnInit, OnDestroy {
+  user: User;
   selectedPage: string;
   navItems = navs;
   categoryItems = categories;
@@ -31,7 +38,13 @@ export class LayoutComponent implements OnInit {
 
   private _sideDrawerTransition: DrawerTransitionBase;
 
-  constructor(private routerExtensions: RouterExtensions) {}
+  constructor(
+    private apollo: Apollo,
+    private authService: AuthService,
+    private routerExtensions: RouterExtensions
+  ) {
+    super();
+  }
 
   ngOnInit() {
     // iPhone X fix height
@@ -48,6 +61,25 @@ export class LayoutComponent implements OnInit {
     }
     this._sideDrawerTransition = new SlideInOnTopTransition();
     this.selectedPage = this.navItems[1].label; // pick 'browse' nav item for now, later will be taking from activated
+    this.apollo
+      .watchQuery<any>({
+        query: ME_QUERY
+      })
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(
+        ({ data, errors }) => {
+          if (data) {
+            this.user = data.me;
+          }
+
+          if (errors) {
+            this.logout();
+          }
+        },
+        () => {
+          this.logout();
+        }
+      );
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {
@@ -71,7 +103,8 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
-    this.routerExtensions.navigate(['/login'], {
+    this.authService.logout();
+    this.routerExtensions.navigate(['/auth'], {
       clearHistory: true,
       transition: {
         name: 'flip',

@@ -20,7 +20,8 @@
                 class="sidedrawer sidedrawer-left">
       <StackLayout row="0"
                    class="sidedrawer-header">
-        <GridLayout rows="*, auto">
+        <GridLayout *ngIf="user"
+                    rows="*, auto">
           <FlexboxLayout row="0"
                          alignItems="flex-start">
             <StackLayout class="avatar">
@@ -32,11 +33,11 @@
           <StackLayout row="1"
                        class="user"
                        (tap)="isUserMenuOpen = !isUserMenuOpen">
-            <Label [text]="'Display Name'"
+            <Label [text]="user.displayName"
                    class="name"></Label>
             <GridLayout columns="*, auto">
               <Label col="0"
-                     [text]="'email@test.com'"
+                     [text]="user.email"
                      class="email"></Label>
               <Label col="1"
                      text="arrow_drop_down"

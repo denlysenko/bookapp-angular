@@ -28,8 +28,8 @@ export class LayoutComponent extends BaseComponent
     private authService: AuthService
   ) {
     super();
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
@@ -46,11 +46,11 @@ export class LayoutComponent extends BaseComponent
           }
 
           if (errors) {
-            this.navigateToAuth();
+            this.logout();
           }
         },
         () => {
-          this.navigateToAuth();
+          this.logout();
         }
       );
   }
@@ -66,14 +66,6 @@ export class LayoutComponent extends BaseComponent
   }
 
   private navigateToAuth() {
-    this.routerExtensions.navigate(['auth'], {
-      // for nativescript
-      clearHistory: true,
-      transition: {
-        name: 'flip',
-        duration: 300,
-        curve: 'linear'
-      }
-    });
+    this.routerExtensions.navigate(['auth']);
   }
 }
