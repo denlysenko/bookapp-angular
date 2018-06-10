@@ -24,3 +24,7 @@ router-outlet.router-flex + * {
   flex: 1;
   flex-direction: column;
 }
+
+.view-content {
+  padding: 1.5rem;
+}

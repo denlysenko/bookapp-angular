@@ -22,7 +22,7 @@
      *ngFor="let link of categories"
      [routerLink]="link.path"
      routerLinkActive="active">
-    <i class="material-icons">
+    <i class="material-icons" [style.color]="link.color">
       {{ link.icon }}
     </i> {{ link.label }}</a>
 </mat-nav-list>

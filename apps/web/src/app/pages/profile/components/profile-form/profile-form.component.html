@@ -1,0 +1,49 @@
+<div *ngIf="user"
+     class="view-content">
+  <mat-card>
+    <mat-card-title>Edit Profile</mat-card-title>
+    <mat-card-content class="profile">
+      <div class="avatar">
+        <mat-card>
+          <img src="/assets/images/no-avatar.svg"
+               alt="avatar">
+        </mat-card>
+        <button mat-raised-button
+                color="primary">Change Avatar
+        </button>
+      </div>
+      <div class="form">
+        <form [formGroup]="form"
+              (submit)="submit()">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput
+                   placeholder="First Name"
+                   formControlName="firstName">
+            <mat-error></mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput
+                   placeholder="Last Name"
+                   formControlName="lastName">
+            <mat-error></mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput
+                   placeholder="Email"
+                   formControlName="email">
+            <mat-error></mat-error>
+          </mat-form-field>
+          <mat-card-actions>
+            <button mat-raised-button>CANCEL</button>
+            <button mat-raised-button
+                    color="accent">SAVE
+            </button>
+          </mat-card-actions>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
