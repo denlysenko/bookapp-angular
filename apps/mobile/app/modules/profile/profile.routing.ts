@@ -13,6 +13,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [NativeScriptRouterModule, NativeScriptRouterModule.forChild(routes)]
+  imports: [
+    NativeScriptRouterModule,
+    NativeScriptRouterModule.forChild(routes)
+  ],
+  exports: [NativeScriptRouterModule]
 })
 export class ProfileRoutingModule {}

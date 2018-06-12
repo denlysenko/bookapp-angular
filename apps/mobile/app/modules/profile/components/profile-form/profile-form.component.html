@@ -1,0 +1,38 @@
+<ActionBar class="action-bar"
+           flat="true"
+           title="">
+  <NavigationButton ios:visibility="collapsed"
+                    android.systemIcon="ic_menu_back"></NavigationButton>
+  <ActionItem android:visibility="collapsed"
+              ios.systemIcon="1"
+              ios.position="left"></ActionItem>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"></ActionItem>
+  <Label class="action-bar-title"
+         text="Edit Profile"></Label>
+</ActionBar>
+<ScrollView>
+  <StackLayout>
+    <StackLayout class="m-10"
+                 [shadow]="2">
+      <StackLayout class="mat-card">
+        <FlexboxLayout justifyContenet="flex-start"
+                       alignItems="center">
+          <AbsoluteLayout class="avatar">
+            <Image width="80"
+                   height="80"
+                   src="res://noavatar"
+                   left="0"
+                   top="0"></Image>
+            <Label class="mdi"
+                   text="add_a_photo"
+                   left="30"
+                   top="30"></Label>
+          </AbsoluteLayout>
+        </FlexboxLayout>
+      </StackLayout>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

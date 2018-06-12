@@ -1,0 +1,17 @@
+@import '~/scss/variables';
+
+.save-btn {
+  color: $dark-primary-text;
+}
+
+.avatar {
+  width: 80;
+  height: 80;
+  border-radius: 50%;
+  background-color: white;
+
+  .mdi {
+    font-size: 20;
+    color: $primary-color;
+  }
+}

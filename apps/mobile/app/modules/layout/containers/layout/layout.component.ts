@@ -1,29 +1,14 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthService, User } from '@bookapp-angular/auth-core';
-import {
-  BaseComponent,
-  categories,
-  MenuItem,
-  navs,
-  userMenu
-} from '@bookapp-angular/core';
+import { AuthService, User, UserSelfResponse } from '@bookapp-angular/auth-core';
+import { BaseComponent, categories, MenuItem, navs, userMenu } from '@bookapp-angular/core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 import { RouterExtensions } from 'nativescript-angular/router/router-extensions';
-import {
-  DrawerTransitionBase,
-  SlideInOnTopTransition
-} from 'nativescript-ui-sidedrawer';
+import { DrawerTransitionBase, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
@@ -77,7 +62,7 @@ export class LayoutComponent extends BaseComponent
     this._sideDrawerTransition = new SlideInOnTopTransition();
     this.selectedPage = this.navItems[1].label; // pick 'browse' nav item for now, later will be taking from activated
     this.apollo
-      .watchQuery<any>({
+      .watchQuery<UserSelfResponse>({
         query: ME_QUERY
       })
       .valueChanges.pipe(takeUntil(this.destroy$))
@@ -108,7 +93,7 @@ export class LayoutComponent extends BaseComponent
   selectPageAndNavigate(navItem: MenuItem) {
     this.selectedPage = navItem.label;
     this.drawerComponent.sideDrawer.closeDrawer();
-    this.routerExtensions.navigate(['layout', navItem.path], {
+    this.routerExtensions.navigate([navItem.path], {
       transition: {
         name: 'fade',
         duration: 300,

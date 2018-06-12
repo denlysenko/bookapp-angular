@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { ProfileCoreModule } from '@bookapp-angular/profile-core/src';
+import { ProfileCoreModule } from '@bookapp-angular/profile-core';
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NgShadowModule } from 'nativescript-ng-shadow';
 
@@ -12,6 +13,7 @@ import { ProfileRoutingModule } from './profile.routing';
 
 @NgModule({
   imports: [
+    NativeScriptCommonModule,
     CommonModule,
     ProfileCoreModule.forRoot(),
     ProfileRoutingModule,

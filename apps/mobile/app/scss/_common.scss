@@ -32,3 +32,14 @@ Page {
   border-bottom-width: 1;
   border-bottom-color: rgba(0, 0, 0, 0.3);
 }
+
+.action-bar .action-bar-title {
+  horizontal-align: center;
+  color: $dark-primary-text;
+}
+
+.mat-card {
+  padding: 10;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.87);
+}

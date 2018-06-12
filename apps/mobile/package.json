@@ -5,11 +5,11 @@
   "repository": "<fill-your-repository-here>",
   "nativescript": {
     "id": "org.nativescript.bookapp",
-    "tns-ios": {
-      "version": "4.1.0"
-    },
     "tns-android": {
       "version": "4.1.2"
+    },
+    "tns-ios": {
+      "version": "4.1.0"
     }
   },
   "dependencies": {
@@ -18,12 +18,14 @@
     "@angular/compiler": "file:../../node_modules/@angular/compiler",
     "@angular/core": "file:../../node_modules/@angular/core",
     "@angular/forms": "file:../../node_modules/@angular/forms",
+    "@angular/http": "^6.0.3",
     "@angular/platform-browser": "file:../../node_modules/@angular/platform-browser",
     "@angular/platform-browser-dynamic": "file:../../node_modules/@angular/platform-browser-dynamic",
     "@angular/router": "file:../../node_modules/@angular/router",
     "@bookapp-angular/auth-core": "file:../../libs/auth-core",
     "@bookapp-angular/core": "file:../../libs/core",
     "@bookapp-angular/graphql": "file:../../libs/graphql",
+    "@bookapp-angular/profile-core": "file:../../libs/profile-core",
     "@bookapp-angular/scss": "file:../../node_modules/@bookapp-angular/scss",
     "@ngrx/effects": "file:../../node_modules/@ngrx/effects",
     "@ngrx/router-store": "file:../../node_modules/@ngrx/router-store",
@@ -45,6 +47,7 @@
     "nativescript-ng-shadow": "^2.1.0",
     "nativescript-ngx-fonticon": "~4.0.0",
     "nativescript-theme-core": "~1.0.4",
+    "nativescript-ui-dataform": "^3.6.1",
     "nativescript-ui-sidedrawer": "^4.1.1",
     "nativescript-websockets": "^1.5.0",
     "reflect-metadata": "~0.1.8",

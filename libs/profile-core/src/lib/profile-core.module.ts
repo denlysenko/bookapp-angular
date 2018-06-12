@@ -3,9 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ProfileService } from './services';
 
-@NgModule({
-  imports: [CommonModule]
-})
+@NgModule()
 export class ProfileCoreModule {
   static forRoot(): ModuleWithProviders {
     return {
