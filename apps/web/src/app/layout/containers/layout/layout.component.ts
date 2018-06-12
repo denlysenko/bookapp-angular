@@ -3,7 +3,11 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthService, User, UserSelfResponse } from '@bookapp-angular/auth-core';
+import {
+  AuthService,
+  User,
+  UserSelfResponse
+} from '@bookapp-angular/auth-core';
 import { BaseComponent, RouterExtensions } from '@bookapp-angular/core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';

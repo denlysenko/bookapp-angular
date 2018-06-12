@@ -8,7 +8,13 @@ import { LayoutComponent } from '~/modules/layout/containers/layout/layout.compo
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'profile',
+        loadChildren: './modules/profile/profile.module#ProfileModule'
+      }
+    ]
   },
   {
     path: 'auth',

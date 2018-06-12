@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
 import { FeedbackPlatformService } from '@bookapp-angular/core';
-import { ProfilePageBaseComponent, ProfileService } from '@bookapp-angular/profile-core';
+import {
+  ProfilePageBaseComponent,
+  ProfileService
+} from '@bookapp-angular/profile-core';
 import { Apollo } from 'apollo-angular';
 
 @Component({
