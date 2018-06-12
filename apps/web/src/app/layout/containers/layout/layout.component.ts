@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthService, User } from '@bookapp-angular/auth-core';
+import { AuthService, User, UserSelfResponse } from '@bookapp-angular/auth-core';
 import { BaseComponent, RouterExtensions } from '@bookapp-angular/core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
@@ -35,7 +35,7 @@ export class LayoutComponent extends BaseComponent
 
   ngOnInit() {
     this.apollo
-      .watchQuery<any>({
+      .watchQuery<UserSelfResponse>({
         query: ME_QUERY
       })
       .valueChanges.pipe(takeUntil(this.destroy$))

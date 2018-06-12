@@ -8,3 +8,7 @@ export interface User {
   roles: string[];
   reading: any;
 }
+
+export interface UserSelfResponse {
+  me: User;
+}

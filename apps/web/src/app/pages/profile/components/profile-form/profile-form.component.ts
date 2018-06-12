@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { User } from '@bookapp-angular/auth-core';
+import { FeedbackPlatformService } from '@bookapp-angular/core';
 import { ProfileFormBaseComponent } from '@bookapp-angular/profile-core';
 
 @Component({
@@ -25,7 +26,11 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
 
   private _user: User;
 
-  constructor(protected fb: FormBuilder, private location: Location) {
+  constructor(
+    protected fb: FormBuilder,
+    protected feedbackService: FeedbackPlatformService,
+    private location: Location
+  ) {
     super();
   }
 

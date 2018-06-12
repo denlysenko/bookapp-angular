@@ -4,6 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '@bookapp-angular/auth-core';
 import { FormBaseComponent } from '@bookapp-angular/core';
 
+import { ProfileForm } from '../models';
+
 export abstract class ProfileFormBaseComponent extends FormBaseComponent {
   abstract user: User;
 
@@ -15,13 +17,13 @@ export abstract class ProfileFormBaseComponent extends FormBaseComponent {
       this.handleError(value);
     }
   }
-  @Output() onFormSubmit = new EventEmitter<User>();
+  @Output() onFormSubmit = new EventEmitter<ProfileForm>();
 
   protected abstract fb: FormBuilder;
 
   submit() {
     if (this.form.valid) {
-      this.onFormSubmit.emit(this.form.value);
+      this.onFormSubmit.emit({ id: this.user.id, user: this.form.value });
     }
   }
 

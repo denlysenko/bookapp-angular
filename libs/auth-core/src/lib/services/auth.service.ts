@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { tap } from 'rxjs/operators';
 
-import { Credentials } from '@bookapp-angular/auth-core';
+import { Credentials, User, UserSelfResponse } from '@bookapp-angular/auth-core';
 import { AUTH_TOKEN, StoragePlatformService } from '@bookapp-angular/core';
 import { LOGIN_MUTATION, ME_QUERY, SIGNUP_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
@@ -53,7 +53,7 @@ export class AuthService {
 
   getUserSelf() {
     this.apollo
-      .query({
+      .query<UserSelfResponse>({
         query: ME_QUERY
       })
       .subscribe();

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { ProfilePageBaseComponent } from '@bookapp-angular/profile-core';
+
+import { FeedbackPlatformService } from '@bookapp-angular/core';
+import { ProfilePageBaseComponent, ProfileService } from '@bookapp-angular/profile-core';
 import { Apollo } from 'apollo-angular';
 
 @Component({
@@ -7,7 +9,11 @@ import { Apollo } from 'apollo-angular';
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent extends ProfilePageBaseComponent {
-  constructor(protected apollo: Apollo) {
+  constructor(
+    protected apollo: Apollo,
+    protected profileService: ProfileService,
+    protected feedbackService: FeedbackPlatformService
+  ) {
     super();
   }
 }
