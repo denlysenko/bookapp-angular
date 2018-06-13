@@ -1,9 +1,5 @@
 @import '~/scss/variables';
 
-.save-btn {
-  color: $dark-primary-text;
-}
-
 .avatar-block {
   .avatar-btn {
     width: 36;
@@ -25,4 +21,8 @@
   height: 80;
   border-radius: 50%;
   background-color: white;
+}
+
+.profile-form {
+  margin-top: 30;
 }

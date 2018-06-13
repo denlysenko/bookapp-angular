@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileCoreModule } from '@bookapp-angular/profile-core';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NgShadowModule } from 'nativescript-ng-shadow';
-import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
+import { NativeScriptUIDataFormModule } from 'nativescript-ui-dataform/angular';
 
 import { components } from './components';
 import { containers } from './containers';
@@ -16,11 +14,9 @@ import { ProfileRoutingModule } from './profile.routing';
   imports: [
     NativeScriptCommonModule,
     CommonModule,
-    TNSFontIconModule,
+    NativeScriptUIDataFormModule,
     ProfileCoreModule.forRoot(),
     ProfileRoutingModule,
-    NativeScriptFormsModule,
-    ReactiveFormsModule,
     NgShadowModule
   ],
   declarations: [...containers, ...components],

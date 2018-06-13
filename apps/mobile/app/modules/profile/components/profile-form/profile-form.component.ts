@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { User } from '@bookapp-angular/auth-core';
 import { FeedbackPlatformService } from '@bookapp-angular/core';
 import { ProfileFormBaseComponent } from '@bookapp-angular/profile-core';
+import { getViewById } from 'ui/core/view';
+import { Page } from 'ui/page';
+
+import { profileMetadata, ProfileViewModel } from '../../models';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +16,9 @@ import { ProfileFormBaseComponent } from '@bookapp-angular/profile-core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileFormComponent extends ProfileFormBaseComponent {
+  metadata = profileMetadata;
+  profile: ProfileViewModel;
+
   @Input()
   set user(value: User) {
     if (value) {
@@ -29,7 +35,7 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
   private _user: User;
 
   constructor(
-    protected fb: FormBuilder,
+    private page: Page,
     protected feedbackService: FeedbackPlatformService
   ) {
     super();
@@ -37,5 +43,33 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
 
   goBack() {
     this.backTapped.emit();
+  }
+
+  submit() {
+    this.onFormSubmit.emit({ id: this.user.id, user: this.profile });
+  }
+
+  private initForm() {
+    this.profile = new ProfileViewModel(
+      this.user.firstName,
+      this.user.lastName,
+      this.user.email
+    );
+  }
+
+  protected handleError(err: any) {
+    if (err.errors) {
+      const error = err.errors;
+      Object.keys(error).forEach(key => {
+        const dataform: any = getViewById(this.page, 'profileForm');
+        const formControl = dataform.getPropertyByName(key);
+        if (formControl) {
+          formControl.errorMessage = error[key].message;
+          dataform.notifyValidated(key, false);
+        }
+      });
+    } else if (err.message && err.message.message) {
+      this.feedbackService.error(err.message.message);
+    }
   }
 }

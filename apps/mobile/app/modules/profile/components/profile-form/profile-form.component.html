@@ -10,7 +10,8 @@
   <ActionItem ios.systemIcon="3"
               ios.position="right"
               android.position="actionBar"
-              android.systemIcon="ic_menu_save"></ActionItem>
+              android.systemIcon="ic_menu_save"
+              (tap)="submit()"></ActionItem>
   <Label class="action-bar-title"
          text="Edit Profile"></Label>
 </ActionBar>
@@ -18,30 +19,39 @@
   <StackLayout class="m-10"
                [shadow]="2">
     <ScrollView>
-      <StackLayout class="mat-card">
-        <FlexboxLayout flexDirection="column"
-                       justifyContenet="center"
-                       alignItems="center">
-          <Label class="h3"
-                 text="Profile Photo"></Label>
-          <AbsoluteLayout class="avatar-block">
-            <Image class="avatar"
-                   src="res://noavatar"
-                   left="0"
-                   top="0"></Image>
-            <GridLayout class="avatar-btn"
-                        rows="*"
-                        columns="*"
-                        left="50"
-                        top="45">
-              <Label class="mdi"
-                     text="add_a_photo"
-                     style.verticalAlignment="center"
-                     style.textAlignment="center"></Label>
-            </GridLayout>
-          </AbsoluteLayout>
-        </FlexboxLayout>
-      </StackLayout>
+      <FlexboxLayout flexDirection="column"
+                     height="100%">
+        <StackLayout class="mat-card"
+                     flexGrow="1">
+          <FlexboxLayout flexDirection="column"
+                         justifyContenet="center"
+                         alignItems="center">
+            <Label class="h3"
+                   text="Profile Photo"></Label>
+            <AbsoluteLayout class="avatar-block">
+              <Image class="avatar"
+                     src="res://noavatar"
+                     left="0"
+                     top="0"></Image>
+              <GridLayout class="avatar-btn"
+                          rows="*"
+                          columns="*"
+                          left="50"
+                          top="45">
+                <Label class="mdi"
+                       text="add_a_photo"
+                       style.verticalAlignment="center"
+                       style.textAlignment="center"></Label>
+              </GridLayout>
+            </AbsoluteLayout>
+          </FlexboxLayout>
+          <RadDataForm id="profileForm"
+                       class="profile-form"
+                       [source]="profile"
+                       [metadata]="metadata">
+          </RadDataForm>
+        </StackLayout>
+      </FlexboxLayout>
     </ScrollView>
   </StackLayout>
 </StackLayout>
