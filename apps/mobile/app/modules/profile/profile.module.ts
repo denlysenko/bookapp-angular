@@ -6,6 +6,7 @@ import { ProfileCoreModule } from '@bookapp-angular/profile-core';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NgShadowModule } from 'nativescript-ng-shadow';
+import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { components } from './components';
 import { containers } from './containers';
@@ -15,6 +16,7 @@ import { ProfileRoutingModule } from './profile.routing';
   imports: [
     NativeScriptCommonModule,
     CommonModule,
+    TNSFontIconModule,
     ProfileCoreModule.forRoot(),
     ProfileRoutingModule,
     NativeScriptFormsModule,

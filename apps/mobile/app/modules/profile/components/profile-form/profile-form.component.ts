@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { User } from '@bookapp-angular/auth-core';
@@ -24,6 +24,8 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     return this._user;
   }
 
+  @Output() backTapped = new EventEmitter<void>();
+
   private _user: User;
 
   constructor(
@@ -31,5 +33,9 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     protected feedbackService: FeedbackPlatformService
   ) {
     super();
+  }
+
+  goBack() {
+    this.backTapped.emit();
   }
 }

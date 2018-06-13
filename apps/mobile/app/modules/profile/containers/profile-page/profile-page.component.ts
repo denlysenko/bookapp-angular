@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 
-import { FeedbackPlatformService } from '@bookapp-angular/core';
-import {
-  ProfilePageBaseComponent,
-  ProfileService
-} from '@bookapp-angular/profile-core/src';
+import { FeedbackPlatformService, RouterExtensions } from '@bookapp-angular/core';
+import { ProfilePageBaseComponent, ProfileService } from '@bookapp-angular/profile-core';
 import { Apollo } from 'apollo-angular';
 
 @Component({
@@ -16,8 +13,13 @@ export class ProfilePageComponent extends ProfilePageBaseComponent {
   constructor(
     protected apollo: Apollo,
     protected feedbackService: FeedbackPlatformService,
-    protected profileService: ProfileService
+    protected profileService: ProfileService,
+    private routerExtensions: RouterExtensions
   ) {
     super();
+  }
+
+  goBack() {
+    this.routerExtensions.back();
   }
 }

@@ -8,17 +8,15 @@ import { LayoutComponent } from '~/modules/layout/containers/layout/layout.compo
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
-    children: [
-      {
-        path: 'profile',
-        loadChildren: '~/modules/profile/profile.module#ProfileModule'
-      }
-    ]
+    component: LayoutComponent
   },
   {
     path: 'auth',
     component: AuthPageComponent
+  },
+  {
+    path: 'profile',
+    loadChildren: '~/modules/profile/profile.module#ProfileModule'
   }
 ];
 

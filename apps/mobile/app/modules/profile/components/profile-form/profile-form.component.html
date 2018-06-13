@@ -1,11 +1,12 @@
 <ActionBar class="action-bar"
-           flat="true"
-           title="">
+           flat="true">
   <NavigationButton ios:visibility="collapsed"
-                    android.systemIcon="ic_menu_back"></NavigationButton>
+                    android.systemIcon="ic_menu_back"
+                    (tap)="goBack()"></NavigationButton>
   <ActionItem android:visibility="collapsed"
               ios.systemIcon="1"
-              ios.position="left"></ActionItem>
+              ios.position="left"
+              (tap)="goBack()"></ActionItem>
   <ActionItem ios.systemIcon="3"
               ios.position="right"
               android.position="actionBar"
@@ -13,26 +14,34 @@
   <Label class="action-bar-title"
          text="Edit Profile"></Label>
 </ActionBar>
-<ScrollView>
-  <StackLayout>
-    <StackLayout class="m-10"
-                 [shadow]="2">
+<StackLayout>
+  <StackLayout class="m-10"
+               [shadow]="2">
+    <ScrollView>
       <StackLayout class="mat-card">
-        <FlexboxLayout justifyContenet="flex-start"
+        <FlexboxLayout flexDirection="column"
+                       justifyContenet="center"
                        alignItems="center">
-          <AbsoluteLayout class="avatar">
-            <Image width="80"
-                   height="80"
+          <Label class="h3"
+                 text="Profile Photo"></Label>
+          <AbsoluteLayout class="avatar-block">
+            <Image class="avatar"
                    src="res://noavatar"
                    left="0"
                    top="0"></Image>
-            <Label class="mdi"
-                   text="add_a_photo"
-                   left="30"
-                   top="30"></Label>
+            <GridLayout class="avatar-btn"
+                        rows="*"
+                        columns="*"
+                        left="50"
+                        top="45">
+              <Label class="mdi"
+                     text="add_a_photo"
+                     style.verticalAlignment="center"
+                     style.textAlignment="center"></Label>
+            </GridLayout>
           </AbsoluteLayout>
         </FlexboxLayout>
       </StackLayout>
-    </StackLayout>
+    </ScrollView>
   </StackLayout>
-</ScrollView>
+</StackLayout>
