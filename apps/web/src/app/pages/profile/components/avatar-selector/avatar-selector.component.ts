@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { FileSelectorBaseComponent, UploadService } from '@bookapp-angular/core';
 import { dataURIToBlob } from '@bookapp-angular/utils';
 
@@ -14,9 +16,11 @@ export class AvatarSelectorComponent extends FileSelectorBaseComponent<
 > {
   croppedImage: string;
   cropperReady = false;
+  progress$: Observable<number>;
 
   constructor(protected uploadService: UploadService) {
     super();
+    this.progress$ = this.uploadService.progress$;
   }
 
   onLoadImageFail() {

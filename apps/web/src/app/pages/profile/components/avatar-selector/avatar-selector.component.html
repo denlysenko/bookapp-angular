@@ -1,6 +1,11 @@
 <h2 mat-dialog-title>Select File</h2>
 <mat-divider></mat-divider>
 <mat-dialog-content>
+  <div *ngIf="isLoading"
+       class="progress">
+    <mat-progress-bar [value]="progress$ | async"
+                      color="accent"></mat-progress-bar>
+  </div>
   <div *ngIf="!cropperReady"
        class="dropzone"
        baDrop
