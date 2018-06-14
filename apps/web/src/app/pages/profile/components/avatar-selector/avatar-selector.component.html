@@ -1,10 +1,32 @@
-<div class="avatar-selector">
-  <mat-card>
-    <img src="/assets/images/no-avatar.svg"
-         alt="avatar">
-  </mat-card>
+<h2 mat-dialog-title>Select File</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <div *ngIf="!cropperReady"
+       class="dropzone"
+       baDrop
+       (dropped)="onFileDrop($event)">
+    <input type="file"
+           id="file"
+           (change)="onFileChange($event)">
+    <label class="mat-button"
+           for="file">Click to select</label>
+    <i class="material-icons">
+      add_photo_alternate
+    </i>
+    or drop file here
+  </div>
+  <image-cropper [style.display]="cropperReady ? null : 'none'"
+                 [imageChangedEvent]="imageChangedEvent"
+                 [maintainAspectRatio]="true"
+                 (imageCropped)="imageCropped($event)"
+                 (imageLoaded)="cropperReady = true"
+                 (loadImageFailed)="loadImageFailed()"></image-cropper>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
   <button mat-raised-button
-          color="primary"
-          (click)="showSelector()">Change Avatar
-  </button>
-</div>
+          mat-dialog-close>CANCEL</button>
+  <button mat-raised-button
+          color="accent"
+          (click)="save()">UPLOAD</button>
+</mat-dialog-actions>

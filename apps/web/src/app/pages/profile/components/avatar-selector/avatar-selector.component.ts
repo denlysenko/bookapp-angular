@@ -1,24 +1,46 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component } from '@angular/core';
 
-import { FileSelectorComponent } from '@bookapp-angular/ui';
+import { FileSelectorBaseComponent, UploadService } from '@bookapp-angular/core';
+import { dataURIToBlob } from '@bookapp-angular/utils';
 
 @Component({
   selector: 'ba-avatar-selector',
   templateUrl: './avatar-selector.component.html',
   styleUrls: ['./avatar-selector.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [UploadService]
 })
-export class AvatarSelectorComponent {
-  constructor(private dialog: MatDialog) {}
+export class AvatarSelectorComponent extends FileSelectorBaseComponent<
+  AvatarSelectorComponent
+> {
+  croppedImage: string;
+  cropperReady = false;
 
-  showSelector() {
-    const dialogRef = this.dialog.open(FileSelectorComponent, {
-      width: '300px'
-    });
+  constructor(protected uploadService: UploadService) {
+    super();
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+  onLoadImageFail() {
+    this.error = 'INVALID_IMG_ERR';
+    this.cropperReady = false;
+    this.imageChangedEvent = null;
+  }
+
+  imageCropped(image: string) {
+    this.croppedImage = image;
+  }
+
+  save() {
+    if (!this.croppedImage) {
+      return;
+    }
+
+    super.upload(dataURIToBlob(this.croppedImage)).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }
