@@ -1,34 +1,3 @@
-.profile {
-  display: flex;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-
-.avatar {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 25%;
-
-  .mat-card {
-    margin-bottom: 1rem;
-    display: flex;
-    min-height: 154px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mat-raised-button {
-    text-transform: uppercase;
-  }
-
-  @media (min-width: 768px) {
-    margin-right: 1.5rem;
-    max-width: 180px;
-  }
-}
-
 .mat-card-actions {
   text-align: right;
   margin-right: 0;

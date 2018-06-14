@@ -1,4 +1,16 @@
-<ba-profile-form [user]="user$ | async"
-                 [error]="error"
-                 [loading]="isLoading"
-                 (onFormSubmit)="updateProfile($event)"></ba-profile-form>
+<div class="view-content">
+  <mat-card>
+    <mat-card-title>Edit Profile</mat-card-title>
+    <mat-card-content class="profile-page">
+      <div class="avatar">
+        <ba-avatar-selector></ba-avatar-selector>
+      </div>
+      <div class="profile">
+        <ba-profile-form [user]="user$ | async"
+                         [error]="error"
+                         [loading]="isLoading"
+                         (onFormSubmit)="updateProfile($event)"></ba-profile-form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
