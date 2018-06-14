@@ -19,6 +19,8 @@
       add_photo_alternate
     </i>
     or drop file here
+    <small *ngIf="error"
+           class="mat-error">{{ error }}</small>
   </div>
   <image-cropper [style.display]="cropperReady ? null : 'none'"
                  [imageChangedEvent]="imageChangedEvent"

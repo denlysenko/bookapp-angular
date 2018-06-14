@@ -1,9 +1,10 @@
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { UploadService } from '../services/upload.service';
+import { UploadResponse } from '../models';
+import { UploadService } from '../services';
 
-export abstract class FileSelectorBaseComponent<T> {
+export abstract class FileSelectorBaseComponent {
   isLoading = false;
   imageChangedEvent: any;
   error: string;
@@ -20,7 +21,7 @@ export abstract class FileSelectorBaseComponent<T> {
     this.imageChangedEvent = { target: { files: event.dataTransfer.files } };
   }
 
-  upload(file: File | Blob) {
+  upload(file: File | Blob): Observable<UploadResponse> {
     this.isLoading = true;
 
     return this.uploadService.upload(file).pipe(
@@ -31,16 +32,10 @@ export abstract class FileSelectorBaseComponent<T> {
       catchError(err => {
         this.isLoading = false;
         this.imageChangedEvent = null;
-        this.handleError(JSON.parse(err));
-        return throwError(err);
+        const error = JSON.parse(err);
+        this.error = error.message;
+        return throwError(error);
       })
     );
-  }
-
-  private handleError(err: any) {
-    if (err.errors && err.errors.length) {
-      const errorObj = err.errors[err.errors.length - 1];
-      this.error = errorObj.code;
-    }
   }
 }

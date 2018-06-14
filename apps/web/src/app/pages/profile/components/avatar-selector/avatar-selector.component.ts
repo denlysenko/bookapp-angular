@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 import { Observable } from 'rxjs';
 
@@ -11,14 +12,15 @@ import { dataURIToBlob } from '@bookapp-angular/utils';
   styleUrls: ['./avatar-selector.component.scss'],
   providers: [UploadService]
 })
-export class AvatarSelectorComponent extends FileSelectorBaseComponent<
-  AvatarSelectorComponent
-> {
+export class AvatarSelectorComponent extends FileSelectorBaseComponent {
   croppedImage: string;
   cropperReady = false;
   progress$: Observable<number>;
 
-  constructor(protected uploadService: UploadService) {
+  constructor(
+    protected uploadService: UploadService,
+    private dialogRef: MatDialogRef<AvatarSelectorComponent>
+  ) {
     super();
     this.progress$ = this.uploadService.progress$;
   }
@@ -38,13 +40,8 @@ export class AvatarSelectorComponent extends FileSelectorBaseComponent<
       return;
     }
 
-    super.upload(dataURIToBlob(this.croppedImage)).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    this.upload(dataURIToBlob(this.croppedImage)).subscribe(res => {
+      this.dialogRef.close(res.Location);
+    }, () => (this.cropperReady = false));
   }
 }

@@ -1,6 +1,6 @@
 <div class="avatar-selector">
   <mat-card>
-    <img src="/assets/images/no-avatar.svg"
+    <img [src]="user.avatar ? user.avatar : '/assets/images/no-avatar.svg'"
          alt="avatar">
   </mat-card>
   <button mat-raised-button

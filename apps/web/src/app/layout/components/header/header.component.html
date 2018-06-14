@@ -19,7 +19,7 @@
     <button mat-button
             [matMenuTriggerFor]="menu">
       <img class="avatar"
-           src="/assets/images/no-avatar.svg"
+           [src]="user.avatar ? user.avatar : '/assets/images/no-avatar.svg'"
            alt="avatar"> {{ user.displayName }}
       <i class="material-icons">
         expand_more
@@ -27,7 +27,8 @@
     </button>
     <mat-menu #menu="matMenu">
       <a *ngFor="let item of userMenu"
-         mat-menu-item [routerLink]="item.path">{{item.label}}</a>
+         mat-menu-item
+         [routerLink]="item.path">{{item.label}}</a>
       <mat-divider></mat-divider>
       <a mat-menu-item
          (click)="logout()">Signout</a>

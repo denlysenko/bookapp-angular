@@ -1,12 +1,14 @@
-<div class="view-content">
+<div *ngIf="(user$ | async) as user"
+     class="view-content">
   <mat-card>
     <mat-card-title>Edit Profile</mat-card-title>
     <mat-card-content class="profile-page">
       <div class="avatar">
-        <ba-avatar-card></ba-avatar-card>
+        <ba-avatar-card [user]="user"
+                        (avatarSaved)="updateProfile($event)"></ba-avatar-card>
       </div>
       <div class="profile">
-        <ba-profile-form [user]="user$ | async"
+        <ba-profile-form [user]="user"
                          [error]="error"
                          [loading]="isLoading"
                          (onFormSubmit)="updateProfile($event)"></ba-profile-form>
