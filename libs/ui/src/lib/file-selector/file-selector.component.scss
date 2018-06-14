@@ -1,0 +1,27 @@
+@import '~@bookapp-angular/scss/variables';
+
+#file {
+  display: none;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  min-height: 154px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 8px;
+
+  .material-icons {
+    font-size: 100px;
+    color: $dark-secondary-text;
+  }
+
+  &.highlighted {
+    border: 2px solid $dark-secondary-text;
+  }
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+}

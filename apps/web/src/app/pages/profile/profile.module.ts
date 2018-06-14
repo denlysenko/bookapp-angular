@@ -14,6 +14,8 @@ import { ProfileCoreModule } from '@bookapp-angular/profile-core';
 import { components } from './components';
 import { containers } from './containers';
 import { routes } from './profile.routes';
+import { FileSelectorModule } from '@bookapp-angular/ui';
+import { FileSelectorComponent } from '@bookapp-angular/ui';
 
 @NgModule({
   imports: [
@@ -21,11 +23,13 @@ import { routes } from './profile.routes';
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     ProfileCoreModule.forRoot(),
+    FileSelectorModule,
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule
   ],
-  declarations: [...containers, ...components]
+  declarations: [...containers, ...components],
+  entryComponents: [FileSelectorComponent]
 })
 export class ProfileModule {}

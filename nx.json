@@ -15,6 +15,9 @@
     },
     "profile-core": {
       "tags": []
+    },
+    "ui": {
+      "tags": []
     }
   }
 }

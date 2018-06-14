@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
+
+import { FileSelectorComponent } from '@bookapp-angular/ui';
 
 @Component({
   selector: 'ba-avatar-selector',
@@ -7,5 +10,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarSelectorComponent {
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
+
+  showSelector() {
+    const dialogRef = this.dialog.open(FileSelectorComponent, {
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 }
