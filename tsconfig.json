@@ -17,7 +17,8 @@
       "@bookapp-angular/core": ["libs/core/src/index.ts"],
       "@bookapp-angular/profile-core": ["libs/profile-core/src/index.ts"],
       "@bookapp-angular/ui": ["libs/ui/src/index.ts"],
-      "@bookapp-angular/utils": ["libs/utils/src/index.ts"]
+      "@bookapp-angular/utils": ["libs/utils/src/index.ts"],
+      "@core-web/*": ["apps/web/src/app/core/*"]
     }
   },
   "exclude": [

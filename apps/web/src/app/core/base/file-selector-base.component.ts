@@ -1,15 +1,16 @@
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { UploadResponse } from '../models';
-import { UploadPlatformService } from '../services';
+import { UploadResponse } from '@bookapp-angular/core';
+
+import { UploadService } from '../services/upload.service';
 
 export abstract class FileSelectorBaseComponent {
   isLoading = false;
   imageChangedEvent: any;
   error: string;
 
-  protected abstract uploadService: UploadPlatformService;
+  protected abstract uploadService: UploadService;
 
   onFileChange(event: any) {
     this.error = null;

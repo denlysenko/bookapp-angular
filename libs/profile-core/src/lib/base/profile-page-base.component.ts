@@ -1,17 +1,18 @@
 import { OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 
 import { User, UserSelfResponse } from '@bookapp-angular/auth-core';
-import { FeedbackPlatformService } from '@bookapp-angular/core';
+import { BaseComponent, FeedbackPlatformService } from '@bookapp-angular/core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
 import { ProfileForm } from '../models';
 import { ProfileService } from '../services';
 
-export abstract class ProfilePageBaseComponent implements OnInit {
+export abstract class ProfilePageBaseComponent extends BaseComponent
+  implements OnInit {
   user$: Observable<User>;
   error: any;
   isLoading = false;
@@ -25,7 +26,7 @@ export abstract class ProfilePageBaseComponent implements OnInit {
       .watchQuery<UserSelfResponse>({
         query: ME_QUERY
       })
-      .valueChanges.pipe(map(({ data }) => data.me));
+      .valueChanges.pipe(map(({ data }) => data.me), takeUntil(this.destroy$));
   }
 
   updateProfile(event: ProfileForm) {
