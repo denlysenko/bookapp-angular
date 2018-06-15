@@ -22,10 +22,10 @@ export abstract class ProfilePageBaseComponent implements OnInit {
 
   ngOnInit() {
     this.user$ = this.apollo
-      .query<UserSelfResponse>({
+      .watchQuery<UserSelfResponse>({
         query: ME_QUERY
       })
-      .pipe(map(({ data }) => data.me));
+      .valueChanges.pipe(map(({ data }) => data.me));
   }
 
   updateProfile(event: ProfileForm) {
