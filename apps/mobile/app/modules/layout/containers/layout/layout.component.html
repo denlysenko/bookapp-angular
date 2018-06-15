@@ -27,7 +27,7 @@
             <StackLayout class="avatar">
               <Image width="60"
                      height="60"
-                     src="res://noavatar"></Image>
+                     [src]="user.avatar ? user.avatar : 'res://noavatar'"></Image>
             </StackLayout>
           </FlexboxLayout>
           <StackLayout row="1"

@@ -5,11 +5,11 @@
   "repository": "<fill-your-repository-here>",
   "nativescript": {
     "id": "org.nativescript.bookapp",
+    "tns-android": {
+      "version": "4.1.3"
+    },
     "tns-ios": {
       "version": "4.1.0"
-    },
-    "tns-android": {
-      "version": "4.1.2"
     }
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "@bookapp-angular/graphql": "file:../../libs/graphql",
     "@bookapp-angular/profile-core": "file:../../libs/profile-core",
     "@bookapp-angular/scss": "file:../../node_modules/@bookapp-angular/scss",
+    "@bookapp-angular/utils": "file:../../libs/utils",
     "@ngrx/effects": "file:../../node_modules/@ngrx/effects",
     "@ngrx/router-store": "file:../../node_modules/@ngrx/router-store",
     "@ngrx/store": "file:../../node_modules/@ngrx/store",
@@ -42,7 +43,9 @@
     "graphql": "file:../../node_modules/graphql",
     "graphql-tag": "file:../../node_modules/graphql-tag",
     "nativescript-angular": "~6.0.0",
+    "nativescript-camera": "^4.0.2",
     "nativescript-feedback": "^1.2.0",
+    "nativescript-imagecropper": "^1.0.2",
     "nativescript-iqkeyboardmanager": "^1.3.0",
     "nativescript-ng-shadow": "^2.1.0",
     "nativescript-ngx-fonticon": "~4.0.0",
@@ -70,8 +73,8 @@
     "copy-webpack-plugin": "~4.5.1",
     "css-loader": "~0.28.7",
     "extract-text-webpack-plugin": "~3.0.2",
-    "lazy": "1.0.11",
     "jasmine-marbles": "file:../../node_modules/jasmine-marbles",
+    "lazy": "1.0.11",
     "nativescript-css-loader": "~0.26.0",
     "nativescript-dev-sass": "^1.5.0",
     "nativescript-dev-typescript": "~0.7.0",

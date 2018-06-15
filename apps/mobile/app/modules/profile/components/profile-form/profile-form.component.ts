@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import { User } from '@bookapp-angular/auth-core';
-import { FeedbackPlatformService } from '@bookapp-angular/core';
+import { FeedbackPlatformService, UploadService } from '@bookapp-angular/core';
 import { ProfileFormBaseComponent } from '@bookapp-angular/profile-core';
+import { dataURIToBlob } from '@bookapp-angular/utils';
+import { ImageSource } from 'image-source';
+import { requestPermissions, takePicture } from 'nativescript-camera';
+import { ImageCropper } from 'nativescript-imagecropper';
 import { getViewById } from 'ui/core/view';
 import { Page } from 'ui/page';
 
@@ -13,11 +19,14 @@ import { profileMetadata, ProfileViewModel } from '../../models';
   selector: 'ba-profile-form',
   templateUrl: 'profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
+  providers: [UploadService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileFormComponent extends ProfileFormBaseComponent {
   metadata = profileMetadata;
   profile: ProfileViewModel;
+  imageCropper: ImageCropper;
+  source: ImageSource;
 
   @Input()
   set user(value: User) {
@@ -36,9 +45,12 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
 
   constructor(
     private page: Page,
-    protected feedbackService: FeedbackPlatformService
+    protected feedbackService: FeedbackPlatformService,
+    private uploadService: UploadService
   ) {
     super();
+    this.imageCropper = new ImageCropper();
+    this.source = new ImageSource();
   }
 
   goBack() {
@@ -47,6 +59,39 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
 
   submit() {
     this.onFormSubmit.emit({ id: this.user.id, user: this.profile });
+  }
+
+  takePicture() {
+    requestPermissions().then(() => {
+      takePicture({
+        width: 300,
+        height: 300,
+        keepAspectRatio: true
+      }).then((imageAsset: any) => {
+        this.source.fromAsset(imageAsset).then(imageSource => {
+          this.imageCropper
+            .show(imageSource, { width: 300, height: 300, lockSquare: true })
+            .then(args => {
+              if (args.image !== null) {
+                this.uploadService
+                  .upload(dataURIToBlob(args.image))
+                  .pipe(map(res => JSON.parse(res)))
+                  .subscribe(
+                    res => {
+                      this.onFormSubmit.emit({
+                        id: this.user.id,
+                        user: { avatar: res.Location }
+                      });
+                    },
+                    err => {
+                      console.dir(err);
+                    }
+                  );
+              }
+            });
+        });
+      });
+    });
   }
 
   private initForm() {

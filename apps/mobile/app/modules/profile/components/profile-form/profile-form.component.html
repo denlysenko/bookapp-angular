@@ -21,7 +21,8 @@
     <ScrollView>
       <FlexboxLayout flexDirection="column"
                      height="100%">
-        <StackLayout class="mat-card"
+        <StackLayout *ngIf="user"
+                     class="mat-card"
                      flexGrow="1">
           <FlexboxLayout flexDirection="column"
                          justifyContenet="center"
@@ -30,14 +31,15 @@
                    text="Profile Photo"></Label>
             <AbsoluteLayout class="avatar-block">
               <Image class="avatar"
-                     src="res://noavatar"
+                     [src]="user.avatar ? user.avatar : 'res://noavatar'"
                      left="0"
                      top="0"></Image>
               <GridLayout class="avatar-btn"
                           rows="*"
                           columns="*"
                           left="50"
-                          top="45">
+                          top="45"
+                          (tap)="takePicture()">
                 <Label class="mdi"
                        text="add_a_photo"
                        style.verticalAlignment="center"
