@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { User } from '@bookapp-angular/auth-core';
-import { FeedbackPlatformService, UploadService } from '@bookapp-angular/core';
+import { FeedbackPlatformService } from '@bookapp-angular/core';
 import { ProfileFormBaseComponent } from '@bookapp-angular/profile-core';
-import { dataURIToBlob } from '@bookapp-angular/utils';
+import { knownFolders, path } from 'file-system';
 import { ImageSource } from 'image-source';
 import { requestPermissions, takePicture } from 'nativescript-camera';
 import { ImageCropper } from 'nativescript-imagecropper';
+import { isAndroid, isIOS } from 'tns-core-modules/platform';
 import { getViewById } from 'ui/core/view';
 import { Page } from 'ui/page';
+import { UploadService } from '~/modules/core/services/upload.service';
 
 import { profileMetadata, ProfileViewModel } from '../../models';
 
@@ -27,6 +29,8 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
   profile: ProfileViewModel;
   imageCropper: ImageCropper;
   source: ImageSource;
+  progress$: Observable<number>;
+  isUploading = false;
 
   @Input()
   set user(value: User) {
@@ -51,6 +55,7 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     super();
     this.imageCropper = new ImageCropper();
     this.source = new ImageSource();
+    this.progress$ = this.uploadService.progress$;
   }
 
   goBack() {
@@ -73,20 +78,40 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
             .show(imageSource, { width: 300, height: 300, lockSquare: true })
             .then(args => {
               if (args.image !== null) {
-                this.uploadService
-                  .upload(dataURIToBlob(args.image))
-                  .pipe(map(res => JSON.parse(res)))
-                  .subscribe(
-                    res => {
+                let localPath = null;
+
+                if (isAndroid) {
+                  localPath = args.image.android;
+                }
+
+                if (isIOS) {
+                  const folder = knownFolders.documents();
+                  const filePath = path.join(
+                    folder.path,
+                    `avatar_for_ba_${new Date().getTime()}.png`
+                  );
+                  args.image.saveToFile(filePath, 'png');
+
+                  localPath = filePath;
+                }
+
+                if (localPath) {
+                  this.isUploading = true;
+
+                  this.uploadService
+                    .upload(localPath)
+                    .then(res => {
+                      this.isUploading = false;
                       this.onFormSubmit.emit({
                         id: this.user.id,
                         user: { avatar: res.Location }
                       });
-                    },
-                    err => {
-                      console.dir(err);
-                    }
-                  );
+                    })
+                    .catch(err => {
+                      this.isUploading = false;
+                      this.handleError({ message: { message: err.message } });
+                    });
+                }
               }
             });
         });

@@ -2,14 +2,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { UploadResponse } from '../models';
-import { UploadService } from '../services';
+import { UploadPlatformService } from '../services';
 
 export abstract class FileSelectorBaseComponent {
   isLoading = false;
   imageChangedEvent: any;
   error: string;
 
-  protected abstract uploadService: UploadService;
+  protected abstract uploadService: UploadPlatformService;
 
   onFileChange(event: any) {
     this.error = null;

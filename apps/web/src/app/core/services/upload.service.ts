@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { AUTH_TOKEN } from '../constants';
-import { environment } from '../environments/environment';
-import { StoragePlatformService } from './storage.platform.service';
+import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core';
 
 @Injectable()
 export class UploadService {

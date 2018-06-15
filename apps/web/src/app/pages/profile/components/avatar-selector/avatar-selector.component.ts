@@ -3,14 +3,16 @@ import { MatDialogRef } from '@angular/material';
 
 import { Observable } from 'rxjs';
 
-import { FileSelectorBaseComponent, UploadService } from '@bookapp-angular/core';
+import { FileSelectorBaseComponent, UploadPlatformService } from '@bookapp-angular/core';
 import { dataURIToBlob } from '@bookapp-angular/utils';
+
+import { UploadService } from '@core-web/services/upload.service';
 
 @Component({
   selector: 'ba-avatar-selector',
   templateUrl: './avatar-selector.component.html',
   styleUrls: ['./avatar-selector.component.scss'],
-  providers: [UploadService]
+  providers: [{ provide: UploadPlatformService, useClass: UploadService }]
 })
 export class AvatarSelectorComponent extends FileSelectorBaseComponent {
   croppedImage: string;
@@ -18,7 +20,7 @@ export class AvatarSelectorComponent extends FileSelectorBaseComponent {
   progress$: Observable<number>;
 
   constructor(
-    protected uploadService: UploadService,
+    protected uploadService: UploadPlatformService,
     private dialogRef: MatDialogRef<AvatarSelectorComponent>
   ) {
     super();

@@ -46,6 +46,10 @@
                        style.textAlignment="center"></Label>
               </GridLayout>
             </AbsoluteLayout>
+            <Progress *ngIf="isUploading"
+                      [value]="progress$ | async"
+                      maxValue="100"
+                      class="m-t-20"></Progress>
           </FlexboxLayout>
           <RadDataForm id="profileForm"
                        class="profile-form"
