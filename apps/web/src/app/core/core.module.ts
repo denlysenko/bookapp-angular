@@ -11,19 +11,20 @@ import { NxModule } from '@nrwl/nx';
 
 import { FeedbackService } from './services/feedback.service';
 import { StorageService } from './services/storage.service';
+import { AuthGuard } from '@bookapp-angular/core';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
-    NxModule.forRoot(),
     HttpClientModule,
     GraphQLModule.forRoot(),
     MatSnackBarModule
   ],
   providers: [
     RouterExtensions,
+    AuthGuard,
     {
       provide: StoragePlatformService,
       useClass: StorageService
