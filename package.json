@@ -29,11 +29,11 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/common": "6.0.5",
+    "@angular/core": "6.0.5",
+    "@angular/compiler": "6.0.5",
     "@angular/animations": "^6.0.5",
     "@angular/cdk": "^6.2.1",
-    "@angular/common": "6.0.5",
-    "@angular/compiler": "6.0.5",
-    "@angular/core": "6.0.5",
     "@angular/forms": "6.0.5",
     "@angular/material": "^6.2.1",
     "@angular/platform-browser": "6.0.5",
@@ -63,13 +63,18 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.6.8",
-    "@angular-devkit/build-ng-packagr": "^0.6.8",
-    "@angular/cli": "6.0.8",
     "@angular/compiler-cli": "6.0.5",
+    "@angular-devkit/build-ng-packagr": "^0.6.8",
+    "@angular-devkit/build-angular": "^0.6.8",
+    "ng-packagr": "^3.0.2",
+    "tsickle": "^0.29.0",
+    "tslib": "^1.9.2",
+    "typescript": "2.7.2",
+    "@angular/cli": "6.0.8",
     "@angular/language-service": "6.0.5",
     "@ngrx/schematics": "6.0.1",
     "@nrwl/schematics": "6.1.0",
+    "@schematics/angular": "^0.6.8",
     "@types/jasmine": "^2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -82,13 +87,9 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^3.0.2",
     "prettier": "1.10.2",
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
-    "tsickle": "^0.29.0",
-    "tslib": "^1.9.2",
-    "tslint": "~5.9.1",
-    "typescript": "2.7.2"
+    "tslint": "~5.9.1"
   }
 }

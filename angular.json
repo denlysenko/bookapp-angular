@@ -259,6 +259,31 @@
           }
         }
       }
+    },
+    "password-core": {
+      "root": "libs/password-core",
+      "sourceRoot": "libs/password-core/src",
+      "projectType": "library",
+      "prefix": "ba",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/password-core/tsconfig.spec.json",
+            "karmaConfig": "libs/password-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/password-core/tsconfig.lib.json",
+              "libs/password-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

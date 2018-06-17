@@ -21,6 +21,9 @@
     },
     "utils": {
       "tags": []
+    },
+    "password-core": {
+      "tags": []
     }
   }
 }
