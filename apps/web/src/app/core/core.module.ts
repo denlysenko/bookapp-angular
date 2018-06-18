@@ -5,13 +5,11 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/mater
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { FeedbackPlatformService, RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
+import { AuthGuard, FeedbackPlatformService, RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
-import { NxModule } from '@nrwl/nx';
 
 import { FeedbackService } from './services/feedback.service';
 import { StorageService } from './services/storage.service';
-import { AuthGuard } from '@bookapp-angular/core';
 
 @NgModule({
   imports: [
@@ -35,7 +33,7 @@ import { AuthGuard } from '@bookapp-angular/core';
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 2500 }
+      useValue: { duration: 3500 }
     }
   ]
 })

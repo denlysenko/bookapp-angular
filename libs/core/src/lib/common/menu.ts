@@ -61,7 +61,7 @@ export const userMenu: MenuItem[] = [
   },
   {
     label: 'Change Password',
-    path: 'change-password',
+    path: 'password',
     icon: 'security'
   }
 ];

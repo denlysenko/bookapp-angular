@@ -20,6 +20,11 @@ export const routes: Route[] = [
         path: 'profile',
         loadChildren: './pages/profile/profile.module#ProfileModule',
         canLoad: [AuthGuard]
+      },
+      {
+        path: 'password',
+        loadChildren: './pages/password/password.module#PasswordModule',
+        canLoad: [AuthGuard]
       }
     ]
   },

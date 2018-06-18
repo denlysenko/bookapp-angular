@@ -25,7 +25,7 @@ export abstract class PasswordPageBaseComponent {
         })
       )
       .subscribe(({ data, errors }) => {
-        if (data) {
+        if (data.changePassword) {
           this.feedbackService.success('Password changed!');
         }
 

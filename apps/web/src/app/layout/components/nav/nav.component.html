@@ -1,6 +1,6 @@
 <mat-nav-list class="add">
   <a mat-list-item
-     [routerLink]="['add']"
+     [routerLink]="['/add']"
      color="accent">
     <i class="material-icons">
       add_circle
@@ -10,7 +10,7 @@
 <mat-nav-list class="nav">
   <a mat-list-item
      *ngFor="let link of navs"
-     [routerLink]="link.path"
+     [routerLink]="'/' + link.path"
      routerLinkActive="active">
     <i class="material-icons">
       {{ link.icon }}
@@ -20,7 +20,7 @@
 <mat-nav-list class="categories">
   <a mat-list-item
      *ngFor="let link of categories"
-     [routerLink]="link.path"
+     [routerLink]="'/' + link.path"
      routerLinkActive="active">
     <i class="material-icons"
        [style.color]="link.color">
