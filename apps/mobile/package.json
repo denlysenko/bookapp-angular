@@ -25,6 +25,7 @@
     "@bookapp-angular/auth-core": "file:../../libs/auth-core",
     "@bookapp-angular/core": "file:../../libs/core",
     "@bookapp-angular/graphql": "file:../../libs/graphql",
+    "@bookapp-angular/password-core": "file:../../libs/password-core",
     "@bookapp-angular/profile-core": "file:../../libs/profile-core",
     "@bookapp-angular/scss": "file:../../node_modules/@bookapp-angular/scss",
     "@bookapp-angular/utils": "file:../../libs/utils",

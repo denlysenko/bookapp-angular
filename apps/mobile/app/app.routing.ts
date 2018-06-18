@@ -20,6 +20,11 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: '~/modules/profile/profile.module#ProfileModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'password',
+    loadChildren: '~/modules/password/password.module#PasswordModule',
+    canLoad: [AuthGuard]
   }
 ];
 

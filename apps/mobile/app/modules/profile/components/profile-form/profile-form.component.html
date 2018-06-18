@@ -2,11 +2,11 @@
            flat="true">
   <NavigationButton ios:visibility="collapsed"
                     android.systemIcon="ic_menu_back"
-                    (tap)="goBack()"></NavigationButton>
+                    (tap)="backTapped.emit()"></NavigationButton>
   <ActionItem android:visibility="collapsed"
               ios.systemIcon="1"
               ios.position="left"
-              (tap)="goBack()"></ActionItem>
+              (tap)="backTapped.emit()"></ActionItem>
   <ActionItem ios.systemIcon="3"
               ios.position="right"
               android.position="actionBar"
@@ -21,15 +21,15 @@
     <ScrollView>
       <FlexboxLayout flexDirection="column"
                      height="100%">
-        <StackLayout *ngIf="user"
-                     class="mat-card"
+        <StackLayout class="mat-card"
                      flexGrow="1">
           <FlexboxLayout flexDirection="column"
                          justifyContenet="center"
                          alignItems="center">
             <Label class="h3"
                    text="Profile Photo"></Label>
-            <AbsoluteLayout class="avatar-block">
+            <AbsoluteLayout *ngIf="user"
+                            class="avatar-block">
               <Image class="avatar"
                      [src]="user.avatar ? user.avatar : 'res://noavatar'"
                      left="0"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -24,13 +24,15 @@ import { profileMetadata, ProfileViewModel } from '../../models';
   providers: [UploadService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileFormComponent extends ProfileFormBaseComponent {
+export class ProfileFormComponent extends ProfileFormBaseComponent
+  implements AfterViewInit {
   metadata = profileMetadata;
   profile: ProfileViewModel;
   imageCropper: ImageCropper;
   source: ImageSource;
   progress$: Observable<number>;
   isUploading = false;
+  dataform: any;
 
   @Input()
   set user(value: User) {
@@ -58,12 +60,16 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     this.progress$ = this.uploadService.progress$;
   }
 
-  goBack() {
-    this.backTapped.emit();
+  ngAfterViewInit() {
+    this.dataform = getViewById(this.page, 'profileForm');
   }
 
   submit() {
-    this.onFormSubmit.emit({ id: this.user.id, user: this.profile });
+    this.dataform.validateAll().then(result => {
+      if (result) {
+        this.onFormSubmit.emit({ id: this.user.id, user: this.profile });
+      }
+    });
   }
 
   takePicture() {
@@ -131,11 +137,10 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
     if (err.errors) {
       const error = err.errors;
       Object.keys(error).forEach(key => {
-        const dataform: any = getViewById(this.page, 'profileForm');
-        const formControl = dataform.getPropertyByName(key);
+        const formControl = this.dataform.getPropertyByName(key);
         if (formControl) {
           formControl.errorMessage = error[key].message;
-          dataform.notifyValidated(key, false);
+          this.dataform.notifyValidated(key, false);
         }
       });
     } else if (err.message && err.message.message) {
