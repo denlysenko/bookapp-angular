@@ -72,57 +72,61 @@ export class ProfileFormComponent extends ProfileFormBaseComponent
     });
   }
 
-  takePicture() {
-    requestPermissions().then(() => {
-      takePicture({
-        width: 300,
-        height: 300,
-        keepAspectRatio: true
-      }).then((imageAsset: any) => {
-        this.source.fromAsset(imageAsset).then(imageSource => {
-          this.imageCropper
-            .show(imageSource, { width: 300, height: 300, lockSquare: true })
-            .then(args => {
-              if (args.image !== null) {
-                let localPath = null;
+  async changeAvatar() {
+    try {
+      await requestPermissions();
+    } catch (err) {
+      return this.feedbackService.error('Permissions rejected');
+    }
 
-                if (isAndroid) {
-                  localPath = args.image.android;
-                }
-
-                if (isIOS) {
-                  const folder = knownFolders.documents();
-                  const filePath = path.join(
-                    folder.path,
-                    `avatar_for_ba_${new Date().getTime()}.png`
-                  );
-                  args.image.saveToFile(filePath, 'png');
-
-                  localPath = filePath;
-                }
-
-                if (localPath) {
-                  this.isUploading = true;
-
-                  this.uploadService
-                    .upload(localPath)
-                    .then(res => {
-                      this.isUploading = false;
-                      this.onFormSubmit.emit({
-                        id: this.user.id,
-                        user: { avatar: res.Location }
-                      });
-                    })
-                    .catch(err => {
-                      this.isUploading = false;
-                      this.handleError({ message: { message: err.message } });
-                    });
-                }
-              }
-            });
-        });
-      });
+    const imageAsset: any = await takePicture({
+      width: 300,
+      height: 300,
+      keepAspectRatio: true
     });
+
+    const imageSource = await this.source.fromAsset(imageAsset);
+
+    const cropped = await this.imageCropper.show(imageSource, {
+      width: 300,
+      height: 300,
+      lockSquare: true
+    });
+
+    if (cropped.image !== null) {
+      let localPath = null;
+
+      if (isAndroid) {
+        localPath = cropped.image.android;
+      }
+
+      if (isIOS) {
+        const folder = knownFolders.documents();
+        const filePath = path.join(
+          folder.path,
+          `avatar_for_ba_${new Date().getTime()}.png`
+        );
+        cropped.image.saveToFile(filePath, 'png');
+
+        localPath = filePath;
+      }
+
+      if (localPath) {
+        this.isUploading = true;
+
+        try {
+          const response = await this.uploadService.upload(localPath);
+          this.isUploading = false;
+          this.onFormSubmit.emit({
+            id: this.user.id,
+            user: { avatar: response.Location }
+          });
+        } catch (err) {
+          this.isUploading = false;
+          this.handleError({ message: { message: err.message } });
+        }
+      }
+    }
   }
 
   private initForm() {

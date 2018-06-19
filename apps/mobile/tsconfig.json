@@ -11,7 +11,8 @@
     "removeComments": false,
     "noEmitOnError": true,
     "skipLibCheck": true,
-    "lib": ["es2017", "dom", "es6"],
+    "lib": ["es2017", "dom"],
+    "importHelpers": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["app/*"],

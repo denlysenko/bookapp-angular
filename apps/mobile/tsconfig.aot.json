@@ -10,6 +10,7 @@
     "noEmitOnError": true,
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
+    "importHelpers": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["app/*"],
