@@ -18,8 +18,9 @@
        class="user-menu">
     <button mat-button
             [matMenuTriggerFor]="menu">
+            <!--user.avatar ? user.avatar : -->
       <img class="avatar"
-           [src]="user.avatar ? user.avatar : '/assets/images/no-avatar.svg'"
+           [src]="'/assets/images/no-avatar.svg'"
            alt="avatar"> {{ user.displayName }}
       <i class="material-icons">
         expand_more

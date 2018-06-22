@@ -1,0 +1,19 @@
+@import '~@bookapp-angular/scss/form';
+
+input[type='file'] {
+  display: none;
+}
+
+.form {
+  label.mat-primary,
+  .mat-form-field.price {
+    width: 180px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  label.mat-primary {
+    text-transform: uppercase;
+  }
+}

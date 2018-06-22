@@ -4,8 +4,8 @@ import { MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 
 import { dataURIToBlob } from '@bookapp-angular/utils';
-import { FileSelectorBaseComponent } from '@core-web/base';
-import { UploadService } from '@core-web/services';
+import { FileSelectorBaseComponent } from '@web/modules/core/base';
+import { UploadService } from '@web/modules/core/services';
 
 @Component({
   selector: 'ba-avatar-selector',
