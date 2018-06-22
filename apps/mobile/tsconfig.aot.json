@@ -19,6 +19,7 @@
       "@bookapp-angular/graphql": ["../../libs/graphql/src/index.ts"],
       "@bookapp-angular/core": ["../../libs/core/src/index.ts"],
       "@bookapp-angular/profile-core": ["../../libs/profile-core/src/index.ts"],
+      "@bookapp-angular/books-core": ["../../libs/books-core/src/index.ts"],
       "@bookapp-angular/utils": ["../../libs/utils/src/index.ts"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }

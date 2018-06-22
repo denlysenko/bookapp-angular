@@ -284,6 +284,31 @@
           }
         }
       }
+    },
+    "books-core": {
+      "root": "libs/books-core",
+      "sourceRoot": "libs/books-core/src",
+      "projectType": "library",
+      "prefix": "ba",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/books-core/tsconfig.spec.json",
+            "karmaConfig": "libs/books-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/books-core/tsconfig.lib.json",
+              "libs/books-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

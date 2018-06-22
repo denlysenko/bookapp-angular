@@ -3,9 +3,9 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
-import { CoreModule } from './core/core.module';
-import { LayoutModule } from './layout/layout.module';
-import { AuthModule } from './pages/auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CoreModule } from './modules/core/core.module';
+import { LayoutModule } from './modules/layout/layout.module';
 
 @NgModule({
   imports: [CoreModule, RouterModule.forRoot(routes), AuthModule, LayoutModule],

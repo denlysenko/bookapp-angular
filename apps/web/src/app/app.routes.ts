@@ -2,9 +2,9 @@ import { Route } from '@angular/router';
 
 import { AuthGuard } from '@bookapp-angular/core';
 
-import { HomeComponent } from './layout/components/home/home.component';
-import { LayoutComponent } from './layout/containers/layout/layout.component';
-import { AuthPageComponent } from './pages/auth/containers/auth-page/auth-page.component';
+import { AuthPageComponent } from './modules/auth/containers/auth-page/auth-page.component';
+import { HomeComponent } from './modules/layout/components/home/home.component';
+import { LayoutComponent } from './modules/layout/containers/layout/layout.component';
 
 export const routes: Route[] = [
   {

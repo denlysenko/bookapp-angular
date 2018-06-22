@@ -1,0 +1,37 @@
+<mat-toolbar color="primary"
+             [class.is-mobile]="isMobile">
+  <button mat-icon-button
+          class="menu-toggler"
+          (click)="toggleSidenav()">
+    <i class="material-icons">
+      menu
+    </i>
+  </button>
+  <a [routerLink]="['/']"
+     class="brand mat-button">
+    <span class="mat-button-wrapper">
+      <i class="material-icons">
+        book
+      </i> {{ title }}</span>
+  </a>
+  <div *ngIf="user"
+       class="user-menu">
+    <button mat-button
+            [matMenuTriggerFor]="menu">
+      <img class="avatar"
+           [src]="user.avatar ? user.avatar : '/assets/images/no-avatar.svg'"
+           alt="avatar"> {{ user.displayName }}
+      <i class="material-icons">
+        expand_more
+      </i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a *ngFor="let item of userMenu"
+         mat-menu-item
+         [routerLink]="'/' + item.path">{{item.label}}</a>
+      <mat-divider></mat-divider>
+      <a mat-menu-item
+         (click)="logout()">Signout</a>
+    </mat-menu>
+  </div>
+</mat-toolbar>

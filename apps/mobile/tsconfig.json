@@ -24,6 +24,7 @@
       "@bookapp-angular/password-core": [
         "../../libs/password-core/src/index.ts"
       ],
+      "@bookapp-angular/books-core": ["../../libs/books-core/src/index.ts"],
       "@bookapp-angular/utils": ["../../libs/utils/src/index.ts"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }

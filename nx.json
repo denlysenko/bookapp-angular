@@ -24,6 +24,9 @@
     },
     "password-core": {
       "tags": []
+    },
+    "books-core": {
+      "tags": []
     }
   }
 }

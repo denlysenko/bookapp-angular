@@ -47,6 +47,12 @@
       ],
       "@bookapp-angular/password-core": [
         "libs/password-core/src/index.ts"
+      ],
+      "books-core/*": [
+        "dist/books-core/*"
+      ],
+      "@bookapp-angular/books-core": [
+        "libs/books-core/src/index.ts"
       ]
     }
   },
