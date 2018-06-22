@@ -1,0 +1,30 @@
+<mat-nav-list *ngIf="isAdmin"
+              class="add">
+  <a mat-list-item
+     [routerLink]="['/books/add']"
+     color="accent">
+    <i class="material-icons">
+      add_circle
+    </i> Add new</a>
+</mat-nav-list>
+<div class="divider"></div>
+<mat-nav-list class="nav">
+  <a mat-list-item
+     *ngFor="let link of navs"
+     [routerLink]="'/' + link.path"
+     routerLinkActive="active">
+    <i class="material-icons">
+      {{ link.icon }}
+    </i> {{ link.label }}</a>
+</mat-nav-list>
+<div class="divider"></div>
+<mat-nav-list class="categories">
+  <a mat-list-item
+     *ngFor="let link of categories"
+     [routerLink]="'/' + link.path"
+     routerLinkActive="active">
+    <i class="material-icons"
+       [style.color]="link.color">
+      {{ link.icon }}
+    </i> {{ link.label }}</a>
+</mat-nav-list>

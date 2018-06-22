@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapsho
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
+import { UserSelfResponse } from '@bookapp-angular/auth-core';
 import { ME_QUERY } from '@bookapp-angular/graphql/src/lib/queries';
 import { Apollo } from 'apollo-angular';
 
@@ -31,10 +32,15 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   private waitForUser() {
     return this.apollo
-      .query({
+      .query<UserSelfResponse>({
         query: ME_QUERY
       })
-      .pipe(filter(me => !!me), map(me => !!me), take(1));
+      .pipe(
+        map(res => res.data.me),
+        filter(user => !!user),
+        map(user => !!user),
+        take(1)
+      );
   }
 
   private hasAccess() {
