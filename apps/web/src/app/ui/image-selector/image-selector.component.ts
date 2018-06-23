@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { Observable } from 'rxjs';
 
@@ -17,13 +17,18 @@ export class ImageSelectorComponent extends FileSelectorBaseComponent {
   croppedImage: string;
   cropperReady = false;
   progress$: Observable<number>;
+  maintainAspectRatio = true;
 
   constructor(
     protected uploadService: UploadService,
-    private dialogRef: MatDialogRef<ImageSelectorComponent>
+    private dialogRef: MatDialogRef<ImageSelectorComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     super();
     this.progress$ = this.uploadService.progress$;
+    if (this.data && 'maintainAspectRatio' in this.data) {
+      this.maintainAspectRatio = data.maintainAspectRatio;
+    }
   }
 
   onLoadImageFail() {

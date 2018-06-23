@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { BooksCoreModule } from '@bookapp-angular/books-core';
 import { RolesGuard } from '@bookapp-angular/core/src';
+import { ImageSelectorComponent, ImageSelectorModule } from '@web/ui/image-selector';
 
 import { routes } from './books.routes';
 import { components } from './components';
@@ -21,9 +22,11 @@ import { containers } from './containers';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ImageSelectorModule
   ],
   declarations: [...containers, ...components],
-  providers: [RolesGuard]
+  providers: [RolesGuard],
+  entryComponents: [ImageSelectorComponent]
 })
 export class BooksModule {}

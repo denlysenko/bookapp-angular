@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 
@@ -22,7 +22,6 @@ import { routes } from './profile.routes';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule,
     ImageSelectorModule
   ],
   declarations: [...containers, ...components],

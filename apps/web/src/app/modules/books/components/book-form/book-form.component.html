@@ -4,9 +4,10 @@
       <img [src]="'/assets/images/add-photo.svg'"
            alt="cover">
     </mat-card>
-    <button mat-raised-button
+    <button type="button"
+            mat-raised-button
             color="primary"
-            (click)="showSelector()">Change Cover
+            (click)="showCoverSelector()">Change Cover
     </button>
   </div>
   <form [formGroup]="form"
@@ -33,7 +34,8 @@
     <div class="mat-form-field-wrapper epub">
       <button type="button"
               mat-raised-button
-              color="primary">CHANGE EPUB
+              color="primary"
+              (click)="showFileSelector()">CHANGE EPUB
       </button>
     </div>
     <div class="mat-form-field-wrapper">

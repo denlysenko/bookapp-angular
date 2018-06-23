@@ -24,7 +24,7 @@
   </div>
   <image-cropper [style.display]="cropperReady ? null : 'none'"
                  [imageChangedEvent]="imageChangedEvent"
-                 [maintainAspectRatio]="true"
+                 [maintainAspectRatio]="maintainAspectRatio"
                  (imageCropped)="imageCropped($event)"
                  (imageLoaded)="cropperReady = true"
                  (loadImageFailed)="loadImageFailed()"></image-cropper>

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import { Book } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService, FormBaseComponent } from '@bookapp-angular/core';
+import { ImageSelectorComponent } from '@web/ui/image-selector';
 
 @Component({
   selector: 'ba-book-form',
@@ -16,7 +18,8 @@ export class BookFormComponent extends FormBaseComponent implements OnInit {
 
   constructor(
     protected feedbackService: FeedbackPlatformService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -24,6 +27,21 @@ export class BookFormComponent extends FormBaseComponent implements OnInit {
   ngOnInit() {
     this.initForm();
   }
+
+  showCoverSelector() {
+    const dialogRef = this.dialog.open(ImageSelectorComponent, {
+      width: '300px',
+      data: { maintainAspectRatio: false }
+    });
+
+    dialogRef.afterClosed().subscribe(cover => {
+      if (cover) {
+        console.log(cover);
+      }
+    });
+  }
+
+  showFileSelector() {}
 
   private initForm() {
     this.form = this.fb.group({});

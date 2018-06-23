@@ -17,7 +17,7 @@ import { ImageSelectorComponent } from './image-selector.component';
     DndModule,
     ImageCropperModule
   ],
-  exports: [ImageSelectorComponent],
+  exports: [MatDialogModule, ImageSelectorComponent],
   declarations: [ImageSelectorComponent]
 })
 export class ImageSelectorModule {}
