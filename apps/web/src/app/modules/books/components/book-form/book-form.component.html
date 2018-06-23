@@ -1,52 +1,63 @@
-<form [formGroup]="form"
-      class="form">
-  <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
-    <input matInput
-           placeholder="Title">
-    <!-- <mat-error>This field is required</mat-error> -->
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Author</mat-label>
-    <input matInput
-           placeholder="Author">
-    <!-- <mat-error>This field is required</mat-error> -->
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Description</mat-label>
-    <textarea matInput
-              placeholder="Description"
-              rows="4"></textarea>
-    <!-- <mat-error>This field is required</mat-error> -->
-  </mat-form-field>
-  <div class="mat-form-field-wrapper">
-    <label for="epub"
-           class="mat-raised-button mat-primary">Change Epub</label>
-    <input type="file"
-           id="epub"
-           name="epub">
-  </div>
-  <div class="mat-form-field-wrapper">
-    <mat-checkbox>Paid</mat-checkbox>
-  </div>
-  <mat-form-field appearance="outline"
-                  class="price">
-    <mat-label>Price</mat-label>
-    <input type="number"
-           matInput
-           placeholder="Price">
-    <!-- <mat-error>This field is required</mat-error> -->
-  </mat-form-field>
-  <mat-card-actions>
-    <button type="button"
-            mat-raised-button
-            [disabled]="loading"
-            (click)="goBack()">CANCEL
+<div class="book-form">
+  <div class="cover">
+    <mat-card>
+      <img [src]="'/assets/images/add-photo.svg'"
+           alt="cover">
+    </mat-card>
+    <button mat-raised-button
+            color="primary"
+            (click)="showSelector()">Change Cover
     </button>
-    <button type="submit"
-            mat-raised-button
-            color="accent"
-            [disabled]="loading">SAVE
-    </button>
-  </mat-card-actions>
-</form>
+  </div>
+  <form [formGroup]="form"
+        class="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput
+             placeholder="Title">
+      <!-- <mat-error>This field is required</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Author</mat-label>
+      <input matInput
+             placeholder="Author">
+      <!-- <mat-error>This field is required</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput
+                placeholder="Description"
+                rows="4"></textarea>
+      <!-- <mat-error>This field is required</mat-error> -->
+    </mat-form-field>
+    <div class="mat-form-field-wrapper epub">
+      <button type="button"
+              mat-raised-button
+              color="primary">CHANGE EPUB
+      </button>
+    </div>
+    <div class="mat-form-field-wrapper">
+      <mat-checkbox>Paid</mat-checkbox>
+    </div>
+    <mat-form-field appearance="outline"
+                    class="price">
+      <mat-label>Price</mat-label>
+      <input type="number"
+             matInput
+             placeholder="Price">
+      <!-- <mat-error>This field is required</mat-error> -->
+    </mat-form-field>
+    <mat-card-actions>
+      <button type="button"
+              mat-raised-button
+              [disabled]="loading"
+              (click)="goBack()">CANCEL
+      </button>
+      <button type="submit"
+              mat-raised-button
+              color="accent"
+              [disabled]="loading">SAVE
+      </button>
+    </mat-card-actions>
+  </form>
+</div>
