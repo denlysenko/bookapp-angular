@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 
 import { Book } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService, FormBaseComponent } from '@bookapp-angular/core';
+import { FileSelectorComponent } from '@web/ui/file-selector';
 import { ImageSelectorComponent } from '@web/ui/image-selector';
 
 @Component({
@@ -41,7 +42,17 @@ export class BookFormComponent extends FormBaseComponent implements OnInit {
     });
   }
 
-  showFileSelector() {}
+  showFileSelector() {
+    const dialogRef = this.dialog.open(FileSelectorComponent, {
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe(epub => {
+      if (epub) {
+        console.log(epub);
+      }
+    });
+  }
 
   private initForm() {
     this.form = this.fb.group({});

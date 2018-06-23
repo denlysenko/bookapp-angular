@@ -15,6 +15,7 @@ export abstract class FileSelectorBaseComponent {
   onFileChange(event: any) {
     this.error = null;
     this.imageChangedEvent = event;
+    console.log(this.imageChangedEvent);
   }
 
   onFileDrop(event: any) {

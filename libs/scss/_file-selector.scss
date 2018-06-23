@@ -25,3 +25,24 @@
 .mat-dialog-actions {
   justify-content: center;
 }
+
+.mat-dialog-content {
+  position: relative;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(238, 238, 238, 0.7);
+  z-index: 3;
+
+  .mat-progress-bar {
+    width: 80%;
+  }
+}
