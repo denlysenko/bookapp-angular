@@ -1,22 +1,26 @@
-@import '~@bookapp-angular/scss/file-selector';
-
-.mat-dialog-content {
-  position: relative;
-}
-
-.progress {
-  position: absolute;
-  top: 0;
-  left: 24px;
-  right: 24px;
-  bottom: 0;
+.avatar-selector {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(238, 238, 238, 0.7);
-  z-index: 3;
+  flex-direction: column;
 
-  .mat-progress-bar {
-    width: 80%;
+  .mat-card {
+    margin-bottom: 1rem;
+    display: flex;
+    min-height: 154px;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .mat-raised-button {
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    margin-right: 1.5rem;
+    max-width: 180px;
   }
 }

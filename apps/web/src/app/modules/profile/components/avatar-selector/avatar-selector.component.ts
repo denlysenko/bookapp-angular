@@ -1,48 +1,31 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
-import { Observable } from 'rxjs';
-
-import { dataURIToBlob } from '@bookapp-angular/utils';
-import { FileSelectorBaseComponent } from '@web/modules/core/base';
-import { UploadService } from '@web/modules/core/services';
+import { User } from '@bookapp-angular/auth-core';
+import { ProfileForm } from '@bookapp-angular/profile-core';
+import { ImageSelectorComponent } from '@web/ui/image-selector';
 
 @Component({
   selector: 'ba-avatar-selector',
   templateUrl: './avatar-selector.component.html',
   styleUrls: ['./avatar-selector.component.scss'],
-  providers: [UploadService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AvatarSelectorComponent extends FileSelectorBaseComponent {
-  croppedImage: string;
-  cropperReady = false;
-  progress$: Observable<number>;
+export class AvatarSelectorComponent {
+  @Input() user: User;
+  @Output() avatarSaved = new EventEmitter<ProfileForm>();
 
-  constructor(
-    protected uploadService: UploadService,
-    private dialogRef: MatDialogRef<AvatarSelectorComponent>
-  ) {
-    super();
-    this.progress$ = this.uploadService.progress$;
-  }
+  constructor(private dialog: MatDialog) {}
 
-  onLoadImageFail() {
-    this.error = 'INVALID_IMG_ERR';
-    this.cropperReady = false;
-    this.imageChangedEvent = null;
-  }
+  showSelector() {
+    const dialogRef = this.dialog.open(ImageSelectorComponent, {
+      width: '300px'
+    });
 
-  imageCropped(image: string) {
-    this.croppedImage = image;
-  }
-
-  save() {
-    if (!this.croppedImage) {
-      return;
-    }
-
-    this.upload(dataURIToBlob(this.croppedImage)).subscribe(res => {
-      this.dialogRef.close(res.Location);
-    }, () => (this.cropperReady = false));
+    dialogRef.afterClosed().subscribe(avatar => {
+      if (avatar) {
+        this.avatarSaved.emit({ id: this.user.id, user: { avatar } });
+      }
+    });
   }
 }

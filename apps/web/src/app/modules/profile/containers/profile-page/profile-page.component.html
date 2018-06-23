@@ -4,8 +4,8 @@
     <mat-card-title>Edit Profile</mat-card-title>
     <mat-card-content class="profile-page">
       <div class="avatar">
-        <ba-avatar-card [user]="user"
-                        (avatarSaved)="updateProfile($event)"></ba-avatar-card>
+        <ba-avatar-selector [user]="user"
+                        (avatarSaved)="updateProfile($event)"></ba-avatar-selector>
       </div>
       <div class="profile">
         <ba-profile-form [user]="user"
