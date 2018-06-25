@@ -5,7 +5,8 @@ import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, 
 import { RouterModule } from '@angular/router';
 
 import { BooksCoreModule } from '@bookapp-angular/books-core';
-import { RolesGuard } from '@bookapp-angular/core/src';
+import { CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
+import { ConfirmDialogComponent, DialogsModule } from '@web/ui/dialogs';
 import { FileSelectorComponent, FileSelectorModule } from '@web/ui/file-selector';
 import { ImageSelectorComponent, ImageSelectorModule } from '@web/ui/image-selector';
 
@@ -25,10 +26,15 @@ import { containers } from './containers';
     MatInputModule,
     MatCheckboxModule,
     ImageSelectorModule,
-    FileSelectorModule
+    FileSelectorModule,
+    DialogsModule
   ],
   declarations: [...containers, ...components],
-  providers: [RolesGuard],
-  entryComponents: [ImageSelectorComponent, FileSelectorComponent]
+  providers: [RolesGuard, CanDeactivateGuard],
+  entryComponents: [
+    ImageSelectorComponent,
+    FileSelectorComponent,
+    ConfirmDialogComponent
+  ]
 })
 export class BooksModule {}

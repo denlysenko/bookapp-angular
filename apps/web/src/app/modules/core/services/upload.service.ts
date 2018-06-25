@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import {
-  AUTH_TOKEN,
-  environment,
-  StoragePlatformService
-} from '@bookapp-angular/core';
+import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core';
 
 @Injectable()
 export class UploadService {
@@ -55,6 +51,28 @@ export class UploadService {
       xhr.open('POST', `${environment.uploadUrl}`, true);
       xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       xhr.send(formData);
+    });
+  }
+
+  deleteFile(key: string): Observable<string> {
+    return Observable.create(observer => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200 || xhr.status === 201) {
+            observer.next(xhr.response);
+            observer.complete();
+          } else {
+            observer.error(xhr.response);
+          }
+        }
+      };
+
+      const token = this.storageService.getItem(AUTH_TOKEN);
+
+      xhr.open('DELETE', `${environment.uploadUrl}/${key}`, true);
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+      xhr.send();
     });
   }
 }

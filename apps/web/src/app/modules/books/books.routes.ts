@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { AuthGuard, RolesGuard } from '@bookapp-angular/core';
+import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
 import { EditBookPageComponent } from './containers/edit-book-page/edit-book-page.component';
@@ -10,6 +10,7 @@ export const routes: Routes = [
     path: 'add',
     component: AddBookPageComponent,
     canActivate: [AuthGuard, RolesGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       roles: ['admin']
     }
@@ -18,6 +19,7 @@ export const routes: Routes = [
     path: 'edit/:author/:slug',
     component: EditBookPageComponent,
     canActivate: [AuthGuard, RolesGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       roles: ['admin']
     }

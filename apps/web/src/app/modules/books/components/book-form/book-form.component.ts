@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
@@ -9,6 +10,7 @@ import { Book } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService, FormBaseComponent } from '@bookapp-angular/core';
 import { FileSelectorComponent } from '@web/ui/file-selector';
 import { ImageSelectorComponent } from '@web/ui/image-selector';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: 'ba-book-form',
@@ -22,11 +24,13 @@ export class BookFormComponent extends FormBaseComponent
   @Output() onFormSubmit = new EventEmitter<Book>();
 
   private onDestroy = new Subject();
+  private initialFormValue: any;
 
   constructor(
     protected feedbackService: FeedbackPlatformService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) {
     super();
   }
@@ -47,15 +51,23 @@ export class BookFormComponent extends FormBaseComponent
     this.initForm();
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   showCoverSelector() {
     const dialogRef = this.dialog.open(ImageSelectorComponent, {
       width: '300px',
       data: { maintainAspectRatio: false }
     });
 
-    dialogRef.afterClosed().subscribe(cover => {
-      if (cover) {
-        console.log(cover);
+    dialogRef.afterClosed().subscribe(coverUrl => {
+      if (coverUrl) {
+        this.form.patchValue(
+          { coverUrl },
+          { onlySelf: true, emitEvent: false }
+        );
+        console.log(coverUrl);
       }
     });
   }
@@ -65,9 +77,10 @@ export class BookFormComponent extends FormBaseComponent
       width: '300px'
     });
 
-    dialogRef.afterClosed().subscribe(epub => {
-      if (epub) {
-        console.log(epub);
+    dialogRef.afterClosed().subscribe(epubUrl => {
+      if (epubUrl) {
+        this.form.patchValue({ epubUrl }, { onlySelf: true, emitEvent: false });
+        console.log(epubUrl);
       }
     });
   }
@@ -76,6 +89,10 @@ export class BookFormComponent extends FormBaseComponent
     if (this.form.valid) {
       this.onFormSubmit.emit(this.form.value);
     }
+  }
+
+  hasChanges() {
+    return !isEqual(this.form.value, this.initialFormValue);
   }
 
   ngOnDestroy() {
@@ -96,8 +113,8 @@ export class BookFormComponent extends FormBaseComponent
       epubUrl: [(this.book && this.book.epubUrl) || null]
     });
 
+    this.initialFormValue = Object.assign({}, this.form.value);
     this.togglePriceField(this.form.get('price').value);
-
     this.form
       .get('paid')
       .valueChanges.pipe(takeUntil(this.onDestroy))
