@@ -1,7 +1,8 @@
-<div class="book-form">
+<div *ngIf="form"
+     class="book-form">
   <div class="cover">
     <mat-card>
-      <img [src]="'/assets/images/add-photo.svg'"
+      <img [src]="coverUrl || '/assets/images/add-photo.svg'"
            alt="cover">
     </mat-card>
     <button type="button"
@@ -10,26 +11,31 @@
             (click)="showCoverSelector()">Change Cover
     </button>
   </div>
-  <form [formGroup]="form"
-        class="form">
+  <form id="bookForm"
+        [formGroup]="form"
+        class="form"
+        (submit)="submit()">
     <mat-form-field appearance="outline">
       <mat-label>Title</mat-label>
       <input matInput
-             placeholder="Title">
-      <!-- <mat-error>This field is required</mat-error> -->
+             placeholder="Title"
+             formControlName="title">
+      <mat-error>This field is required</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Author</mat-label>
       <input matInput
-             placeholder="Author">
-      <!-- <mat-error>This field is required</mat-error> -->
+             placeholder="Author"
+             formControlName="author">
+      <mat-error>This field is required</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
       <textarea matInput
                 placeholder="Description"
-                rows="4"></textarea>
-      <!-- <mat-error>This field is required</mat-error> -->
+                rows="4"
+                formControlName="description"></textarea>
+      <mat-error>This field is required</mat-error>
     </mat-form-field>
     <div class="mat-form-field-wrapper epub">
       <button type="button"
@@ -37,17 +43,20 @@
               color="primary"
               (click)="showFileSelector()">CHANGE EPUB
       </button>
+      <a *ngIf="epubUrl"
+         [href]="epubUrl">Download</a>
     </div>
     <div class="mat-form-field-wrapper">
-      <mat-checkbox>Paid</mat-checkbox>
+      <mat-checkbox formControlName="paid">Paid</mat-checkbox>
     </div>
-    <mat-form-field appearance="outline"
+    <mat-form-field *ngIf="isPaid" appearance="outline"
                     class="price">
       <mat-label>Price</mat-label>
       <input type="number"
              matInput
-             placeholder="Price">
-      <!-- <mat-error>This field is required</mat-error> -->
+             placeholder="Price"
+             formControlName="price">
+      <mat-error>This field is required</mat-error>
     </mat-form-field>
     <mat-card-actions>
       <button type="button"
@@ -56,6 +65,7 @@
               (click)="goBack()">CANCEL
       </button>
       <button type="submit"
+              form="bookForm"
               mat-raised-button
               color="accent"
               [disabled]="loading">SAVE

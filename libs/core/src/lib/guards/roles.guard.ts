@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { UserSelfResponse } from '@bookapp-angular/auth-core';
 import { ME_QUERY } from '@bookapp-angular/graphql/src/lib/queries';
@@ -27,7 +27,6 @@ export class RolesGuard implements CanActivate {
       })
       .pipe(
         map(res => res.data.me),
-        filter(user => !!user),
         map(user => {
           const roles = route.data['roles'];
 
