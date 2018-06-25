@@ -8,6 +8,7 @@
     <button type="button"
             mat-raised-button
             color="primary"
+            [disabled]="loading"
             (click)="showCoverSelector()">Change Cover
     </button>
   </div>
@@ -41,6 +42,7 @@
       <button type="button"
               mat-raised-button
               color="primary"
+              [disabled]="loading"
               (click)="showFileSelector()">CHANGE EPUB
       </button>
       <a *ngIf="epubUrl"

@@ -1,13 +1,22 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
-import { Subject } from 'rxjs';
+import { forkJoin, of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Book } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService, FormBaseComponent } from '@bookapp-angular/core';
+import { UploadService } from '@web/modules/core/services';
 import { FileSelectorComponent } from '@web/ui/file-selector';
 import { ImageSelectorComponent } from '@web/ui/image-selector';
 import { isEqual } from 'lodash';
@@ -16,13 +25,33 @@ import { isEqual } from 'lodash';
   selector: 'ba-book-form',
   templateUrl: './book-form.component.html',
   styleUrls: ['./book-form.component.scss'],
+  providers: [UploadService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookFormComponent extends FormBaseComponent
-  implements OnInit, OnDestroy {
-  @Input() book: Book;
+export class BookFormComponent extends FormBaseComponent implements OnDestroy {
+  @Input() loading: boolean;
+  @Input()
+  set book(value: Book) {
+    this.initForm();
+
+    if (value) {
+      this._book = value;
+    }
+  }
+  get book(): Book {
+    return this._book;
+  }
+
+  @Input()
+  set error(value: any) {
+    if (value) {
+      this.handleError(value);
+    }
+  }
+
   @Output() onFormSubmit = new EventEmitter<Book>();
 
+  private _book: Book;
   private onDestroy = new Subject();
   private initialFormValue: any;
 
@@ -30,7 +59,9 @@ export class BookFormComponent extends FormBaseComponent
     protected feedbackService: FeedbackPlatformService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private location: Location
+    private location: Location,
+    private uploadService: UploadService,
+    private cdr: ChangeDetectorRef
   ) {
     super();
   }
@@ -45,10 +76,6 @@ export class BookFormComponent extends FormBaseComponent
 
   get isPaid(): boolean {
     return this.form.get('paid').value;
-  }
-
-  ngOnInit() {
-    this.initForm();
   }
 
   goBack() {
@@ -67,7 +94,7 @@ export class BookFormComponent extends FormBaseComponent
           { coverUrl },
           { onlySelf: true, emitEvent: false }
         );
-        console.log(coverUrl);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -80,7 +107,7 @@ export class BookFormComponent extends FormBaseComponent
     dialogRef.afterClosed().subscribe(epubUrl => {
       if (epubUrl) {
         this.form.patchValue({ epubUrl }, { onlySelf: true, emitEvent: false });
-        console.log(epubUrl);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -93,6 +120,30 @@ export class BookFormComponent extends FormBaseComponent
 
   hasChanges() {
     return !isEqual(this.form.value, this.initialFormValue);
+  }
+
+  removeUploadedFiles() {
+    const observables = [];
+
+    if (this.form.value.coverUrl !== this.initialFormValue.coverUrl) {
+      const splitted = this.form.value.coverUrl.split('/'); // take last part of uri as a key
+      observables.push(
+        this.uploadService.deleteFile(splitted[splitted.length - 1])
+      );
+    }
+
+    if (this.form.value.epubUrl !== this.initialFormValue.epubUrl) {
+      const splitted = this.form.value.epubUrl.split('/'); // take last part of uri as a key
+      observables.push(
+        this.uploadService.deleteFile(splitted[splitted.length - 1])
+      );
+    }
+
+    if (observables.length) {
+      return forkJoin(observables);
+    }
+
+    return of(null);
   }
 
   ngOnDestroy() {
@@ -113,8 +164,8 @@ export class BookFormComponent extends FormBaseComponent
       epubUrl: [(this.book && this.book.epubUrl) || null]
     });
 
-    this.initialFormValue = Object.assign({}, this.form.value);
     this.togglePriceField(this.form.get('price').value);
+    this.initialFormValue = Object.assign({}, this.form.value);
     this.form
       .get('paid')
       .valueChanges.pipe(takeUntil(this.onDestroy))

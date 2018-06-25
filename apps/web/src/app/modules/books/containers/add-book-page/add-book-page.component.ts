@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { Book } from '@bookapp-angular/books-core';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
+
+import { Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+
+import { Book, BookService } from '@bookapp-angular/books-core';
+import { FeedbackPlatformService } from '@bookapp-angular/core/src';
 import { BookFormComponent } from '@web/modules/books/components/book-form/book-form.component';
 import { ConfirmDialogComponent } from '@web/ui/dialogs';
 
@@ -11,27 +14,64 @@ import { ConfirmDialogComponent } from '@web/ui/dialogs';
   styleUrls: ['./add-book-page.component.scss']
 })
 export class AddBookPageComponent implements OnInit {
+  isLoading: boolean;
+  book: Book;
+  error: any;
+
   @ViewChild(BookFormComponent) private bookFormComponent: BookFormComponent;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    protected feedbackService: FeedbackPlatformService,
+    private dialog: MatDialog,
+    private bookService: BookService
+  ) {}
 
   ngOnInit() {}
 
   save(event: Book) {
-    console.log(event);
+    this.isLoading = true;
+    this.bookService
+      .create(event)
+      .pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        res => {
+          this.book = res;
+          this.feedbackService.success('Book created!');
+        },
+        err => {
+          this.isLoading = false;
+          this.error = err;
+        }
+      );
   }
 
   canDeactivate(): Observable<boolean> | boolean {
     if (this.bookFormComponent.hasChanges()) {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '300px',
-        data: { text: 'There are unsaved changes on the page. Are you sure you want to leave?' }
+        data: {
+          text:
+            'There are unsaved changes on the page. Are you sure you want to leave?'
+        }
       });
 
-      return dialogRef.afterClosed();
+      return dialogRef.afterClosed().pipe(
+        switchMap(result => {
+          if (result) {
+            return this.bookFormComponent
+              .removeUploadedFiles()
+              .pipe(switchMap(() => of(true)));
+          }
+
+          return of(false);
+        })
+      );
     } else {
       return true;
     }
   }
-
 }

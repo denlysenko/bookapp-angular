@@ -17,3 +17,7 @@ export interface Book {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface CreateBookResponse {
+  createBook: Book;
+}

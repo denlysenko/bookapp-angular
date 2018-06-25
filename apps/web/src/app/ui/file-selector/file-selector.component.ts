@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 import { FileSelectorBaseComponent } from '@web/modules/core/base';
@@ -10,8 +10,7 @@ import { UploadService } from '@web/modules/core/services';
   styleUrls: ['./file-selector.component.scss'],
   providers: [UploadService]
 })
-export class FileSelectorComponent extends FileSelectorBaseComponent
-  implements OnInit {
+export class FileSelectorComponent extends FileSelectorBaseComponent {
   constructor(
     protected uploadService: UploadService,
     private dialogRef: MatDialogRef<FileSelectorComponent>
@@ -19,5 +18,13 @@ export class FileSelectorComponent extends FileSelectorBaseComponent
     super();
   }
 
-  ngOnInit() {}
+  save() {
+    if (!this.imageChangedEvent) {
+      return;
+    }
+
+    this.upload(this.imageChangedEvent.target.files[0]).subscribe(res => {
+      this.dialogRef.close(res.Location);
+    }, () => (this.imageChangedEvent = null));
+  }
 }

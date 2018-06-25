@@ -2,7 +2,9 @@
   <mat-card>
     <mat-card-title>Add a Book</mat-card-title>
     <mat-card-content>
-      <ba-book-form (onFormSubmit)="save($event)"></ba-book-form>
+      <ba-book-form [book]="book"
+                    [loading]="isLoading"
+                    (onFormSubmit)="save($event)"></ba-book-form>
     </mat-card-content>
   </mat-card>
 </div>
