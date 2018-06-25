@@ -4,6 +4,7 @@
     <mat-card-content>
       <ba-book-form [book]="book"
                     [loading]="isLoading"
+                    [error]="error"
                     (onFormSubmit)="save($event)"></ba-book-form>
     </mat-card-content>
   </mat-card>

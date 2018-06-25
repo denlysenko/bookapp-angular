@@ -18,7 +18,6 @@ export class BookService {
         variables: {
           book
         }
-      })
-      .pipe(map(res => res.data.createBook));
+      });
   }
 }

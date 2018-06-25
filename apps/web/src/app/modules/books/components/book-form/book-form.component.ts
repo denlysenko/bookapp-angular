@@ -32,11 +32,10 @@ export class BookFormComponent extends FormBaseComponent implements OnDestroy {
   @Input() loading: boolean;
   @Input()
   set book(value: Book) {
-    this.initForm();
-
     if (value) {
       this._book = value;
     }
+    this.initForm();
   }
   get book(): Book {
     return this._book;

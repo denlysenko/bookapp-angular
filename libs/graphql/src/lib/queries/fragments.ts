@@ -15,3 +15,16 @@ export const ProfileFragment = gql`
     }
   }
 `;
+
+export const CreatedBookFragment = gql`
+  fragment CreatedBook on Book {
+    id
+    title
+    author
+    description
+    coverUrl
+    epubUrl
+    paid
+    price
+  }
+`;

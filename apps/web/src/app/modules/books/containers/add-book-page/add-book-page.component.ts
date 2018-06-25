@@ -6,7 +6,7 @@ import { switchMap, tap } from 'rxjs/operators';
 
 import { Book, BookService } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService } from '@bookapp-angular/core/src';
-import { BookFormComponent } from '@web/modules/books/components/book-form/book-form.component';
+import { BookFormComponent } from '../../components/book-form/book-form.component';
 import { ConfirmDialogComponent } from '@web/ui/dialogs';
 
 @Component({
@@ -38,9 +38,15 @@ export class AddBookPageComponent implements OnInit {
         })
       )
       .subscribe(
-        res => {
-          this.book = res;
-          this.feedbackService.success('Book created!');
+        ({ data, errors }) => {
+          if (data) {
+            this.book = data.createBook;
+            this.feedbackService.success('Book created!');
+          }
+
+          if (errors) {
+            this.error = errors[errors.length - 1];
+          }
         },
         err => {
           this.isLoading = false;
