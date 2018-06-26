@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { Book, BookService } from '@bookapp-angular/books-core';
 import { FeedbackPlatformService } from '@bookapp-angular/core/src';
-import { BookFormComponent } from '../../components/book-form/book-form.component';
 import { ConfirmDialogComponent } from '@web/ui/dialogs';
+
+import { BookFormComponent } from '../../components/book-form/book-form.component';
 
 @Component({
   templateUrl: './add-book-page.component.html',
@@ -23,10 +25,13 @@ export class AddBookPageComponent implements OnInit {
   constructor(
     protected feedbackService: FeedbackPlatformService,
     private dialog: MatDialog,
-    private bookService: BookService
+    private bookService: BookService,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.book = this.route.snapshot.data.book;
+  }
 
   save(event: Book) {
     this.isLoading = true;

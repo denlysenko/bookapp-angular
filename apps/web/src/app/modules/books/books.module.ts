@@ -13,6 +13,7 @@ import { ImageSelectorComponent, ImageSelectorModule } from '@web/ui/image-selec
 import { routes } from './books.routes';
 import { components } from './components';
 import { containers } from './containers';
+import { EditBookResolver } from './services/edit-book.resolver';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { containers } from './containers';
     DialogsModule
   ],
   declarations: [...containers, ...components],
-  providers: [RolesGuard, CanDeactivateGuard],
+  providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,
     FileSelectorComponent,

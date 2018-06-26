@@ -10,3 +10,12 @@ export const CREATE_BOOK_MUTATION = gql`
   }
   ${CreatedBookFragment}
 `;
+
+export const BOOK_FOR_EDIT_QUERY = gql`
+  query($slug: String!) {
+    book(slug: $slug) {
+      ...CreatedBook
+    }
+  }
+  ${CreatedBookFragment}
+`;

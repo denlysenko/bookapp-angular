@@ -21,3 +21,7 @@ export interface Book {
 export interface CreateBookResponse {
   createBook: Book;
 }
+
+export interface BookResponse {
+  book: Book;
+}
