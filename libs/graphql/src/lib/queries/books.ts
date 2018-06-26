@@ -11,6 +11,15 @@ export const CREATE_BOOK_MUTATION = gql`
   ${CreatedBookFragment}
 `;
 
+export const UPDATE_BOOK_MUTATION = gql`
+  mutation($id: ID!, $book: BookInput!) {
+    updateBook(id: $id, book: $book) {
+      ...CreatedBook
+    }
+  }
+  ${CreatedBookFragment}
+`;
+
 export const BOOK_FOR_EDIT_QUERY = gql`
   query($slug: String!) {
     book(slug: $slug) {

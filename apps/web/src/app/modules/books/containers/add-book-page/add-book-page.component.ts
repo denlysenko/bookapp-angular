@@ -33,31 +33,9 @@ export class AddBookPageComponent implements OnInit {
     this.book = this.route.snapshot.data.book;
   }
 
-  save(event: Book) {
-    this.isLoading = true;
-    this.bookService
-      .create(event)
-      .pipe(
-        tap(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        ({ data, errors }) => {
-          if (data) {
-            this.book = data.createBook;
-            this.feedbackService.success('Book created!');
-          }
-
-          if (errors) {
-            this.error = errors[errors.length - 1];
-          }
-        },
-        err => {
-          this.isLoading = false;
-          this.error = err;
-        }
-      );
+  save(book: Book) {
+    const { id, ...rest } = book;
+    return id ? this.update(id, rest) : this.create(rest);
   }
 
   canDeactivate(): Observable<boolean> | boolean {
@@ -84,5 +62,59 @@ export class AddBookPageComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  private create(book: Book) {
+    this.isLoading = true;
+    this.bookService
+      .create(book)
+      .pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        ({ data, errors }) => {
+          if (data) {
+            this.book = data.createBook;
+            this.feedbackService.success('Book created!');
+          }
+
+          if (errors) {
+            this.error = errors[errors.length - 1];
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.error = err;
+        }
+      );
+  }
+
+  private update(id: string, book: Book) {
+    this.isLoading = true;
+    this.bookService
+      .update(id, book)
+      .pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        ({ data, errors }) => {
+          if (data) {
+            this.book = data.updateBook;
+            this.feedbackService.success('Book updated!');
+          }
+
+          if (errors) {
+            this.error = errors[errors.length - 1];
+          }
+        },
+        err => {
+          this.isLoading = false;
+          this.error = err;
+        }
+      );
   }
 }

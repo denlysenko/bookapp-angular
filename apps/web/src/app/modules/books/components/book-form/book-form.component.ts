@@ -151,6 +151,7 @@ export class BookFormComponent extends FormBaseComponent implements OnDestroy {
 
   private initForm() {
     this.form = this.fb.group({
+      id: [(this.book && this.book.id) || null],
       title: [(this.book && this.book.title) || null, Validators.required],
       author: [(this.book && this.book.author) || null, Validators.required],
       description: [

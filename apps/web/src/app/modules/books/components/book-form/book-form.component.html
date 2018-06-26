@@ -46,12 +46,15 @@
               (click)="showFileSelector()">CHANGE EPUB
       </button>
       <a *ngIf="epubUrl"
-         [href]="epubUrl">Download</a>
+         [href]="epubUrl"
+         mat-button
+         target="_blank">DOWNLOAD</a>
     </div>
     <div class="mat-form-field-wrapper">
       <mat-checkbox formControlName="paid">Paid</mat-checkbox>
     </div>
-    <mat-form-field *ngIf="isPaid" appearance="outline"
+    <mat-form-field *ngIf="isPaid"
+                    appearance="outline"
                     class="price">
       <mat-label>Price</mat-label>
       <input type="number"
