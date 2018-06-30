@@ -3,6 +3,8 @@
     <span>Browse Free Books</span>
   </mat-toolbar-row>
   <mat-toolbar-row class="mobile-height-auto">
-    <ba-book-filter></ba-book-filter>
+    <ba-book-filter [filter]="filter"
+                    (onSort)="sort($event)"
+                    (onSearch)="search($event)"></ba-book-filter>
   </mat-toolbar-row>
 </mat-toolbar>
