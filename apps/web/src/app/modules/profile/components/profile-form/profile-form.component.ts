@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -28,14 +27,9 @@ export class ProfileFormComponent extends ProfileFormBaseComponent {
 
   constructor(
     private fb: FormBuilder,
-    protected feedbackService: FeedbackPlatformService,
-    private location: Location
+    protected feedbackService: FeedbackPlatformService
   ) {
     super();
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   submit() {

@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -15,8 +14,7 @@ export class PasswordFormComponent extends PasswordFormBaseComponent
   implements OnInit {
   constructor(
     protected feedbackService: FeedbackPlatformService,
-    private fb: FormBuilder,
-    private location: Location
+    private fb: FormBuilder
   ) {
     super();
   }
@@ -29,10 +27,6 @@ export class PasswordFormComponent extends PasswordFormBaseComponent
     if (this.form.valid) {
       this.onFormSubmit.emit(this.form.value);
     }
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   private initForm() {

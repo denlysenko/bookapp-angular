@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -58,7 +57,6 @@ export class BookFormComponent extends FormBaseComponent implements OnDestroy {
     protected feedbackService: FeedbackPlatformService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private location: Location,
     private uploadService: UploadService,
     private cdr: ChangeDetectorRef
   ) {
@@ -75,10 +73,6 @@ export class BookFormComponent extends FormBaseComponent implements OnDestroy {
 
   get isPaid(): boolean {
     return this.form.get('paid').value;
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   showCoverSelector() {
