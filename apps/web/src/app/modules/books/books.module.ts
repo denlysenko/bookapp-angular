@@ -1,7 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatToolbarModule,
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { BooksCoreModule } from '@bookapp-angular/books-core';
@@ -15,6 +24,7 @@ import { routes } from './books.routes';
 import { components } from './components';
 import { containers } from './containers';
 import { EditBookResolver } from './services/edit-book.resolver';
+import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
 
 @NgModule({
   imports: [
@@ -28,12 +38,15 @@ import { EditBookResolver } from './services/edit-book.resolver';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonToggleModule,
+    MatIconModule,
     ImageSelectorModule,
     FileSelectorModule,
     DialogsModule,
     RatingModule
   ],
-  declarations: [...containers, ...components],
+  declarations: [...containers, ...components, BuyBooksPageComponent],
   providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,

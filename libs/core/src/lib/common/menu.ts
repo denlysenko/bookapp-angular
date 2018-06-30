@@ -13,12 +13,12 @@ export const navs: MenuItem[] = [
   },
   {
     label: 'Browse Books',
-    path: 'browse',
+    path: 'books/browse',
     icon: 'language'
   },
   {
     label: 'Buy Books',
-    path: 'buy',
+    path: 'books/buy',
     icon: 'shopping_cart'
   },
   {

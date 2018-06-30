@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
+import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
+import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
 import { EditBookResolver } from './services/edit-book.resolver';
 
 export const routes: Routes = [
@@ -26,6 +28,16 @@ export const routes: Routes = [
     data: {
       roles: ['admin']
     }
+  },
+  {
+    path: 'browse',
+    component: BrowseBooksPageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'buy',
+    component: BuyBooksPageComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -36,18 +48,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'browse',
-    component: BrowseBooksComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'browse/:author/:slug',
     component: BookDetailsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'buy',
-    component: BrowseBooksComponent,
     canActivate: [AuthGuard]
   },
   {
