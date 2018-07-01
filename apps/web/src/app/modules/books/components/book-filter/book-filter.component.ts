@@ -19,8 +19,8 @@ export class BookFilterComponent extends BaseComponent implements OnInit {
 
   @Input()
   set filter(value: BookFilter) {
-    if (value && value.search) {
-      this.searchQuery.setValue(value.search, { emitEvent: false });
+    if (value && value.searchQuery) {
+      this.searchQuery.setValue(value.searchQuery, { emitEvent: false });
     }
 
     if (value && value.sortValue) {

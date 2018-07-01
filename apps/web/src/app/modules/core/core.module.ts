@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import {
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-  MatSnackBarModule
-} from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,7 +9,8 @@ import {
   AuthGuard,
   FeedbackPlatformService,
   RouterExtensions,
-  StoragePlatformService
+  StoragePlatformService,
+  StoreService,
 } from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
 
@@ -31,6 +29,7 @@ import { StorageService } from './services/storage.service';
   providers: [
     RouterExtensions,
     AuthGuard,
+    StoreService,
     {
       provide: StoragePlatformService,
       useClass: StorageService
