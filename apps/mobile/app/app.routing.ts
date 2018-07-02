@@ -10,7 +10,14 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'books',
+        loadChildren: '~/modules/books/books.module#BooksModule',
+        canLoad: [AuthGuard]
+      }
+    ]
   },
   {
     path: 'auth',

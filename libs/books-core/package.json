@@ -1,5 +1,5 @@
 {
-  "name": "books-core",
+  "name": "@bookapp-angular/books-core",
   "version": "1.0.0",
   "main": "src/index"
 }

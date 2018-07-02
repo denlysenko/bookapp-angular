@@ -60,7 +60,7 @@ export class LayoutComponent extends BaseComponent
         `);
     }
     this._sideDrawerTransition = new SlideInOnTopTransition();
-    this.selectedPage = this.navItems[1].label; // pick 'browse' nav item for now, later will be taking from activated
+
     this.apollo
       .watchQuery<UserSelfResponse>({
         query: ME_QUERY
@@ -70,6 +70,7 @@ export class LayoutComponent extends BaseComponent
         ({ data, errors }) => {
           if (data) {
             this.user = data.me;
+            this.selectPageAndNavigate(this.navItems[1]);
           }
 
           if (errors) {
