@@ -8,7 +8,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 
 import { routes } from './books.routing';
 import { components } from './components';
-import { BookFilterComponent } from './components/book-filter/book-filter.component';
+import { BookSearchComponent } from './components/book-search/book-search.component';
 import { containers } from './containers';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { containers } from './containers';
     BooksCoreModule.forRoot()
   ],
   declarations: [...containers, ...components],
-  entryComponents: [BookFilterComponent],
+  entryComponents: [BookSearchComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class BooksModule {}

@@ -1,3 +1,3 @@
-import { BookFilterComponent } from './book-filter/book-filter.component';
+import { BookSearchComponent } from './book-search/book-search.component';
 
-export const components: any[] = [BookFilterComponent];
+export const components: any[] = [BookSearchComponent];

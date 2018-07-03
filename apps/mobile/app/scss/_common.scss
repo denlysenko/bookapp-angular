@@ -43,3 +43,13 @@ Page {
   background-color: white;
   color: rgba(0, 0, 0, 0.87);
 }
+
+.segmented-bar {
+  selected-background-color: $primary-color;
+  color: $primary-color;
+  background-color: $white;
+}
+
+Button {
+  color: $primary-color;
+}
