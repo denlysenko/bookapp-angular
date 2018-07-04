@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookFilter } from '@bookapp-angular/books-core';
 import { StoreService } from '@bookapp-angular/core';
 
-const FILTER_KEY = location.pathname;
+const FILTER_KEY = 'BROWSE_BOOKS';
 
 @Component({
   templateUrl: './browse-books-page.component.html',

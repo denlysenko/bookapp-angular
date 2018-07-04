@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { AuthGuard, FeedbackPlatformService, RouterExtensions, StoragePlatformService } from '@bookapp-angular/core';
+import {
+  AuthGuard,
+  FeedbackPlatformService,
+  RouterExtensions,
+  StoragePlatformService,
+  StoreService,
+} from '@bookapp-angular/core';
 import { GraphQLModule } from '@bookapp-angular/graphql';
 import { NativeScriptAnimationsModule } from 'nativescript-angular/animations';
 import { registerElement } from 'nativescript-angular/element-registry';
@@ -31,6 +37,7 @@ registerElement(
   ],
   providers: [
     AuthGuard,
+    StoreService,
     {
       provide: StoragePlatformService,
       useClass: StorageService

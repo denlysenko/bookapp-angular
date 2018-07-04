@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
+import { StoreService } from '@bookapp-angular/core';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
 
 import { BookSearchComponent } from '../../components/book-search/book-search.component';
+
+const FILTER_KEY = 'BROWSE_BOOKS';
 
 @Component({
   moduleId: module.id,
@@ -32,15 +35,24 @@ export class BrowseBooksPageComponent implements OnInit {
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private modalService: ModalDialogService
+    private modalService: ModalDialogService,
+    private storeService: StoreService
   ) {
     this.sortItems = this.genSortItems();
-    this.selectedOption = 0; // TODO get from filter storage
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const filter = this.storeService.get(FILTER_KEY);
+    if (filter) {
+      const { sortValue } = filter;
+      const idx = this.sortOptions.findIndex(opt => opt.value === sortValue);
+      this.selectedOption = idx !== -1 ? idx : 0;
+    } else {
+      this.selectedOption = 0;
+    }
+  }
 
-  async onFilterButtonTap() {
+  async onSearchButtonTap() {
     const options: ModalDialogOptions = {
       context: {},
       fullscreen: true,
@@ -60,7 +72,13 @@ export class BrowseBooksPageComponent implements OnInit {
 
   onSelectedIndexChange(args) {
     this.selectedOption = args.object.selectedIndex;
-    console.log(this.sortOptions[this.selectedOption].value);
+    const { value } = this.sortOptions[this.selectedOption];
+
+    this.storeService.set(FILTER_KEY, {
+      sortValue: value
+    });
+
+    console.log(value);
   }
 
   private genSortItems(): SegmentedBarItem[] {
