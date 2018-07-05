@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { CreatedBookFragment } from './fragments';
+import { CreatedBookFragment, FreeBooksFragment, PaidBooksFragment } from './fragments';
 
 export const CREATE_BOOK_MUTATION = gql`
   mutation($book: BookInput!) {
@@ -27,4 +27,38 @@ export const BOOK_FOR_EDIT_QUERY = gql`
     }
   }
   ${CreatedBookFragment}
+`;
+
+export const FREE_BOOKS_QUERY = gql`
+  query(
+    $filter: FilterInput
+    $skip: Int
+    $first: Int
+    $orderBy: BookOrderByInput
+  ) {
+    books(filter: $filter, skip: $skip, first: $first, orderBy: $orderBy) {
+      count
+      rows {
+        ...FreeBooksFragment
+      }
+    }
+  }
+  ${FreeBooksFragment}
+`;
+
+export const PAID_BOOKS_QUERY = gql`
+  query(
+    $filter: FilterInput
+    $skip: Int
+    $first: Int
+    $orderBy: BookOrderByInput
+  ) {
+    books(filter: $filter, skip: $skip, first: $first, orderBy: $orderBy) {
+      count
+      rows {
+        ...PaidBooksFragment
+      }
+    }
+  }
+  ${PaidBooksFragment}
 `;

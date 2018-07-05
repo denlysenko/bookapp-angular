@@ -28,3 +28,26 @@ export const CreatedBookFragment = gql`
     price
   }
 `;
+
+export const FreeBooksFragment = gql`
+  fragment FreeBooks on Book {
+    id
+    title
+    author
+    coverUrl
+    url
+    rating
+  }
+`;
+
+export const PaidBooksFragment = gql`
+  fragment PaidBooks on Book {
+    id
+    title
+    author
+    coverUrl
+    url
+    rating
+    price
+  }
+`;
