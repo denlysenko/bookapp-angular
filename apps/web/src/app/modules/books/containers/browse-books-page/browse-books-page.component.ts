@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BookFilter } from '@bookapp-angular/books-core';
+import { Book, BookFilter, BookRateEvent } from '@bookapp-angular/books-core';
 import { StoreService } from '@bookapp-angular/core';
 
 const FILTER_KEY = 'BROWSE_BOOKS';
@@ -11,6 +11,7 @@ const FILTER_KEY = 'BROWSE_BOOKS';
 })
 export class BrowseBooksPageComponent implements OnInit {
   filter: BookFilter;
+  books: Book[];
 
   constructor(private storeService: StoreService) {}
 
@@ -37,5 +38,9 @@ export class BrowseBooksPageComponent implements OnInit {
     });
 
     console.log(searchQuery);
+  }
+
+  rate(event: BookRateEvent) {
+    console.log(event);
   }
 }

@@ -23,8 +23,7 @@ import { RatingModule } from '@web/ui/rating/rating.module';
 import { routes } from './books.routes';
 import { components } from './components';
 import { containers } from './containers';
-import { EditBookResolver } from './services/edit-book.resolver';
-import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
+import { EditBookResolver } from './resolvers/edit-book.resolver';
 
 @NgModule({
   imports: [
@@ -46,7 +45,7 @@ import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-pag
     DialogsModule,
     RatingModule
   ],
-  declarations: [...containers, ...components, BuyBooksPageComponent],
+  declarations: [...containers, ...components],
   providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,

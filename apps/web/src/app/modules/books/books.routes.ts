@@ -5,7 +5,7 @@ import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
 import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
 import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
-import { EditBookResolver } from './services/edit-book.resolver';
+import { EditBookResolver } from './resolvers/edit-book.resolver';
 
 export const routes: Routes = [
   {
