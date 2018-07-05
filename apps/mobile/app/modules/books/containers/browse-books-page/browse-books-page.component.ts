@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
-import { StoreService } from '@bookapp-angular/core';
+import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
 
 import { BookSearchComponent } from '../../components/book-search/book-search.component';
-
-const FILTER_KEY = 'BROWSE_BOOKS';
 
 @Component({
   moduleId: module.id,
@@ -42,7 +40,7 @@ export class BrowseBooksPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const filter = this.storeService.get(FILTER_KEY);
+    const filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS);
     if (filter) {
       const { sortValue } = filter;
       const idx = this.sortOptions.findIndex(opt => opt.value === sortValue);
@@ -74,7 +72,7 @@ export class BrowseBooksPageComponent implements OnInit {
     this.selectedOption = args.object.selectedIndex;
     const { value } = this.sortOptions[this.selectedOption];
 
-    this.storeService.set(FILTER_KEY, {
+    this.storeService.set(FILTER_KEYS.BROWSE_BOOKS, {
       sortValue: value
     });
 

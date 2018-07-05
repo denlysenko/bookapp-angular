@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { BrowseBooksResolver, BuyBooksResolver } from '@bookapp-angular/books-core';
 import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
@@ -32,12 +33,18 @@ export const routes: Routes = [
   {
     path: 'browse',
     component: BrowseBooksPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: {
+      books: BrowseBooksResolver
+    }
   },
   {
     path: 'buy',
     component: BuyBooksPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: {
+      books: BuyBooksResolver
+    }
   }
 ];
 

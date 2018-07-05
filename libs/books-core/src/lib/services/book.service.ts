@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { CREATE_BOOK_MUTATION, UPDATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
+import { map } from 'rxjs/operators';
+
+import { LIMIT } from '@bookapp-angular/core';
+import { CREATE_BOOK_MUTATION, FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, UPDATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
-import { Book, CreateBookResponse } from '../models/book.model';
+import { BookFilterInput } from '../models/book-filter.model';
+import { Book, BooksResponse, CreateBookResponse } from '../models/book.model';
 
 @Injectable()
 export class BookService {
@@ -26,5 +30,19 @@ export class BookService {
         book
       }
     });
+  }
+
+  getBooks(filter: BookFilterInput, skip = 0, first = LIMIT, orderBy = '') {
+    return this.apollo
+      .query<BooksResponse>({
+        query: filter.paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
+        variables: {
+          filter,
+          skip,
+          first,
+          orderBy
+        }
+      })
+      .pipe(map(res => res.data.books));
   }
 }

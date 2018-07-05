@@ -12,7 +12,7 @@ import { Apollo } from 'apollo-angular';
 export class EditBookResolver implements Resolve<Book> {
   constructor(private apollo: Apollo) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot): Observable<Book> {
     const slug = route.paramMap.get('slug');
     return this.apollo
       .query<BookResponse>({

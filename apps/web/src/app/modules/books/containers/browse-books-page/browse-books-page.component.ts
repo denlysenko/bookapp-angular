@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { Book, BookFilter, BookRateEvent } from '@bookapp-angular/books-core';
-import { StoreService } from '@bookapp-angular/core';
-
-const FILTER_KEY = 'BROWSE_BOOKS';
+import { Book, BookFilter, BookRateEvent, BookService } from '@bookapp-angular/books-core';
+import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   templateUrl: './browse-books-page.component.html',
@@ -13,17 +13,23 @@ export class BrowseBooksPageComponent implements OnInit {
   filter: BookFilter;
   books: Book[];
 
-  constructor(private storeService: StoreService) {}
+  constructor(
+    private bookService: BookService,
+    private apollo: Apollo,
+    private storeService: StoreService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.filter = this.storeService.get(FILTER_KEY) || {
+    this.books = this.route.snapshot.data.books;
+    this.filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS) || {
       searchQuery: '',
       sortValue: ''
     };
   }
 
   sort(sortValue: string) {
-    this.storeService.set(FILTER_KEY, {
+    this.storeService.set(FILTER_KEYS.BROWSE_BOOKS, {
       ...this.filter,
       sortValue
     });
@@ -32,7 +38,7 @@ export class BrowseBooksPageComponent implements OnInit {
   }
 
   search(searchQuery: string) {
-    this.storeService.set(FILTER_KEY, {
+    this.storeService.set(FILTER_KEYS.BROWSE_BOOKS, {
       ...this.filter,
       searchQuery
     });

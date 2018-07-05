@@ -1,3 +1,5 @@
+import { ListResponse } from '@bookapp-angular/core';
+
 export interface Book {
   id?: string;
   title: string;
@@ -24,4 +26,8 @@ export interface CreateBookResponse {
 
 export interface BookResponse {
   book: Book;
+}
+
+export interface BooksResponse {
+  books: ListResponse<Book[]>;
 }
