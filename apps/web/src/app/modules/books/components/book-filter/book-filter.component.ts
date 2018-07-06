@@ -15,7 +15,7 @@ import { BaseComponent } from '@bookapp-angular/core';
 })
 export class BookFilterComponent extends BaseComponent implements OnInit {
   searchQuery = new FormControl();
-  sortValue = '';
+  sortValue = 'id_desc';
 
   @Input()
   set filter(value: BookFilter) {

@@ -1,28 +1,25 @@
-:host {
-  @media (min-width: 601px) and (max-width: 728px) {
-    flex-basis: 250px;
+.list-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 360px;
+  cursor: pointer;
+
+  /deep/ &.mat-card {
+    padding: 1rem;
   }
 }
 
-.list-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 15px 15px 0;
-  cursor: pointer;
-  position: relative;
-}
-
 .cover {
-  height: 275px;
+  max-width: 200px;
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: 20px;
 
   img {
-    width: 200px;
-    height: 275px;
+    width: 100%;
+    height: auto;
     vertical-align: top;
   }
 }

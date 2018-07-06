@@ -29,12 +29,12 @@ export class BrowseBooksPageComponent implements OnInit {
     this.count = this.route.snapshot.data.books.count;
     this.filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS) || {
       searchQuery: '',
-      sortValue: ''
+      sortValue: 'id_desc'
     };
     this.filterInput = { field: 'title', search: this.filter.searchQuery };
   }
 
-  sort(sortValue: '' | 'views_desc' | 'createdAt_desc') {
+  sort(sortValue: 'id_desc' | 'views_desc' | 'createdAt_desc') {
     this.filter = {
       ...this.filter,
       sortValue
