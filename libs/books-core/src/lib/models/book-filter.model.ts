@@ -4,7 +4,6 @@ export interface BookFilter {
 }
 
 export interface BookFilterInput {
-  paid: boolean;
   field?: string;
   search?: string;
 }

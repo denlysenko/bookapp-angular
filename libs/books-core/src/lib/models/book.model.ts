@@ -29,5 +29,5 @@ export interface BookResponse {
 }
 
 export interface BooksResponse {
-  books: ListResponse<Book[]>;
+  books: ListResponse<Book>;
 }

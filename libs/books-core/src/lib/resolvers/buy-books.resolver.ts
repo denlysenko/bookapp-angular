@@ -9,22 +9,21 @@ import { Book } from '../models/book.model';
 import { BookService } from '../services';
 
 @Injectable()
-export class BuyBooksResolver implements Resolve<ListResponse<Book[]>> {
+export class BuyBooksResolver implements Resolve<ListResponse<Book>> {
   constructor(
     private bookService: BookService,
     private storeService: StoreService
   ) {}
 
-  resolve(): Observable<ListResponse<Book[]>> {
+  resolve(): Observable<ListResponse<Book>> {
     const filter = this.storeService.get(FILTER_KEYS.BUY_BOOKS);
 
     const searchValue = (filter && filter.searchValue) || '';
     const sortValue = (filter && filter.sortValue) || '';
 
     return this.bookService.getBooks(
-      { paid: true, field: 'title', search: searchValue },
-      null,
-      null,
+      true,
+      { field: 'title', search: searchValue },
       sortValue
     );
   }

@@ -32,11 +32,18 @@ export class BookService {
     });
   }
 
-  getBooks(filter: BookFilterInput, skip = 0, first = LIMIT, orderBy = '') {
+  getBooks(
+    paid: boolean,
+    filter: BookFilterInput,
+    orderBy = '',
+    skip = 0,
+    first = LIMIT
+  ) {
     return this.apollo
       .query<BooksResponse>({
-        query: filter.paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
+        query: paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
         variables: {
+          paid,
           filter,
           skip,
           first,

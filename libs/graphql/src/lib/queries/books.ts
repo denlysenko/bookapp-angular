@@ -31,12 +31,19 @@ export const BOOK_FOR_EDIT_QUERY = gql`
 
 export const FREE_BOOKS_QUERY = gql`
   query(
+    $paid: Boolean!
     $filter: FilterInput
     $skip: Int
     $first: Int
     $orderBy: BookOrderByInput
   ) {
-    books(filter: $filter, skip: $skip, first: $first, orderBy: $orderBy) {
+    books(
+      paid: $paid
+      filter: $filter
+      skip: $skip
+      first: $first
+      orderBy: $orderBy
+    ) {
       count
       rows {
         ...FreeBooksFragment
@@ -48,12 +55,19 @@ export const FREE_BOOKS_QUERY = gql`
 
 export const PAID_BOOKS_QUERY = gql`
   query(
+    $paid: Boolean!
     $filter: FilterInput
     $skip: Int
     $first: Int
     $orderBy: BookOrderByInput
   ) {
-    books(filter: $filter, skip: $skip, first: $first, orderBy: $orderBy) {
+    books(
+      paid: $paid
+      filter: $filter
+      skip: $skip
+      first: $first
+      orderBy: $orderBy
+    ) {
       count
       rows {
         ...PaidBooksFragment
