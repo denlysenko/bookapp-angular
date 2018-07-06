@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 
-import { LIMIT } from '@bookapp-angular/core';
+import { DEFAULT_SORT_VALUE, LIMIT } from '@bookapp-angular/core';
 import { CREATE_BOOK_MUTATION, FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, UPDATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
@@ -35,7 +35,7 @@ export class BookService {
   getBooks(
     paid: boolean,
     filter: BookFilterInput,
-    orderBy = '',
+    orderBy = DEFAULT_SORT_VALUE,
     skip = 0,
     first = LIMIT
   ) {

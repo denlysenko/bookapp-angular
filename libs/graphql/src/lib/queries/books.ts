@@ -46,7 +46,7 @@ export const FREE_BOOKS_QUERY = gql`
     ) {
       count
       rows {
-        ...FreeBooksFragment
+        ...FreeBooks
       }
     }
   }
@@ -70,7 +70,7 @@ export const PAID_BOOKS_QUERY = gql`
     ) {
       count
       rows {
-        ...PaidBooksFragment
+        ...PaidBooks
       }
     }
   }

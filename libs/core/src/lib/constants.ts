@@ -5,3 +5,4 @@ export const FILTER_KEYS = {
   BUY_BOOKS: 'BUY_BOOKS'
 };
 export const LIMIT = 10;
+export const DEFAULT_SORT_VALUE = 'createdAt_desc';

@@ -1,0 +1,38 @@
+:host {
+  @media (min-width: 601px) and (max-width: 728px) {
+    flex-basis: 250px;
+  }
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px 15px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.cover {
+  height: 275px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  img {
+    width: 200px;
+    height: 275px;
+    vertical-align: top;
+  }
+}
+
+.title {
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.author {
+  font-size: 12px;
+}

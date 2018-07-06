@@ -1,3 +1,15 @@
-<p>
-  book-list-item works!
-</p>
+<mat-card class="list-item">
+  <div class="cover">
+    <a routerLink="{{ book.paid ? '/buy/' : '/browse/' + book.url }}">
+      <img [src]="book.coverUrl"
+           alt="{{ book.title }}">
+    </a>
+  </div>
+  <a class="title" routerLink="{{ book.paid ? '/buy/' : '/browse/' + book.url }}">
+    {{ book.title }}
+  </a>
+  <span class="author">by {{ book.author }}</span>
+  <div *ngIf="book.paid">{{ book.price | currency:'USD':true }}</div>
+  <ba-rating [ngModel]="book.rating"
+             (ngModelChange)="rate($event)"></ba-rating>
+</mat-card>

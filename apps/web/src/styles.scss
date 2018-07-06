@@ -18,6 +18,10 @@ body {
   font-size: 14px;
 }
 
+a {
+  color: inherit;
+}
+
 // https://github.com/angular/flex-layout/issues/171#issuecomment-353973748
 router-outlet.router-flex + * {
   // display: flex;
