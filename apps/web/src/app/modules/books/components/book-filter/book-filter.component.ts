@@ -5,7 +5,7 @@ import { MatButtonToggleChange } from '@angular/material';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { BookFilter } from '@bookapp-angular/books-core';
-import { BaseComponent } from '@bookapp-angular/core';
+import { BaseComponent, DEFAULT_SORT_VALUE } from '@bookapp-angular/core';
 
 @Component({
   selector: 'ba-book-filter',
@@ -15,7 +15,7 @@ import { BaseComponent } from '@bookapp-angular/core';
 })
 export class BookFilterComponent extends BaseComponent implements OnInit {
   searchQuery = new FormControl();
-  sortValue = 'id_desc';
+  sortValue = DEFAULT_SORT_VALUE;
 
   @Input()
   set filter(value: BookFilter) {

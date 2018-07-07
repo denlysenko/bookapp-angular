@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService } from '@bookapp-angular/books-core';
-import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
+import { DEFAULT_SORT_VALUE, FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { Apollo } from 'apollo-angular';
 
 @Component({
@@ -29,7 +29,7 @@ export class BrowseBooksPageComponent implements OnInit {
     this.count = this.route.snapshot.data.books.count;
     this.filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS) || {
       searchQuery: '',
-      sortValue: 'id_desc'
+      sortValue: DEFAULT_SORT_VALUE
     };
     this.filterInput = { field: 'title', search: this.filter.searchQuery };
   }
