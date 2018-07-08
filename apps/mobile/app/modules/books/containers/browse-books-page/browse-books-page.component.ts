@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Book } from '@bookapp-angular/books-core';
+import { Book, BookService } from '@bookapp-angular/books-core';
 import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
@@ -22,7 +22,7 @@ export class BrowseBooksPageComponent implements OnInit {
 
   private sortOptions = [
     {
-      value: '',
+      value: 'id_desc',
       label: 'All books'
     },
     {
@@ -35,11 +35,14 @@ export class BrowseBooksPageComponent implements OnInit {
     }
   ];
 
+  private skip = 0;
+
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService,
     private storeService: StoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private bookService: BookService
   ) {
     this.sortItems = this.genSortItems();
   }
@@ -61,7 +64,7 @@ export class BrowseBooksPageComponent implements OnInit {
 
   async onSearchButtonTap() {
     const options: ModalDialogOptions = {
-      context: {},
+      context: { paid: false },
       fullscreen: true,
       animated: false,
       viewContainerRef: this.viewContainerRef
@@ -73,6 +76,7 @@ export class BrowseBooksPageComponent implements OnInit {
     );
 
     if (result) {
+      // TODO navigate to BookView page
       console.log(result);
     }
   }
@@ -85,7 +89,11 @@ export class BrowseBooksPageComponent implements OnInit {
       sortValue: value
     });
 
-    console.log(value);
+    this.bookService.getBooks(false, null, value, this.skip).subscribe(res => {
+      // TODO loaderService.stop()
+      this.books = res.rows;
+      this.count = res.count;
+    });
   }
 
   private genSortItems(): SegmentedBarItem[] {
