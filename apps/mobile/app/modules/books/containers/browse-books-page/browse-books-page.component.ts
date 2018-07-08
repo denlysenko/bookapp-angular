@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Book, BookService } from '@bookapp-angular/books-core';
+import { Book, BookRateEvent, BookService } from '@bookapp-angular/books-core';
 import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
@@ -94,6 +94,10 @@ export class BrowseBooksPageComponent implements OnInit {
       this.books = res.rows;
       this.count = res.count;
     });
+  }
+
+  rate(event: BookRateEvent) {
+    console.log(event);
   }
 
   private genSortItems(): SegmentedBarItem[] {

@@ -12,5 +12,6 @@
                 (selectedIndexChange)="onSelectedIndexChange($event)"></SegmentedBar>
 </StackLayout>
 <StackLayout>
-  <ba-book-list [books]="books"></ba-book-list>
+  <ba-book-list [books]="books"
+                (onRate)="rate($event)"></ba-book-list>
 </StackLayout>

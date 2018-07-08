@@ -11,7 +11,8 @@
     <ng-template tkListItemTemplate
                  let-book="item">
       <StackLayout class="list-item">
-        <ba-book-list-item [book]="book"></ba-book-list-item>
+        <ba-book-list-item [book]="book"
+                           (onRate)="rate($event)"></ba-book-list-item>
       </StackLayout>
     </ng-template>
   </RadListView>

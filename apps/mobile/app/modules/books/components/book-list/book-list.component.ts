@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Book } from '@bookapp-angular/books-core';
+import { Book, BookRateEvent } from '@bookapp-angular/books-core';
 import { Color } from 'color';
 import { isIOS } from 'platform';
 import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
@@ -20,6 +20,8 @@ export class BookListComponent {
     this.bookItems = new ObservableArray(value);
   }
 
+  @Output() onRate = new EventEmitter<BookRateEvent>();
+
   onLoadMoreItemsRequested(e) {
     console.log(e);
   }
@@ -29,5 +31,9 @@ export class BookListComponent {
       const newcolor = new Color('#eeeeee');
       args.ios.backgroundView.backgroundColor = newcolor.ios;
     }
+  }
+
+  rate(event: BookRateEvent) {
+    this.onRate.emit(event);
   }
 }
