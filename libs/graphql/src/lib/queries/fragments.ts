@@ -37,6 +37,8 @@ export const FreeBooksFragment = gql`
     coverUrl
     url
     rating
+    total_rates
+    total_rating
   }
 `;
 
@@ -48,6 +50,8 @@ export const PaidBooksFragment = gql`
     coverUrl
     url
     rating
+    total_rates
+    total_rating
     price
   }
 `;

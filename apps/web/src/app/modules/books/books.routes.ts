@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { BrowseBooksResolver, BuyBooksResolver } from '@bookapp-angular/books-core';
+import { BuyBooksResolver } from '@bookapp-angular/books-core';
 import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
@@ -33,10 +33,7 @@ export const routes: Routes = [
   {
     path: 'browse',
     component: BrowseBooksPageComponent,
-    canActivate: [AuthGuard],
-    resolve: {
-      books: BrowseBooksResolver
-    }
+    canActivate: [AuthGuard]
   },
   {
     path: 'buy',

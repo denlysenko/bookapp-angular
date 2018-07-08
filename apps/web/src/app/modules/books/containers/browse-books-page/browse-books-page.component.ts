@@ -1,37 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService } from '@bookapp-angular/books-core';
-import { DEFAULT_SORT_VALUE, FILTER_KEYS, StoreService } from '@bookapp-angular/core';
-import { Apollo } from 'apollo-angular';
+import { takeUntil } from 'rxjs/operators';
+
+import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
+import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
+import { FREE_BOOKS_QUERY } from '@bookapp-angular/graphql';
+import { Apollo, QueryRef } from 'apollo-angular';
 
 @Component({
   templateUrl: './browse-books-page.component.html',
   styleUrls: ['./browse-books-page.component.scss']
 })
-export class BrowseBooksPageComponent implements OnInit {
+export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
   filter: BookFilter;
   books: Book[];
   count: number;
+  isLoading: boolean;
 
+  private bookQueryRef: QueryRef<BooksResponse>;
   private filterInput: BookFilterInput;
-  private skip: 0;
+  private skip = 0;
 
   constructor(
-    private bookService: BookService,
     private apollo: Apollo,
     private storeService: StoreService,
-    private route: ActivatedRoute
-  ) {}
+    private bookService: BookService
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.books = this.route.snapshot.data.books.rows;
-    this.count = this.route.snapshot.data.books.count;
     this.filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS) || {
       searchQuery: '',
       sortValue: DEFAULT_SORT_VALUE
     };
     this.filterInput = { field: 'title', search: this.filter.searchQuery };
+
+    this.bookQueryRef = this.apollo.watchQuery<BooksResponse>({
+      query: FREE_BOOKS_QUERY,
+      variables: {
+        paid: false,
+        filter: this.filterInput,
+        skip: this.skip,
+        first: LIMIT,
+        orderBy: this.filter.sortValue
+      }
+    });
+
+    this.bookQueryRef.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ data, loading }) => {
+        this.isLoading = loading;
+        if (loading) {
+          return;
+        }
+
+        this.books = data.books.rows;
+        this.count = data.books.count;
+      });
   }
 
   sort(sortValue: 'id_desc' | 'views_desc' | 'createdAt_desc') {
@@ -44,17 +70,16 @@ export class BrowseBooksPageComponent implements OnInit {
 
     const { filterInput, skip } = this;
 
-    this.bookService
-      .getBooks(false, filterInput, sortValue, skip)
-      .subscribe(res => {
-        // TODO loaderService.stop()
-        this.books = res.rows;
-        this.count = res.count;
-      });
+    this.bookQueryRef.refetch({
+      paid: false,
+      filter: filterInput,
+      skip: skip,
+      first: LIMIT,
+      orderBy: this.filter.sortValue
+    });
   }
 
   search(searchQuery: string) {
-    // TODO loaderService.start()
     this.filter = {
       ...this.filter,
       searchQuery
@@ -68,17 +93,26 @@ export class BrowseBooksPageComponent implements OnInit {
 
     const { filterInput, filter: { sortValue }, skip } = this;
 
-    this.bookService
-      .getBooks(false, filterInput, sortValue, skip)
-      .subscribe(res => {
-        // TODO loaderService.stop()
-        this.books = res.rows;
-        this.count = res.count;
-      });
+    this.bookQueryRef.refetch({
+      paid: false,
+      filter: filterInput,
+      skip: skip,
+      first: LIMIT,
+      orderBy: sortValue
+    });
   }
 
   rate(event: BookRateEvent) {
-    console.log(event);
+    const { filterInput, filter: { sortValue }, skip } = this;
+    const variables = {
+      paid: false,
+      filter: filterInput,
+      skip,
+      first: LIMIT,
+      orderBy: sortValue
+    };
+
+    this.bookService.rate(event, FREE_BOOKS_QUERY, variables);
   }
 
   private hasMore(): boolean {

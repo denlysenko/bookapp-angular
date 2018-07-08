@@ -76,3 +76,13 @@ export const PAID_BOOKS_QUERY = gql`
   }
   ${PaidBooksFragment}
 `;
+
+export const RATE_BOOK_MUTATION = gql`
+  mutation($bookId: ID!, $rate: Int!) {
+    rateBook(id: $bookId, rate: $rate) {
+      rating
+      total_rates
+      total_rating
+    }
+  }
+`;
