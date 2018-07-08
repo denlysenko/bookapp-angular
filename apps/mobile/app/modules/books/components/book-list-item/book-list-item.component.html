@@ -1,0 +1,28 @@
+<StackLayout *ngIf="book"
+             class="m-5"
+             [shadow]="2"
+             nsRouterLink="{{ book.paid ? '/buy/' : '/browse/' + book.url }}">
+  <FlexboxLayout class="mat-card"
+                 flexDirection="column"
+                 justifyContent="center"
+                 alignItems="center">
+    <StackLayout class="cover">
+      <Image [src]="book.coverUrl">
+      </Image>
+    </StackLayout>
+    <Label class="title"
+           [text]="book.title">
+    </Label>
+    <Label class="author"
+           [text]="'by ' + book.author"></Label>
+    <Label *ngIf="book.paid"
+           [text]="book.price | currency:'USD':true"></Label>
+    <StarRating emptyBorderColor="#ffab00"
+                emptyColor="white"
+                filledBorderColor="#ffab00"
+                filledColor="#ffab00"
+                value="{{ book.rating }}"
+                max="5"
+                isindicator="false"></StarRating>
+  </FlexboxLayout>
+</StackLayout>

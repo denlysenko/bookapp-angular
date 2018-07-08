@@ -1,0 +1,18 @@
+<GridLayout class="p-5 list">
+  <RadListView #listView
+               backgroundColor="transparent"
+               [items]="bookItems"
+               (itemLoading)="onItemLoading($event)"
+               (loadMoreDataRequested)="onLoadMoreItemsRequested($event)">
+    <ListViewGridLayout tkListViewLayout
+                        scrollDirection='Vertical'
+                        spanCount="2"
+                        itemHeight="315"></ListViewGridLayout>
+    <ng-template tkListItemTemplate
+                 let-book="item">
+      <StackLayout class="list-item">
+        <ba-book-list-item [book]="book"></ba-book-list-item>
+      </StackLayout>
+    </ng-template>
+  </RadListView>
+</GridLayout>

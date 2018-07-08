@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
+import { Book } from '@bookapp-angular/books-core';
 import { FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
@@ -13,6 +15,8 @@ import { BookSearchComponent } from '../../components/book-search/book-search.co
   styleUrls: ['./browse-books-page.component.scss']
 })
 export class BrowseBooksPageComponent implements OnInit {
+  books: Book[];
+  count: number;
   sortItems: Array<SegmentedBarItem>;
   selectedOption: number;
 
@@ -34,13 +38,15 @@ export class BrowseBooksPageComponent implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private route: ActivatedRoute
   ) {
     this.sortItems = this.genSortItems();
   }
 
   ngOnInit() {
     const filter = this.storeService.get(FILTER_KEYS.BROWSE_BOOKS);
+
     if (filter) {
       const { sortValue } = filter;
       const idx = this.sortOptions.findIndex(opt => opt.value === sortValue);
@@ -48,6 +54,9 @@ export class BrowseBooksPageComponent implements OnInit {
     } else {
       this.selectedOption = 0;
     }
+
+    this.books = this.route.snapshot.data.books.rows;
+    this.count = this.route.snapshot.data.books.count;
   }
 
   async onSearchButtonTap() {

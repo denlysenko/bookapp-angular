@@ -11,5 +11,6 @@
                 [selectedIndex]="selectedOption"
                 (selectedIndexChange)="onSelectedIndexChange($event)"></SegmentedBar>
 </StackLayout>
-
-<Label text="browse"></Label>
+<StackLayout>
+  <ba-book-list [books]="books"></ba-book-list>
+</StackLayout>
