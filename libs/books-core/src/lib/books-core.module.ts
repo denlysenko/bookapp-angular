@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { BrowseBooksResolver, BuyBooksResolver } from './resolvers';
 import { BookService } from './services';
 
 @NgModule({
@@ -11,7 +10,7 @@ export class BooksCoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: BooksCoreModule,
-      providers: [BookService, BrowseBooksResolver, BuyBooksResolver]
+      providers: [BookService]
     };
   }
 }

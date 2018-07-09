@@ -11,7 +11,7 @@
                 [selectedIndex]="selectedOption"
                 (selectedIndexChange)="onSelectedIndexChange($event)"></SegmentedBar>
 </StackLayout>
-<StackLayout>
+<StackLayout *ngIf="books">
   <ba-book-list [books]="books"
                 (onRate)="rate($event)"></ba-book-list>
 </StackLayout>

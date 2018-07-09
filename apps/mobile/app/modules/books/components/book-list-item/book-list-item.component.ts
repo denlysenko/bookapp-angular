@@ -1,7 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 import { Book, BookRateEvent } from '@bookapp-angular/books-core';
-import { Page } from 'ui/page';
 
 @Component({
   moduleId: module.id,
@@ -10,28 +18,30 @@ import { Page } from 'ui/page';
   styleUrls: ['./book-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookListItemComponent {
+export class BookListItemComponent implements AfterViewInit {
   @Input()
   set book(value: Book) {
     if (value) {
       this._book = value;
-      this.addRatingListener();
+      if (this.ratingElemRef) {
+        // refresh StarRating value after book update, e.g. rating has changed
+        this.ratingElemRef.nativeElement.value = this._book.rating;
+      }
     }
   }
   get book(): Book {
     return this._book;
   }
 
+  @ViewChild('rating') ratingElemRef: ElementRef;
+
   @Output() onRate = new EventEmitter<BookRateEvent>();
 
   private _book: Book;
 
-  constructor(private page: Page) {}
-
-  private addRatingListener() {
-    const rating = this.page.getViewById(`rating_${this.book.id}`);
-    if (rating) {
-      rating.on('valueChange', args => {
+  ngAfterViewInit() {
+    if (this.ratingElemRef.nativeElement) {
+      this.ratingElemRef.nativeElement.on('valueChange', args => {
         const value = args.object.get('value');
         this.onRate.emit(new BookRateEvent(this.book.id, value));
       });

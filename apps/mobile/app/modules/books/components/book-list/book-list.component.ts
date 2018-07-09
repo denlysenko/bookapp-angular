@@ -32,8 +32,4 @@ export class BookListComponent {
       args.ios.backgroundView.backgroundColor = newcolor.ios;
     }
   }
-
-  rate(event: BookRateEvent) {
-    this.onRate.emit(event);
-  }
 }

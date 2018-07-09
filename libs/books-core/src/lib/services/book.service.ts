@@ -76,7 +76,7 @@ export class BookService {
     first = LIMIT
   ) {
     return this.apollo
-      .watchQuery<BooksResponse>({
+      .query<BooksResponse>({
         query: paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
         variables: {
           paid,
@@ -86,6 +86,6 @@ export class BookService {
           orderBy
         }
       })
-      .valueChanges.pipe(map(res => res.data.books));
+      .pipe(map(res => res.data.books));
   }
 }

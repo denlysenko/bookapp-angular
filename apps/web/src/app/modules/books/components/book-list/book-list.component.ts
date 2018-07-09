@@ -11,8 +11,4 @@ import { Book, BookRateEvent } from '@bookapp-angular/books-core';
 export class BookListComponent {
   @Input() books: Book[];
   @Output() onRate = new EventEmitter<BookRateEvent>();
-
-  rate(event: BookRateEvent) {
-    this.onRate.emit(event);
-  }
 }
