@@ -8,7 +8,9 @@
                     (onSearch)="search($event)"></ba-book-filter>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="view-content">
+<div class="view-content"
+     baInfiniteScroll
+     (onTotalScroll)="fetchMore()">
   <ba-book-list [books]="books"
                 (onRate)="rate($event)"></ba-book-list>
 </div>

@@ -18,6 +18,7 @@ import { CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 import { ConfirmDialogComponent, DialogsModule } from '@web/ui/dialogs';
 import { FileSelectorComponent, FileSelectorModule } from '@web/ui/file-selector';
 import { ImageSelectorComponent, ImageSelectorModule } from '@web/ui/image-selector';
+import { InfiniteScrollModule } from '@web/ui/infinite-scroll/infinite-scroll.module';
 import { RatingModule } from '@web/ui/rating/rating.module';
 
 import { routes } from './books.routes';
@@ -43,7 +44,8 @@ import { EditBookResolver } from './resolvers/edit-book.resolver';
     ImageSelectorModule,
     FileSelectorModule,
     DialogsModule,
-    RatingModule
+    RatingModule,
+    InfiniteScrollModule
   ],
   declarations: [...containers, ...components],
   providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],

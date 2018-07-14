@@ -24,11 +24,11 @@ a {
 
 // https://github.com/angular/flex-layout/issues/171#issuecomment-353973748
 router-outlet.router-flex + * {
-  // display: flex;
-  // flex: 1;
-  // flex-direction: column;
-  // overflow-y: auto;
-  // min-height: 100px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 100px;
 }
 
 .view-content {

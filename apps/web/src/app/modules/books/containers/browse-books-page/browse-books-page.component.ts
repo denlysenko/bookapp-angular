@@ -102,6 +102,16 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     });
   }
 
+  fetchMore() {
+    if (this.isLoading) {
+      return;
+    }
+
+    if (this.hasMore()) {
+      console.log('fetch more');
+    }
+  }
+
   rate(event: BookRateEvent) {
     const { filterInput, filter: { sortValue }, skip } = this;
     const variables = {
