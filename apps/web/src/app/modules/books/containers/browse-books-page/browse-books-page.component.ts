@@ -69,6 +69,7 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     this.storeService.set(FILTER_KEYS.BROWSE_BOOKS, this.filter);
 
     const { filterInput, skip } = this;
+    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
@@ -92,6 +93,7 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     };
 
     const { filterInput, filter: { sortValue }, skip } = this;
+    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
@@ -102,13 +104,34 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     });
   }
 
-  fetchMore() {
+  loadMore() {
     if (this.isLoading) {
       return;
     }
 
-    if (this.hasMore()) {
-      console.log('fetch more');
+    if (this.hasMoreItems()) {
+      this.skip = this.books.length;
+
+      const { skip } = this;
+      this.isLoading = true;
+
+      return this.bookQueryRef.fetchMore({
+        variables: {
+          skip
+        },
+
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return previousResult;
+          }
+
+          const { rows } = fetchMoreResult.books;
+
+          return Object.assign({}, previousResult, {
+            feed: [...previousResult.books.rows, ...rows]
+          });
+        }
+      });
     }
   }
 
@@ -125,7 +148,7 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     this.bookService.rate(event, FREE_BOOKS_QUERY, variables);
   }
 
-  private hasMore(): boolean {
+  private hasMoreItems(): boolean {
     return this.books.length < this.count;
   }
 }

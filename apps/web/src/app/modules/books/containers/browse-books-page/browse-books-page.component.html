@@ -1,3 +1,4 @@
+<ba-loader [visible]="isLoading"></ba-loader>
 <mat-toolbar>
   <mat-toolbar-row>
     <span>Browse Free Books</span>
@@ -10,7 +11,7 @@
 </mat-toolbar>
 <div class="view-content"
      baInfiniteScroll
-     (onTotalScroll)="fetchMore()">
+     (onTotalScroll)="loadMore()">
   <ba-book-list [books]="books"
                 (onRate)="rate($event)"></ba-book-list>
 </div>
