@@ -3,7 +3,7 @@
                backgroundColor="transparent"
                [items]="bookItems"
                (itemLoading)="onItemLoading($event)"
-               (loadMoreDataRequested)="onLoadMoreItemsRequested($event)">
+               (loadMoreDataRequested)="onLoadMoreItemsRequested.emit($event)">
     <ListViewGridLayout tkListViewLayout
                         scrollDirection='Vertical'
                         spanCount="2"

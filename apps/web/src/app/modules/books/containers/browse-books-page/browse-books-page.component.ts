@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
+import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { FREE_BOOKS_QUERY } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
+
+const LIMIT = 2;
 
 @Component({
   templateUrl: './browse-books-page.component.html',
@@ -68,6 +70,7 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
 
     this.storeService.set(FILTER_KEYS.BROWSE_BOOKS, this.filter);
 
+    this.skip = 0;
     const { filterInput, skip } = this;
     this.isLoading = true;
 
@@ -91,6 +94,7 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       ...this.filterInput,
       search: searchQuery
     };
+    this.skip = 0;
 
     const { filterInput, filter: { sortValue }, skip } = this;
     this.isLoading = true;
@@ -119,17 +123,20 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
         variables: {
           skip
         },
-
         updateQuery: (previousResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
             return previousResult;
           }
 
-          const { rows } = fetchMoreResult.books;
+          const { rows, count } = fetchMoreResult.books;
 
-          return Object.assign({}, previousResult, {
-            feed: [...previousResult.books.rows, ...rows]
-          });
+          return {
+            books: {
+              count,
+              rows: [...previousResult.books.rows, ...rows],
+              __typename: 'BookResponse'
+            }
+          };
         }
       });
     }

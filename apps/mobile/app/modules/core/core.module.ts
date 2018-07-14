@@ -16,6 +16,7 @@ import { RouterExtensions as TNSRouterExtensions } from 'nativescript-angular/ro
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { FeedbackService } from './services/feedback.service';
+import { LoaderService } from './services/loader.service';
 import { StorageService } from './services/storage.service';
 
 require('nativescript-websockets');
@@ -38,6 +39,7 @@ registerElement(
   providers: [
     AuthGuard,
     StoreService,
+    LoaderService,
     {
       provide: StoragePlatformService,
       useClass: StorageService

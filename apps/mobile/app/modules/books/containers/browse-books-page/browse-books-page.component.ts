@@ -3,13 +3,16 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { Book, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
+import { BaseComponent, FILTER_KEYS, StoreService } from '@bookapp-angular/core';
 import { FREE_BOOKS_QUERY } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { SegmentedBarItem } from 'ui/segmented-bar';
+import { LoaderService } from '~/modules/core/services/loader.service';
 
 import { BookSearchComponent } from '../../components/book-search/book-search.component';
+
+const LIMIT = 2;
 
 @Component({
   moduleId: module.id,
@@ -22,7 +25,18 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
   count: number;
   sortItems: Array<SegmentedBarItem>;
   selectedOption: number;
-  isLoading: boolean;
+
+  set isLoading(value: boolean) {
+    this._loading = value;
+    if (this._loading) {
+      this.loaderService.start();
+    } else {
+      this.loaderService.stop();
+    }
+  }
+  get isLoading(): boolean {
+    return this._loading;
+  }
 
   private sortOptions = [
     {
@@ -42,13 +56,15 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
   private skip = 0;
   private sortValue = this.sortOptions[0].value;
   private bookQueryRef: QueryRef<BooksResponse>;
+  private _loading: boolean;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService,
     private storeService: StoreService,
     private apollo: Apollo,
-    private bookService: BookService
+    private bookService: BookService,
+    private loaderService: LoaderService
   ) {
     super();
     this.sortItems = this.genSortItems();
@@ -70,7 +86,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       query: FREE_BOOKS_QUERY,
       variables: {
         paid: false,
-        filter: null,
         skip: this.skip,
         first: LIMIT,
         orderBy: this.sortValue
@@ -118,22 +133,58 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       sortValue: value
     });
 
+    this.skip = 0;
     const { sortValue, skip } = this;
+    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
-      filter: null,
       skip,
       first: LIMIT,
       orderBy: sortValue
     });
   }
 
+  loadMore() {
+    console.log('load more event');
+    if (this.isLoading) {
+      return;
+    }
+
+    if (this.hasMoreItems()) {
+      this.skip = this.books.length;
+
+      const { skip } = this;
+      this.isLoading = true;
+
+      return this.bookQueryRef.fetchMore({
+        variables: {
+          skip
+        },
+        updateQuery: (previousResult, { fetchMoreResult, variables }) => {
+          if (!fetchMoreResult) {
+            return previousResult;
+          }
+
+          const { rows, count } = fetchMoreResult.books;
+
+          return {
+            books: {
+              count,
+              rows: [...previousResult.books.rows, ...rows],
+              // rows: [],
+              __typename: 'BookResponse'
+            }
+          };
+        }
+      });
+    }
+  }
+
   rate(event: BookRateEvent) {
     const { sortValue, skip } = this;
     const variables = {
       paid: false,
-      filter: null,
       skip,
       first: LIMIT,
       orderBy: sortValue
@@ -148,5 +199,9 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       item.title = opt.label;
       return item;
     });
+  }
+
+  private hasMoreItems(): boolean {
+    return this.books.length < this.count;
   }
 }
