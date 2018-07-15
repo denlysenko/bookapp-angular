@@ -3,11 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, StoreService } from '@bookapp-angular/core';
+import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
 import { FREE_BOOKS_QUERY } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
-
-const LIMIT = 2;
 
 @Component({
   templateUrl: './browse-books-page.component.html',
@@ -46,20 +44,12 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
         skip: this.skip,
         first: LIMIT,
         orderBy: this.filter.sortValue
-      }
+      },
+      fetchPolicy: 'network-only',
+      notifyOnNetworkStatusChange: true
     });
 
-    this.bookQueryRef.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ data, loading }) => {
-        this.isLoading = loading;
-        if (loading) {
-          return;
-        }
-
-        this.books = data.books.rows;
-        this.count = data.books.count;
-      });
+    this.subscribeToBookQuery();
   }
 
   sort(sortValue: 'id_desc' | 'views_desc' | 'createdAt_desc') {
@@ -72,7 +62,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
 
     this.skip = 0;
     const { filterInput, skip } = this;
-    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
@@ -97,7 +86,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
     this.skip = 0;
 
     const { filterInput, filter: { sortValue }, skip } = this;
-    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
@@ -117,7 +105,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       this.skip = this.books.length;
 
       const { skip } = this;
-      this.isLoading = true;
 
       return this.bookQueryRef.fetchMore({
         variables: {
@@ -157,5 +144,19 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
 
   private hasMoreItems(): boolean {
     return this.books.length < this.count;
+  }
+
+  private subscribeToBookQuery() {
+    this.bookQueryRef.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ data, loading }) => {
+        this.isLoading = loading;
+        if (loading) {
+          return;
+        }
+
+        this.books = data.books.rows;
+        this.count = data.books.count;
+      });
   }
 }

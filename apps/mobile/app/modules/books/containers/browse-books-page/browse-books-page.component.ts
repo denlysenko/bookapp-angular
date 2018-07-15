@@ -87,7 +87,8 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
         skip: this.skip,
         first: LIMIT,
         orderBy: this.sortValue
-      }
+      },
+      notifyOnNetworkStatusChange: true
     });
 
     this.subscribeToBookQuery();
@@ -130,7 +131,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
 
     this.skip = 0;
     const { sortValue, skip } = this;
-    this.isLoading = true;
 
     this.bookQueryRef.refetch({
       paid: false,
@@ -151,7 +151,6 @@ export class BrowseBooksPageComponent extends BaseComponent implements OnInit {
       this.skip = this.books.length;
 
       const { skip } = this;
-      this.isLoading = true;
 
       return this.bookQueryRef.fetchMore({
         variables: {
