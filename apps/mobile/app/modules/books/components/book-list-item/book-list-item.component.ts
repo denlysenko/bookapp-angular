@@ -24,8 +24,13 @@ export class BookListItemComponent implements AfterViewInit {
     if (value) {
       this._book = value;
       if (this.ratingElemRef) {
-        // refresh StarRating value after book update, e.g. rating has changed
+        // as books are loaded dynamicaly and to not emit event each time the book value changed, first off listener
+        this.ratingElemRef.nativeElement.off('valueChange');
         this.ratingElemRef.nativeElement.value = this._book.rating;
+        this.ratingElemRef.nativeElement.on('valueChange', args => {
+          const val = args.object.get('value');
+          this.onRate.emit(new BookRateEvent(this.book.id, val));
+        });
       }
     }
   }
@@ -40,11 +45,6 @@ export class BookListItemComponent implements AfterViewInit {
   private _book: Book;
 
   ngAfterViewInit() {
-    if (this.ratingElemRef.nativeElement) {
-      this.ratingElemRef.nativeElement.on('valueChange', args => {
-        const value = args.object.get('value');
-        this.onRate.emit(new BookRateEvent(this.book.id, value));
-      });
-    }
+    this.ratingElemRef.nativeElement.value = this._book.rating;
   }
 }
