@@ -50,18 +50,19 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   }
 
   sort(sortValue: 'id_desc' | 'views_desc' | 'createdAt_desc') {
+    this.skip = 0;
+
+    const { filterInput, skip, paid } = this;
+
     this.filter = {
       ...this.filter,
       sortValue
     };
 
     this.storeService.set(
-      FILTER_KEYS[this.paid ? 'BUY_BOOKS' : 'BROWSE_BOOKS'],
+      FILTER_KEYS[paid ? 'BUY_BOOKS' : 'BROWSE_BOOKS'],
       this.filter
     );
-
-    this.skip = 0;
-    const { filterInput, skip, paid } = this;
 
     this.bookQueryRef.refetch({
       paid,
@@ -73,12 +74,17 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   }
 
   search(searchQuery: string) {
+    this.skip = 0;
+
+    const { filterInput, filter: { sortValue }, skip, paid } = this;
+
     this.filter = {
       ...this.filter,
       searchQuery
     };
+
     this.storeService.set(
-      FILTER_KEYS[this.paid ? 'BUY_BOOKS' : 'BROWSE_BOOKS'],
+      FILTER_KEYS[paid ? 'BUY_BOOKS' : 'BROWSE_BOOKS'],
       this.filter
     );
 
@@ -86,9 +92,6 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       ...this.filterInput,
       search: searchQuery
     };
-    this.skip = 0;
-
-    const { filterInput, filter: { sortValue }, skip, paid } = this;
 
     this.bookQueryRef.refetch({
       paid,

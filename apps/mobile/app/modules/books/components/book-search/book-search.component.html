@@ -15,7 +15,7 @@
       <GridLayout columns="auto, *"
                   class="item list-group-item">
         <Image col="0"
-               [src]="book.coverUrl"
+               [src]="book.coverUrl ? book.coverUrl : 'res://nocover'"
                class="thumb"
                width="30"
                height="40"></Image>

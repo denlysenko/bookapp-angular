@@ -10,12 +10,12 @@ import { BooksPageBaseComponent } from '../../base/books-page-base.component';
 
 @Component({
   moduleId: module.id,
-  selector: 'ba-browse-books-page',
-  templateUrl: './browse-books-page.component.html',
-  styleUrls: ['./browse-books-page.component.scss']
+  selector: 'ba-buy-books-page',
+  templateUrl: '../browse-books-page/browse-books-page.component.html',
+  styleUrls: ['../browse-books-page/browse-books-page.component.scss']
 })
-export class BrowseBooksPageComponent extends BooksPageBaseComponent {
-  protected paid = false;
+export class BuyBooksPageComponent extends BooksPageBaseComponent {
+  protected paid = true;
 
   constructor(
     protected viewContainerRef: ViewContainerRef,

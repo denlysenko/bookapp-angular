@@ -21,7 +21,7 @@
     <ListViewGridLayout tkListViewLayout
                         scrollDirection="Vertical"
                         spanCount="2"
-                        itemHeight="315"></ListViewGridLayout>
+                        [itemHeight]="paid ? '330' : '315'"></ListViewGridLayout>
     <ng-template tkListItemTemplate
                  let-book="item">
       <StackLayout class="list-item">

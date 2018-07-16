@@ -17,7 +17,8 @@
       <Label class="author"
              [text]="'by ' + book.author"></Label>
       <Label *ngIf="book.paid"
-             [text]="book.price | currency:'USD':true"></Label>
+             class="price"
+             [text]="book.price | currency:'USD':'symbol-narrow'"></Label>
     </StackLayout>
     <StarRating #rating
                 emptyBorderColor="#ffab00"
