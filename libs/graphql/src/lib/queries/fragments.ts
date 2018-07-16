@@ -53,5 +53,6 @@ export const PaidBooksFragment = gql`
     total_rates
     total_rating
     price
+    paid
   }
 `;

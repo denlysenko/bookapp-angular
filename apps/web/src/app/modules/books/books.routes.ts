@@ -38,9 +38,6 @@ export const routes: Routes = [
     path: 'buy',
     component: BuyBooksPageComponent,
     canActivate: [AuthGuard]
-    // resolve: {
-    //   books: BuyBooksResolver
-    // }
   }
 ];
 

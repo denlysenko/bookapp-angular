@@ -1,11 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { BookService } from '@bookapp-angular/books-core';
+import { StoreService } from '@bookapp-angular/core';
+import { Apollo } from 'apollo-angular';
+
+import { BooksPageBaseComponent } from '../../base/books-page-base.component';
 
 @Component({
   templateUrl: './buy-books-page.component.html',
   styleUrls: ['./buy-books-page.component.scss']
 })
-export class BuyBooksPageComponent implements OnInit {
-  constructor() {}
+export class BuyBooksPageComponent extends BooksPageBaseComponent {
+  protected paid = true;
 
-  ngOnInit() {}
+  constructor(
+    protected apollo: Apollo,
+    protected storeService: StoreService,
+    protected bookService: BookService
+  ) {
+    super();
+  }
 }

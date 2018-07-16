@@ -1,8 +1,17 @@
+<ba-loader [visible]="isLoading"></ba-loader>
 <mat-toolbar>
   <mat-toolbar-row>
     <span>Browse Books To Buy</span>
   </mat-toolbar-row>
   <mat-toolbar-row class="mobile-height-auto">
-    <ba-book-filter></ba-book-filter>
+    <ba-book-filter [filter]="filter"
+                    (onSort)="sort($event)"
+                    (onSearch)="search($event)"></ba-book-filter>
   </mat-toolbar-row>
 </mat-toolbar>
+<div class="view-content"
+     baInfiniteScroll
+     (onTotalScroll)="loadMore()">
+  <ba-book-list [books]="books"
+                (onRate)="rate($event)"></ba-book-list>
+</div>
