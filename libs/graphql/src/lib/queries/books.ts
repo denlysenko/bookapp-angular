@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { CreatedBookFragment, FreeBooksFragment, PaidBooksFragment } from './fragments';
+import { BookFragment, CreatedBookFragment, FreeBooksFragment, PaidBooksFragment } from './fragments';
 
 export const CREATE_BOOK_MUTATION = gql`
   mutation($book: BookInput!) {
@@ -85,4 +85,13 @@ export const RATE_BOOK_MUTATION = gql`
       total_rating
     }
   }
+`;
+
+export const BOOK_QUERY = gql`
+  query($slug: String!) {
+    book(slug: $slug) {
+      ...Book
+    }
+  }
+  ${BookFragment}
 `;

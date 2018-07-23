@@ -56,3 +56,27 @@ export const PaidBooksFragment = gql`
     paid
   }
 `;
+
+export const BookFragment = gql`
+  fragment Book on Book {
+    id
+    title
+    author
+    coverUrl
+    epubUrl
+    description
+    rating
+    total_rates
+    total_rating
+    price
+    paid
+    views
+    comments {
+      author {
+        displayName
+      }
+      text
+      createdAt
+    }
+  }
+`;
