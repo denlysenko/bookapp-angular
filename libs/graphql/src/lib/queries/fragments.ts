@@ -71,6 +71,7 @@ export const BookFragment = gql`
     price
     paid
     views
+    slug
     comments {
       author {
         displayName

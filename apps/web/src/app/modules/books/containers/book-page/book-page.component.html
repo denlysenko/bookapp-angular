@@ -1,8 +1,16 @@
 <ba-loader [visible]="isLoading"></ba-loader>
-<mat-toolbar>
-  Book Details
-</mat-toolbar>
-<div class="view-content">
-  <ba-book-view [book]="book$ | async"
-                [user]="user$ | async"></ba-book-view>
+<div>
+  <mat-toolbar>
+    Book Details
+  </mat-toolbar>
+  <div *ngIf="(book$ | async) as book"
+       class="view-content">
+    <mat-card>
+      <ba-book-view [book]="book"
+                    [user]="user$ | async"></ba-book-view>
+      <ba-book-comments [comments]="book.comments"
+                        [loading]="isLoading"
+                        (onCommentAdded)="submitComment(book.id, $event, book.slug)"></ba-book-comments>
+    </mat-card>
+  </div>
 </div>

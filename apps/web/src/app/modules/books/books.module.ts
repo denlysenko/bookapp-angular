@@ -9,6 +9,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
@@ -25,6 +26,7 @@ import { RatingModule } from '@web/ui/rating/rating.module';
 
 import { routes } from './books.routes';
 import { components } from './components';
+import { BookCommentsComponent } from './components/book-comments/book-comments.component';
 import { containers } from './containers';
 import { EditBookResolver } from './resolvers/edit-book.resolver';
 
@@ -44,6 +46,7 @@ import { EditBookResolver } from './resolvers/edit-book.resolver';
     MatButtonToggleModule,
     MatIconModule,
     MatTooltipModule,
+    MatListModule,
     ImageSelectorModule,
     FileSelectorModule,
     DialogsModule,
@@ -51,7 +54,7 @@ import { EditBookResolver } from './resolvers/edit-book.resolver';
     InfiniteScrollModule,
     LoaderModule
   ],
-  declarations: [...containers, ...components],
+  declarations: [...containers, ...components, BookCommentsComponent],
   providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,

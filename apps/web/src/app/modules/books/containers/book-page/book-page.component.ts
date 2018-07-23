@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User, UserSelfResponse } from '@bookapp-angular/auth-core';
-import { BookPageBaseComponent } from '@bookapp-angular/books-core';
+import { BookPageBaseComponent, BookService } from '@bookapp-angular/books-core';
 import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
@@ -17,7 +17,11 @@ import { Apollo } from 'apollo-angular';
 export class BookPageComponent extends BookPageBaseComponent {
   user$: Observable<User>;
 
-  constructor(protected route: ActivatedRoute, protected apollo: Apollo) {
+  constructor(
+    protected route: ActivatedRoute,
+    protected apollo: Apollo,
+    protected bookService: BookService
+  ) {
     super();
     this.user$ = this.apollo
       .query<UserSelfResponse>({

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
+import { BookService } from '@bookapp-angular/books-core';
 import { BaseComponent } from '@bookapp-angular/core';
 import { BOOK_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
@@ -17,6 +18,7 @@ export abstract class BookPageBaseComponent extends BaseComponent
 
   protected abstract apollo: Apollo;
   protected abstract route: ActivatedRoute;
+  protected abstract bookService: BookService;
 
   ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug');
@@ -34,5 +36,10 @@ export abstract class BookPageBaseComponent extends BaseComponent
         tap(({ loading }) => (this.isLoading = loading)),
         map(({ data }) => data.book)
       );
+  }
+
+  submitComment(bookId: string, text: string, slug: string) {
+    this.isLoading = true;
+    this.bookService.addComment(bookId, text, slug);
   }
 }

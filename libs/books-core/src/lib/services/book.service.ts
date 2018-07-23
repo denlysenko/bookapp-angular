@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 
 import { DEFAULT_SORT_VALUE, LIMIT } from '@bookapp-angular/core';
 import {
+  ADD_COMMENT_MUTATION,
+  BOOK_QUERY,
   CREATE_BOOK_MUTATION,
   FREE_BOOKS_QUERY,
   PAID_BOOKS_QUERY,
@@ -12,7 +14,7 @@ import {
 } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
-import { Book, BookFilterInput, BookRateEvent, BooksResponse, CreateBookResponse } from '../models';
+import { Book, BookFilterInput, BookRateEvent, BookResponse, BooksResponse, CreateBookResponse } from '../models';
 
 @Injectable()
 export class BookService {
@@ -61,6 +63,36 @@ export class BookService {
           store.writeQuery({
             query,
             variables,
+            data
+          });
+        }
+      })
+      .subscribe();
+  }
+
+  addComment(bookId: string, text: string, slug: string) {
+    this.apollo
+      .mutate({
+        mutation: ADD_COMMENT_MUTATION,
+        variables: {
+          bookId,
+          text
+        },
+        update: (store, { data: { addComment } }) => {
+          const data: BookResponse = store.readQuery({
+            query: BOOK_QUERY,
+            variables: {
+              slug
+            }
+          });
+
+          data.book.comments.push(addComment);
+
+          store.writeQuery({
+            query: BOOK_QUERY,
+            variables: {
+              slug
+            },
             data
           });
         }
