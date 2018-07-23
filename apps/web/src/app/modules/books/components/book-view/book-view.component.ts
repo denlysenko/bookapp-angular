@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { User } from '@bookapp-angular/auth-core';
 import { Book } from '@bookapp-angular/books-core';
 
 @Component({
@@ -10,4 +11,16 @@ import { Book } from '@bookapp-angular/books-core';
 })
 export class BookViewComponent {
   @Input() book: Book;
+  @Input()
+  set user(value: User) {
+    if (value) {
+      this._isAdmin = value.roles.includes('admin');
+    }
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  private _isAdmin: boolean;
 }

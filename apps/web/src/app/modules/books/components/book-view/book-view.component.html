@@ -1,3 +1,72 @@
-<p>
-  book-view works!
-</p>
+<mat-card *ngIf="book">
+  <div class="book-view">
+    <div class="cover">
+      <img [src]="book.coverUrl ? book.coverUrl : '/assets/images/nocover.svg'"
+           alt="{{ book.title }}">
+      <div *ngIf="book.paid">{{ book.price | currency:'USD':'symbol-narrow' }}</div>
+      <ba-rating [ngModel]="book.rating"
+                 (ngModelChange)="rate($event)"></ba-rating>
+      <div class="view-num">
+        <i class="material-icons">
+          visibility
+        </i>
+        <span>{{ book.views }}</span>
+      </div>
+    </div>
+    <div class="details">
+      <h3>{{ book.title }}</h3>
+      <h4>by {{ book.author }}</h4>
+      <mat-toolbar>{{ book.description || 'No Description' }}</mat-toolbar>
+      <div>
+        <a *ngIf="!book.paid"
+           routerLink="/reading/{{ book.url }}"
+           mat-icon-button
+           matTooltip="Read book"
+           color="accent">
+          <mat-icon>book</mat-icon>
+        </a>
+        <button *ngIf="book.paid"
+                type="button"
+                mat-icon-button
+                matTooltip="Buy book"
+                color="accent">
+          <mat-icon>credit_card</mat-icon>
+        </button>
+        <button type="button"
+                mat-icon-button
+                matTooltip="Add To Favourite"
+                color="accent">
+          <mat-icon>star_border</mat-icon>
+        </button>
+        <button *ngIf="book.paid"
+                type="button"
+                mat-icon-button
+                matTooltip="Add to wishlist"
+                color="accent">
+          <mat-icon>favorite_border</mat-icon>
+        </button>
+        <button type="button"
+                mat-icon-button
+                matTooltip="Add to must read"
+                color="accent">
+          <mat-icon>bookmark_border</mat-icon>
+        </button>
+        <a *ngIf="isAdmin"
+           routerLink="/edit/{{ book.url }}"
+           mat-icon-button
+           matTooltip="Edit book"
+           color="accent">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button *ngIf="isAdmin"
+                type="button"
+                mat-icon-button
+                matTooltip="Remove book"
+                color="accent">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="book-comments"></div>
+</mat-card>

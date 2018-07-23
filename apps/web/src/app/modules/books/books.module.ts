@@ -10,6 +10,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatToolbarModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -42,6 +43,7 @@ import { EditBookResolver } from './resolvers/edit-book.resolver';
     MatToolbarModule,
     MatButtonToggleModule,
     MatIconModule,
+    MatTooltipModule,
     ImageSelectorModule,
     FileSelectorModule,
     DialogsModule,

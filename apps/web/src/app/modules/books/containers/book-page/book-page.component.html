@@ -2,4 +2,7 @@
 <mat-toolbar>
   Book Details
 </mat-toolbar>
-<ba-book-view [book]="book$ | async"></ba-book-view>
+<div class="view-content">
+  <ba-book-view [book]="book$ | async"
+                [user]="user$ | async"></ba-book-view>
+</div>
