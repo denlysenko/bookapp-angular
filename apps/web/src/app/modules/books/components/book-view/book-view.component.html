@@ -33,22 +33,22 @@
       </button>
       <button type="button"
               mat-icon-button
-              matTooltip="Add To Favourite"
+              [matTooltip]="inFavourites ? 'Remove from Favourites' : 'Add To Favourites'"
               color="accent">
-        <mat-icon>star_border</mat-icon>
+        <mat-icon>{{ inFavourites ? 'star' : 'star_border' }}</mat-icon>
       </button>
       <button *ngIf="book.paid"
               type="button"
               mat-icon-button
-              matTooltip="Add to wishlist"
+              [matTooltip]="inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'"
               color="accent">
-        <mat-icon>favorite_border</mat-icon>
+        <mat-icon>{{ inWishlist ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>
       <button type="button"
               mat-icon-button
-              matTooltip="Add to must read"
+              [matTooltip]="inMustread ? 'Remove from must read' : 'Add to must read'"
               color="accent">
-        <mat-icon>bookmark_border</mat-icon>
+        <mat-icon>{{ inMustread ? 'bookmark': 'bookmark_border' }}</mat-icon>
       </button>
       <a *ngIf="isAdmin"
          routerLink="/edit/{{ book.url }}"

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { User } from '@bookapp-angular/auth-core';
 import { Book } from '@bookapp-angular/books-core';
+import { BOOKMARKS } from '@bookapp-angular/core';
 
 @Component({
   selector: 'ba-book-view',
@@ -21,6 +22,18 @@ export class BookViewComponent {
 
   get isAdmin(): boolean {
     return this._isAdmin;
+  }
+
+  get inFavourites(): boolean {
+    return this.bookmarks && this.bookmarks.includes(BOOKMARKS.FAVOURITE);
+  }
+
+  get inWishlist(): boolean {
+    return this.bookmarks && this.bookmarks.includes(BOOKMARKS.WISHLIST);
+  }
+
+  get inMustread(): boolean {
+    return this.bookmarks && this.bookmarks.includes(BOOKMARKS.MUSTREAD);
   }
 
   private _isAdmin: boolean;
