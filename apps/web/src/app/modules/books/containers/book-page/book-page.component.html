@@ -8,7 +8,9 @@
     <mat-card>
       <ba-book-view [book]="book"
                     [bookmarks]="bookmarks$ | async"
-                    [user]="user$ | async"></ba-book-view>
+                    [user]="user$ | async"
+                    (onAddBookmark)="addToBookmarks($event)"
+                    (onRemoveBookmark)="removeFromBookmarks($event)"></ba-book-view>
       <ba-book-comments [comments]="book.comments"
                         [loading]="isLoading"
                         (onCommentAdded)="submitComment(book.id, $event, book.slug)"></ba-book-comments>

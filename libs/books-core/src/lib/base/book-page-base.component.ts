@@ -9,7 +9,7 @@ import { BaseComponent } from '@bookapp-angular/core';
 import { BOOK_QUERY, BOOKMARKS_BY_USER_AND_BOOK_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
-import { Book, BookmarkByUserAndBook, BookResponse } from '../models';
+import { AddOrRemoveBookmarkEvent, Book, BookmarkByUserAndBookResponse, BookResponse } from '../models';
 
 export abstract class BookPageBaseComponent extends BaseComponent
   implements OnInit {
@@ -41,17 +41,28 @@ export abstract class BookPageBaseComponent extends BaseComponent
       );
 
     this.bookmarks$ = this.apollo
-      .watchQuery<BookmarkByUserAndBook>({
+      .watchQuery<BookmarkByUserAndBookResponse>({
         query: BOOKMARKS_BY_USER_AND_BOOK_QUERY,
         variables: {
           bookId
         }
       })
-      .valueChanges.pipe(map(({ data }) => data.userBookmarksByBook));
+      .valueChanges.pipe(
+        map(({ data }) => data.userBookmarksByBook),
+        map(bookmarks => bookmarks.map(bookmark => bookmark.type))
+      );
   }
 
   submitComment(bookId: string, text: string, slug: string) {
     this.isLoading = true;
     this.bookService.addComment(bookId, text, slug);
+  }
+
+  addToBookmarks(event: AddOrRemoveBookmarkEvent) {
+    this.bookService.addToBookmarks(event);
+  }
+
+  removeFromBookmarks(event: AddOrRemoveBookmarkEvent) {
+    this.bookService.removeFromBookmarks(event);
   }
 }

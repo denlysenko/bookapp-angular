@@ -7,3 +7,19 @@ export const BOOKMARKS_BY_USER_AND_BOOK_QUERY = gql`
     }
   }
 `;
+
+export const ADD_TO_BOOKMARKS_MUTATION = gql`
+  mutation($type: BookmarkType!, $bookId: ID!) {
+    addToBookmarks(type: $type, bookId: $bookId) {
+      type
+    }
+  }
+`;
+
+export const REMOVE_FROM_BOOKMARKS_MUTATION = gql`
+  mutation($type: BookmarkType!, $bookId: ID!) {
+    removeFromBookmarks(type: $type, bookId: $bookId) {
+      type
+    }
+  }
+`;

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { User } from '@bookapp-angular/auth-core';
-import { Book } from '@bookapp-angular/books-core';
+import { AddOrRemoveBookmarkEvent, Book } from '@bookapp-angular/books-core';
 import { BOOKMARKS } from '@bookapp-angular/core';
 
 @Component({
@@ -11,6 +11,8 @@ import { BOOKMARKS } from '@bookapp-angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookViewComponent {
+  BOOKMARKS = BOOKMARKS;
+
   @Input() book: Book;
   @Input() bookmarks: string[];
   @Input()
@@ -19,6 +21,9 @@ export class BookViewComponent {
       this._isAdmin = value.roles.includes('admin');
     }
   }
+
+  @Output() onAddBookmark = new EventEmitter<AddOrRemoveBookmarkEvent>();
+  @Output() onRemoveBookmark = new EventEmitter<AddOrRemoveBookmarkEvent>();
 
   get isAdmin(): boolean {
     return this._isAdmin;

@@ -2,7 +2,7 @@
   <div class="cover">
     <img [src]="book.coverUrl ? book.coverUrl : '/assets/images/nocover.svg'"
          alt="{{ book.title }}">
-    <div *ngIf="book.paid">{{ book.price | currency:'USD':'symbol-narrow' }}</div>
+    <div *ngIf="book.paid">{{ book.price | currency: 'USD': 'symbol-narrow' }}</div>
     <ba-rating [ngModel]="book.rating"
                (ngModelChange)="rate($event)"></ba-rating>
     <div class="view-num">
@@ -34,20 +34,23 @@
       <button type="button"
               mat-icon-button
               [matTooltip]="inFavourites ? 'Remove from Favourites' : 'Add To Favourites'"
-              color="accent">
+              color="accent"
+              (click)="(inFavourites ? onRemoveBookmark: onAddBookmark).emit({type: BOOKMARKS.FAVOURITE, bookId: book.id })">
         <mat-icon>{{ inFavourites ? 'star' : 'star_border' }}</mat-icon>
       </button>
       <button *ngIf="book.paid"
               type="button"
               mat-icon-button
               [matTooltip]="inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'"
-              color="accent">
+              color="accent"
+              (click)="(inWishlist ? onRemoveBookmark : onAddBookmark).emit({type: BOOKMARKS.WISHLIST, bookId: book.id })">
         <mat-icon>{{ inWishlist ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>
       <button type="button"
               mat-icon-button
               [matTooltip]="inMustread ? 'Remove from must read' : 'Add to must read'"
-              color="accent">
+              color="accent"
+              (click)="(inMustread ? onRemoveBookmark : onAddBookmark).emit({type: BOOKMARKS.MUSTREAD, bookId: book.id })">
         <mat-icon>{{ inMustread ? 'bookmark': 'bookmark_border' }}</mat-icon>
       </button>
       <a *ngIf="isAdmin"
