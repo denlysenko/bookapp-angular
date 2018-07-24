@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { User, UserSelfResponse } from '@bookapp-angular/auth-core';
 import { BookPageBaseComponent, BookService } from '@bookapp-angular/books-core';
-import { ME_QUERY } from '@bookapp-angular/graphql';
+import { ME_QUERY } from '@bookapp-angular/graphql/src';
 import { Apollo } from 'apollo-angular';
 
 @Component({
@@ -23,6 +23,7 @@ export class BookPageComponent extends BookPageBaseComponent {
     protected bookService: BookService
   ) {
     super();
+
     this.user$ = this.apollo
       .query<UserSelfResponse>({
         query: ME_QUERY

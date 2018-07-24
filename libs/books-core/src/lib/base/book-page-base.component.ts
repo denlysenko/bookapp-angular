@@ -6,14 +6,15 @@ import { map, tap } from 'rxjs/operators';
 
 import { BookService } from '@bookapp-angular/books-core';
 import { BaseComponent } from '@bookapp-angular/core';
-import { BOOK_QUERY } from '@bookapp-angular/graphql';
+import { BOOK_QUERY, BOOKMARKS_BY_USER_AND_BOOK_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
-import { Book, BookResponse } from '../models';
+import { Book, BookmarkByUserAndBook, BookResponse } from '../models';
 
 export abstract class BookPageBaseComponent extends BaseComponent
   implements OnInit {
   book$: Observable<Book>;
+  bookmarks$: Observable<string[]>;
   isLoading: boolean;
 
   protected abstract apollo: Apollo;
@@ -22,6 +23,8 @@ export abstract class BookPageBaseComponent extends BaseComponent
 
   ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug');
+    // as I could not find another way to pass bookId through navigation, use query params
+    const bookId = this.route.snapshot.queryParamMap.get('bookId');
 
     this.book$ = this.apollo
       .watchQuery<BookResponse>({
@@ -36,6 +39,15 @@ export abstract class BookPageBaseComponent extends BaseComponent
         tap(({ loading }) => (this.isLoading = loading)),
         map(({ data }) => data.book)
       );
+
+    this.bookmarks$ = this.apollo
+      .watchQuery<BookmarkByUserAndBook>({
+        query: BOOKMARKS_BY_USER_AND_BOOK_QUERY,
+        variables: {
+          bookId
+        }
+      })
+      .valueChanges.pipe(map(({ data }) => data.userBookmarksByBook));
   }
 
   submitComment(bookId: string, text: string, slug: string) {

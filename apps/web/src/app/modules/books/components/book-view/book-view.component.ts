@@ -11,6 +11,7 @@ import { Book } from '@bookapp-angular/books-core';
 })
 export class BookViewComponent {
   @Input() book: Book;
+  @Input() bookmarks: string[];
   @Input()
   set user(value: User) {
     if (value) {
