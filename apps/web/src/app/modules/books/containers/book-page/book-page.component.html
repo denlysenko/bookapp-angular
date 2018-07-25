@@ -9,6 +9,7 @@
       <ba-book-view [book]="book"
                     [bookmarks]="bookmarks$ | async"
                     [user]="user$ | async"
+                    (onRate)="rate($event, book.slug)"
                     (onAddBookmark)="addToBookmarks($event)"
                     (onRemoveBookmark)="removeFromBookmarks($event)"></ba-book-view>
       <ba-book-comments [comments]="book.comments"

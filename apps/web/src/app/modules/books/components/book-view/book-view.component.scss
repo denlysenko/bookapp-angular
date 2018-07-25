@@ -14,21 +14,28 @@
   justify-content: center;
   align-items: center;
   flex-basis: 25%;
-  height: 325px;
 
   img {
     display: block;
     margin-bottom: 10px;
+    height: 270px;
   }
 
   .view-num {
     display: flex;
+    width: 100%;
+    min-height: 24px;
+    justify-content: center;
     align-items: center;
     color: $dark-primary-text;
 
     span {
       margin-left: 10px;
     }
+  }
+
+  .actions {
+    margin: 10px 0;
   }
 }
 

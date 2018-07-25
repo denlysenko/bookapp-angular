@@ -6,10 +6,10 @@ import { map, tap } from 'rxjs/operators';
 
 import { BookService } from '@bookapp-angular/books-core';
 import { BaseComponent } from '@bookapp-angular/core';
-import { BOOK_QUERY, BOOKMARKS_BY_USER_AND_BOOK_QUERY } from '@bookapp-angular/graphql';
+import { BOOK_QUERY, BOOKMARKS_BY_USER_AND_BOOK_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
-import { AddOrRemoveBookmarkEvent, Book, BookmarkByUserAndBookResponse, BookResponse } from '../models';
+import { AddOrRemoveBookmarkEvent, Book, BookmarkByUserAndBookResponse, BookRateEvent, BookResponse } from '../models';
 
 export abstract class BookPageBaseComponent extends BaseComponent
   implements OnInit {
@@ -23,7 +23,7 @@ export abstract class BookPageBaseComponent extends BaseComponent
 
   ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug');
-    // as I could not find another way to pass bookId through navigation, use query params
+    // as I could not find another way to pass bookId through navigation, using query params
     const bookId = this.route.snapshot.queryParamMap.get('bookId');
 
     this.book$ = this.apollo
@@ -64,5 +64,39 @@ export abstract class BookPageBaseComponent extends BaseComponent
 
   removeFromBookmarks(event: AddOrRemoveBookmarkEvent) {
     this.bookService.removeFromBookmarks(event);
+  }
+
+  rate(event: BookRateEvent, slug: string) {
+    const { bookId, rate } = event;
+
+    this.apollo
+      .mutate({
+        mutation: RATE_BOOK_MUTATION,
+        variables: {
+          bookId,
+          rate
+        },
+        update: (store, { data: { rateBook } }) => {
+          const data: BookResponse = store.readQuery({
+            query: BOOK_QUERY,
+            variables: {
+              slug
+            }
+          });
+
+          data.book.rating = rateBook.rating;
+          data.book.total_rates = rateBook.total_rates;
+          data.book.total_rating = rateBook.total_rating;
+
+          store.writeQuery({
+            query: BOOK_QUERY,
+            variables: {
+              slug
+            },
+            data
+          });
+        }
+      })
+      .subscribe();
   }
 }

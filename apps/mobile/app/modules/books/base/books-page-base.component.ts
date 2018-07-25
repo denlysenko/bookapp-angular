@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Book, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
 import { BaseComponent, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
-import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY } from '@bookapp-angular/graphql';
+import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { Color } from 'color';
 import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
@@ -177,11 +177,35 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       orderBy: sortValue
     };
 
-    this.bookService.rate(
-      event,
-      paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
-      variables
-    );
+    const { bookId, rate } = event;
+    const query = paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY;
+
+    this.apollo
+      .mutate({
+        mutation: RATE_BOOK_MUTATION,
+        variables: {
+          bookId,
+          rate
+        },
+        update: (store, { data: { rateBook } }) => {
+          const data: BooksResponse = store.readQuery({
+            query,
+            variables
+          });
+
+          const updatedBook = data.books.rows.find(({ id }) => id === bookId);
+          updatedBook.rating = rateBook.rating;
+          updatedBook.total_rates = rateBook.total_rates;
+          updatedBook.total_rating = rateBook.total_rating;
+
+          store.writeQuery({
+            query,
+            variables,
+            data
+          });
+        }
+      })
+      .subscribe();
   }
 
   private genSortItems(): SegmentedBarItem[] {

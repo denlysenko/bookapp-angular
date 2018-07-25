@@ -11,7 +11,6 @@ import {
   CREATE_BOOK_MUTATION,
   FREE_BOOKS_QUERY,
   PAID_BOOKS_QUERY,
-  RATE_BOOK_MUTATION,
   REMOVE_FROM_BOOKMARKS_MUTATION,
   UPDATE_BOOK_MUTATION,
 } from '@bookapp-angular/graphql';
@@ -22,7 +21,6 @@ import {
   Book,
   BookFilterInput,
   BookmarkByUserAndBookResponse,
-  BookRateEvent,
   BookResponse,
   BooksResponse,
   CreateBookResponse,
@@ -51,35 +49,25 @@ export class BookService {
     });
   }
 
-  rate(event: BookRateEvent, query: any, variables: any) {
-    const { bookId, rate } = event;
-
-    this.apollo
-      .mutate({
-        mutation: RATE_BOOK_MUTATION,
+  getBooks(
+    paid: boolean,
+    filter: BookFilterInput,
+    orderBy = DEFAULT_SORT_VALUE,
+    skip = 0,
+    first = LIMIT
+  ) {
+    return this.apollo
+      .query<BooksResponse>({
+        query: paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
         variables: {
-          bookId,
-          rate
-        },
-        update: (store, { data: { rateBook } }) => {
-          const data: BooksResponse = store.readQuery({
-            query,
-            variables
-          });
-
-          const updatedBook = data.books.rows.find(({ id }) => id === bookId);
-          updatedBook.rating = rateBook.rating;
-          updatedBook.total_rates = rateBook.total_rates;
-          updatedBook.total_rating = rateBook.total_rating;
-
-          store.writeQuery({
-            query,
-            variables,
-            data
-          });
+          paid,
+          filter,
+          skip,
+          first,
+          orderBy
         }
       })
-      .subscribe();
+      .pipe(map(res => res.data.books));
   }
 
   addComment(bookId: string, text: string, slug: string) {
@@ -176,26 +164,5 @@ export class BookService {
         }
       })
       .subscribe();
-  }
-
-  getBooks(
-    paid: boolean,
-    filter: BookFilterInput,
-    orderBy = DEFAULT_SORT_VALUE,
-    skip = 0,
-    first = LIMIT
-  ) {
-    return this.apollo
-      .query<BooksResponse>({
-        query: paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
-        variables: {
-          paid,
-          filter,
-          skip,
-          first,
-          orderBy
-        }
-      })
-      .pipe(map(res => res.data.books));
   }
 }

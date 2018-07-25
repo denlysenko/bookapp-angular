@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { User } from '@bookapp-angular/auth-core';
-import { AddOrRemoveBookmarkEvent, Book } from '@bookapp-angular/books-core';
+import { AddOrRemoveBookmarkEvent, Book, BookRateEvent } from '@bookapp-angular/books-core';
 import { BOOKMARKS } from '@bookapp-angular/core';
 
 @Component({
@@ -24,6 +24,9 @@ export class BookViewComponent {
 
   @Output() onAddBookmark = new EventEmitter<AddOrRemoveBookmarkEvent>();
   @Output() onRemoveBookmark = new EventEmitter<AddOrRemoveBookmarkEvent>();
+  @Output() onRate = new EventEmitter<BookRateEvent>();
+
+  private _isAdmin: boolean;
 
   get isAdmin(): boolean {
     return this._isAdmin;
@@ -41,5 +44,7 @@ export class BookViewComponent {
     return this.bookmarks && this.bookmarks.includes(BOOKMARKS.MUSTREAD);
   }
 
-  private _isAdmin: boolean;
+  rate(event: number) {
+    this.onRate.emit(new BookRateEvent(this.book.id, event));
+  }
 }

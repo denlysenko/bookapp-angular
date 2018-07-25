@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { User, UserSelfResponse } from '@bookapp-angular/auth-core';
 import { BookPageBaseComponent, BookService } from '@bookapp-angular/books-core';
-import { ME_QUERY } from '@bookapp-angular/graphql/src';
+import { ME_QUERY } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
 @Component({
