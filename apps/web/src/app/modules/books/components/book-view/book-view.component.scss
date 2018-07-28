@@ -41,7 +41,6 @@
 
 .details {
   flex: 1;
-  margin-left: 15px;
 
   h3,
   h4 {
@@ -56,8 +55,18 @@
   h4 {
     font-size: 18px;
   }
+
+  @media (min-width: 768px) {
+    margin-left: 15px;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
 }
 
-.mat-toolbar {
+.toolbar {
+  padding: 16px;
+  background-color: $toolbar-color;
   font-size: 14px;
 }

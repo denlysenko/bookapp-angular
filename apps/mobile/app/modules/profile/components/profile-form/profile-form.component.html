@@ -18,46 +18,48 @@
 <StackLayout>
   <StackLayout class="m-10"
                [shadow]="2">
-    <ScrollView>
-      <FlexboxLayout flexDirection="column"
-                     height="100%">
-        <StackLayout class="mat-card"
-                     flexGrow="1">
-          <FlexboxLayout flexDirection="column"
-                         justifyContenet="center"
-                         alignItems="center">
-            <Label class="h3"
-                   text="Profile Photo"></Label>
-            <AbsoluteLayout *ngIf="user"
-                            class="avatar-block">
-              <Image class="avatar"
-                     [src]="user.avatar ? user.avatar : 'res://noavatar'"
-                     left="0"
-                     top="0"></Image>
-              <GridLayout class="avatar-btn"
-                          rows="*"
-                          columns="*"
-                          left="50"
-                          top="45"
-                          (tap)="changeAvatar()">
-                <Label class="mdi"
-                       text="add_a_photo"
-                       style.verticalAlignment="center"
-                       style.textAlignment="center"></Label>
-              </GridLayout>
-            </AbsoluteLayout>
-            <Progress *ngIf="isUploading"
-                      [value]="progress$ | async"
-                      maxValue="100"
-                      class="m-t-20"></Progress>
-          </FlexboxLayout>
-          <RadDataForm id="profileForm"
-                       class="profile-form"
-                       [source]="profile"
-                       [metadata]="metadata">
-          </RadDataForm>
-        </StackLayout>
-      </FlexboxLayout>
-    </ScrollView>
+    <FlexboxLayout flexDirection="column"
+                   height="100%">
+      <StackLayout class="mat-card"
+                   flexGrow="1">
+        <ScrollView>
+          <StackLayout>
+            <FlexboxLayout flexDirection="column"
+                           justifyContenet="center"
+                           alignItems="center">
+              <Label class="h3"
+                     text="Profile Photo"></Label>
+              <AbsoluteLayout *ngIf="user"
+                              class="avatar-block">
+                <Image class="avatar"
+                       [src]="user.avatar ? user.avatar : 'res://noavatar'"
+                       left="0"
+                       top="0"></Image>
+                <GridLayout class="avatar-btn"
+                            rows="*"
+                            columns="*"
+                            left="50"
+                            top="45"
+                            (tap)="changeAvatar()">
+                  <Label class="mdi"
+                         text="add_a_photo"
+                         style.verticalAlignment="center"
+                         style.textAlignment="center"></Label>
+                </GridLayout>
+              </AbsoluteLayout>
+              <Progress *ngIf="isUploading"
+                        [value]="progress$ | async"
+                        maxValue="100"
+                        class="m-t-20"></Progress>
+            </FlexboxLayout>
+            <RadDataForm id="profileForm"
+                         class="profile-form"
+                         [source]="profile"
+                         [metadata]="metadata">
+            </RadDataForm>
+          </StackLayout>
+        </ScrollView>
+      </StackLayout>
+    </FlexboxLayout>
   </StackLayout>
 </StackLayout>

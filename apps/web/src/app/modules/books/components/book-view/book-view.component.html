@@ -7,7 +7,7 @@
                (ngModelChange)="rate($event)"></ba-rating>
     <div class="actions">
       <a *ngIf="!book.paid"
-         routerLink="/reading/{{ book.url }}"
+         routerLink="/books/reading/{{ book.url }}"
          mat-icon-button
          matTooltip="Read book"
          color="accent">
@@ -43,7 +43,7 @@
         <mat-icon>{{ inMustread ? 'bookmark': 'bookmark_border' }}</mat-icon>
       </button>
       <a *ngIf="isAdmin"
-         routerLink="/edit/{{ book.url }}"
+         routerLink="/books/edit/{{ book.url }}"
          mat-icon-button
          matTooltip="Edit book"
          color="accent">
@@ -67,6 +67,6 @@
   <div class="details">
     <h3>{{ book.title }}</h3>
     <h4>by {{ book.author }}</h4>
-    <mat-toolbar>{{ book.description || 'No Description' }}</mat-toolbar>
+    <div class="toolbar">{{ book.description || 'No Description' }}</div>
   </div>
 </div>

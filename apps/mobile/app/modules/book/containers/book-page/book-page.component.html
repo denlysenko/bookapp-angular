@@ -1,0 +1,12 @@
+<ActionBar class="action-bar"
+           flat="true">
+  <Label class="action-bar-title"
+         text="Book Details"></Label>
+</ActionBar>
+<StackLayout *ngIf="(book$ | async) as book">
+  <ba-book-view [book]="book"
+                [bookmarks]="bookmarks$ | async"
+                (onRate)="rate($event, book.slug)"
+                (onAddBookmark)="addToBookmarks($event)"
+                (onRemoveBookmark)="removeFromBookmarks($event)"></ba-book-view>
+</StackLayout>

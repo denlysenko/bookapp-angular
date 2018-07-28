@@ -1,0 +1,69 @@
+<StackLayout>
+  <StackLayout class="m-20"
+               [shadow]="2">
+    <FlexboxLayout flexDirection="column"
+                   height="100%">
+      <StackLayout class="mat-card"
+                   flexGrow="1">
+        <ScrollView>
+          <StackLayout>
+            <FlexboxLayout flexDirection="column"
+                           justifyContent="center"
+                           alignItems="center">
+              <Image class="cover"
+                     [src]="book.coverUrl ? book.coverUrl : 'res://nocover'"></Image>
+              <StarRating #rating
+                          emptyBorderColor="#ffab00"
+                          emptyColor="white"
+                          filledBorderColor="#ffab00"
+                          filledColor="#ffab00"
+                          max="5"
+                          isindicator="false"></StarRating>
+              <FlexboxLayout class="actions"
+                             justifyContent="center">
+                <Button *ngIf="!book.paid"
+                        nsRouterLink="/reading/{{ book.url }}"
+                        text="book"
+                        class="mdi">
+                </Button>
+                <Button *ngIf="book.paid"
+                        text="credit_card"
+                        class="mdi">
+                </Button>
+                <Button class="mdi"
+                        [text]="inFavourites ? 'star' : 'star_border'"
+                        (tap)="(inFavourites ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.FAVOURITE, bookId: book.id })">
+                </Button>
+                <Button *ngIf="book.paid"
+                        class="mdi"
+                        [text]="inWishlist ? 'favorite' : 'favorite_border'"
+                        (tap)="(inWishlist ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.WISHLIST, bookId: book.id })">
+                </Button>
+                <Button class="mdi"
+                        [text]="inMustread ? 'bookmark': 'bookmark_border'"
+                        (tap)="(inMustread ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.MUSTREAD, bookId: book.id })">
+                </Button>
+              </FlexboxLayout>
+              <FlexboxLayout class="view-num">
+                <Label class="mdi"
+                       text="visibility"></Label>
+                <Label [text]="book.views"></Label>
+              </FlexboxLayout>
+            </FlexboxLayout>
+            <StackLayout class="details">
+              <Label class="h3"
+                     [text]="book.title"
+                     textWrap="true"></Label>
+              <Label class="h4"
+                     [text]="'by ' + book.author"
+                     textWrap="true"></Label>
+              <Label class="toolbar"
+                     [text]="book.description || 'No Description'"
+                     textWrap="true"></Label>
+            </StackLayout>
+          </StackLayout>
+        </ScrollView>
+      </StackLayout>
+    </FlexboxLayout>
+  </StackLayout>
+</StackLayout>

@@ -39,6 +39,7 @@ export const FreeBooksFragment = gql`
     rating
     total_rates
     total_rating
+    paid
   }
 `;
 
@@ -72,6 +73,7 @@ export const BookFragment = gql`
     paid
     views
     slug
+    url
     comments {
       author {
         displayName

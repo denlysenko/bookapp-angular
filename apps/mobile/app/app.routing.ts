@@ -32,6 +32,16 @@ const routes: Routes = [
     path: 'password',
     loadChildren: '~/modules/password/password.module#PasswordModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'browse/:author/:slug',
+    loadChildren: '~/modules/book/book.module#BookModule',
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'buy/:author/:slug',
+    loadChildren: '~/modules/book/book.module#BookModule',
+    canLoad: [AuthGuard]
   }
 ];
 

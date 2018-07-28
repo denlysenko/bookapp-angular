@@ -63,7 +63,7 @@ export class BookSearchComponent extends BaseComponent implements OnInit {
   }
 
   onItemSelect(args) {
-    this.params.closeCallback(this.books.getItem(args.index).id);
+    this.params.closeCallback(this.books.getItem(args.index));
   }
 
   onSubmit() {

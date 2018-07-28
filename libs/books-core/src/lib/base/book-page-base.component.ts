@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 
 import { BookService } from '@bookapp-angular/books-core';
 import { BaseComponent } from '@bookapp-angular/core';
@@ -37,7 +37,8 @@ export abstract class BookPageBaseComponent extends BaseComponent
       })
       .valueChanges.pipe(
         tap(({ loading }) => (this.isLoading = loading)),
-        map(({ data }) => data.book)
+        map(({ data }) => data.book),
+        takeUntil(this.destroy$)
       );
 
     this.bookmarks$ = this.apollo
@@ -49,7 +50,8 @@ export abstract class BookPageBaseComponent extends BaseComponent
       })
       .valueChanges.pipe(
         map(({ data }) => data.userBookmarksByBook),
-        map(bookmarks => bookmarks.map(bookmark => bookmark.type))
+        map(bookmarks => bookmarks.map(bookmark => bookmark.type)),
+        takeUntil(this.destroy$)
       );
   }
 

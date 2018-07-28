@@ -3,7 +3,7 @@ import { OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { Book, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
+import { BaseComponent, FILTER_KEYS, LIMIT, RouterExtensions, StoreService } from '@bookapp-angular/core';
 import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { Color } from 'color';
@@ -61,6 +61,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   protected abstract apollo: Apollo;
   protected abstract bookService: BookService;
   protected abstract loaderService: LoaderService;
+  protected abstract routerExtensions: RouterExtensions;
 
   private skip = 0;
   private sortValue = this.sortOptions[0].value;
@@ -102,14 +103,20 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       viewContainerRef: this.viewContainerRef
     };
 
-    const result = await this.modalService.showModal(
+    const book = await this.modalService.showModal(
       BookSearchComponent,
       options
     );
 
-    if (result) {
-      // TODO navigate to BookView page
-      console.log(result);
+    if (book) {
+      // wait when modal close
+      setTimeout(() => {
+        this.routerExtensions.navigateByUrl(
+          book.paid
+            ? `/buy/${book.url}?bookId=${book.id}`
+            : `/browse/${book.url}?bookId=${book.id}`
+        );
+      });
     }
   }
 

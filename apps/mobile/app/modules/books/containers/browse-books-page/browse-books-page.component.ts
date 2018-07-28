@@ -1,7 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 
 import { BookService } from '@bookapp-angular/books-core';
-import { StoreService } from '@bookapp-angular/core';
+import { RouterExtensions, StoreService } from '@bookapp-angular/core';
 import { Apollo } from 'apollo-angular';
 import { ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { LoaderService } from '~/modules/core/services/loader.service';
@@ -23,7 +23,8 @@ export class BrowseBooksPageComponent extends BooksPageBaseComponent {
     protected storeService: StoreService,
     protected apollo: Apollo,
     protected bookService: BookService,
-    protected loaderService: LoaderService
+    protected loaderService: LoaderService,
+    protected routerExtensions: RouterExtensions
   ) {
     super();
   }
