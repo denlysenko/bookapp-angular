@@ -1,7 +1,8 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 
-import { AddOrRemoveBookmarkEvent, Book, BookRateEvent } from '@bookapp-angular/books-core';
 import { BOOKMARKS } from '@bookapp-angular/core';
+
+import { AddOrRemoveBookmarkEvent, Book, BookRateEvent } from '../models';
 
 export abstract class BookViewBaseComponent {
   BOOKMARKS = BOOKMARKS;

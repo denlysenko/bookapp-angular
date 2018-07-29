@@ -3,20 +3,23 @@ import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angu
 import { BookCommentsBaseComponent } from '@bookapp-angular/books-core';
 
 @Component({
+  moduleId: module.id,
   selector: 'ba-book-comments',
   templateUrl: './book-comments.component.html',
   styleUrls: ['./book-comments.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookCommentsComponent extends BookCommentsBaseComponent {
-  @ViewChild('list', { read: ElementRef })
-  list: ElementRef;
+  @ViewChild('listView') listView: ElementRef;
+  @ViewChild('textView') textView: ElementRef;
 
-  addComment() {
+  submitComment() {
     this.onCommentAdded.emit(this.text);
     this.text = '';
+    this.textView.nativeElement.dismissSoftInput();
+
     setTimeout(() => {
-      this.list.nativeElement.scrollTop = this.list.nativeElement.scrollHeight;
+      this.listView.nativeElement.scrollToIndex(this.comments.length - 1);
     }, 200);
   }
 }

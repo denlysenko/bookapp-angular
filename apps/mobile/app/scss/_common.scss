@@ -53,3 +53,9 @@ Page {
 Button {
   color: $primary-color;
 }
+
+TabView {
+  tab-text-color: $primary-color;
+  selected-tab-text-color: $orange;
+  android-selected-tab-text-color: $orange;
+}

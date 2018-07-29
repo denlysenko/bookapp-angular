@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 
-import { BookService } from '@bookapp-angular/books-core';
 import { BaseComponent } from '@bookapp-angular/core';
 import { BOOK_QUERY, BOOKMARKS_BY_USER_AND_BOOK_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo } from 'apollo-angular';
 
 import { AddOrRemoveBookmarkEvent, Book, BookmarkByUserAndBookResponse, BookRateEvent, BookResponse } from '../models';
+import { BookService } from '../services';
 
 export abstract class BookPageBaseComponent extends BaseComponent
   implements OnInit {
