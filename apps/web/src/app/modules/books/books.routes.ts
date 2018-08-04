@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard, BOOKMARKS, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
+import { BestBooksPageComponent } from './containers/best-books-page/best-books-page.component';
 import { BookPageComponent } from './containers/book-page/book-page.component';
 import { BookmarksPageComponent } from './containers/bookmarks-page/bookmarks-page.component';
 import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
@@ -77,15 +78,15 @@ export const routes: Routes = [
       title: 'Wishlist',
       type: BOOKMARKS.WISHLIST
     }
+  },
+  {
+    path: 'best',
+    component: BestBooksPageComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
 /*
-  {
-    path: 'best',
-    component: BestBooksComponent,
-    canActivate: [AuthGuard]
-  },
   {
     path: 'reading/:author/:slug',
     component: ReadingBookComponent,

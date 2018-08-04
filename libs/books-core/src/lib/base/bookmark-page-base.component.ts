@@ -2,10 +2,11 @@ import { OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { Book, Bookmark, BookmarksResponse, BookRateEvent } from '@bookapp-angular/books-core';
 import { BaseComponent, LIMIT } from '@bookapp-angular/core';
 import { BOOKMARKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
+
+import { Book, Bookmark, BookmarksResponse, BookRateEvent } from '../models';
 
 export abstract class BookmarksPageBaseComponent extends BaseComponent
   implements OnInit {

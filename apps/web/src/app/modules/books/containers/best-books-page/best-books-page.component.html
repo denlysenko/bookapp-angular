@@ -1,0 +1,10 @@
+<ba-loader [visible]="isLoading"></ba-loader>
+<mat-toolbar>
+  <span>List Of The Best</span>
+</mat-toolbar>
+<div class="view-content"
+     baInfiniteScroll
+     (onTotalScroll)="loadMore()">
+  <ba-book-list [books]="books"
+                (onRate)="rate($event)"></ba-book-list>
+</div>

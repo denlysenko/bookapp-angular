@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent, LIMIT } from '@bookapp-angular/core';
-import { BEST_BOOKS_QUERY, BOOKMARKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
+import { BEST_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { BestBooksResponse, Book, BookRateEvent } from '../models';
@@ -60,7 +60,7 @@ export abstract class BestBooksPageBaseComponent extends BaseComponent
             bestBooks: {
               count,
               rows: [...previousResult.bestBooks.rows, ...rows],
-              __typename: 'BestBooksResponse'
+              __typename: 'BooksResponse'
             }
           };
         }
@@ -97,10 +97,17 @@ export abstract class BestBooksPageBaseComponent extends BaseComponent
             if (updatedBookIndex > -1) {
               data.bestBooks.rows.splice(updatedBookIndex, 1);
             }
+          } else {
+            const updatedBook = data.bestBooks.rows.find(
+              ({ id }) => id === bookId
+            );
+            updatedBook.rating = rateBook.rating;
+            updatedBook.total_rates = rateBook.total_rates;
+            updatedBook.total_rating = rateBook.total_rating;
           }
 
           store.writeQuery({
-            query: BOOKMARKS_QUERY,
+            query: BEST_BOOKS_QUERY,
             variables,
             data
           });

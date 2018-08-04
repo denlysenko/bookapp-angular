@@ -47,7 +47,7 @@ export const categories: MenuItem[] = [
   },
   {
     label: 'List of the Best',
-    path: 'best',
+    path: 'books/best',
     icon: 'fiber_manual_record',
     color: '#ffab00'
   }

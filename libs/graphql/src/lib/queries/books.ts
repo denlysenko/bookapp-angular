@@ -98,7 +98,7 @@ export const BOOK_QUERY = gql`
 
 export const BEST_BOOKS_QUERY = gql`
   query($skip: Int, $first: Int) {
-    books(skip: $skip, first: $first) {
+    bestBooks(skip: $skip, first: $first) {
       count
       rows {
         ...PaidBooks
