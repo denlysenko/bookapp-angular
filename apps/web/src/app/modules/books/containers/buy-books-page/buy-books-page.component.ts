@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { BookService } from '@bookapp-angular/books-core';
 import { StoreService } from '@bookapp-angular/core';
 import { Apollo } from 'apollo-angular';
 
@@ -13,11 +12,7 @@ import { BooksPageBaseComponent } from '../../base/books-page-base.component';
 export class BuyBooksPageComponent extends BooksPageBaseComponent {
   protected paid = true;
 
-  constructor(
-    protected apollo: Apollo,
-    protected storeService: StoreService,
-    protected bookService: BookService
-  ) {
+  constructor(protected apollo: Apollo, protected storeService: StoreService) {
     super();
   }
 }

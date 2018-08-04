@@ -18,7 +18,6 @@ export abstract class BooksPageBaseComponent extends BaseComponent
 
   protected abstract apollo: Apollo;
   protected abstract storeService: StoreService;
-  protected abstract bookService: BookService; // ?
 
   private bookQueryRef: QueryRef<BooksResponse>;
   private filterInput: BookFilterInput;

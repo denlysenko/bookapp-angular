@@ -39,3 +39,7 @@ export interface BookResponse {
 export interface BooksResponse {
   books: ListResponse<Book>;
 }
+
+export interface BestBooksResponse {
+  bestBooks: ListResponse<Book>;
+}

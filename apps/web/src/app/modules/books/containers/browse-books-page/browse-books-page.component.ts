@@ -15,8 +15,7 @@ export class BrowseBooksPageComponent extends BooksPageBaseComponent {
 
   constructor(
     protected apollo: Apollo,
-    protected storeService: StoreService,
-    protected bookService: BookService
+    protected storeService: StoreService
   ) {
     super();
   }
