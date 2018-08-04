@@ -31,7 +31,10 @@ export const BOOKMARKS_QUERY = gql`
     bookmarks(type: $type, skip: $skip, first: $first) {
       count
       rows {
-        ...PaidBooks
+        type
+        book {
+          ...PaidBooks
+        }
       }
     }
   }

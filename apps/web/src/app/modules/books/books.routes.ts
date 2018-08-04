@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { AuthGuard, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
+import { AuthGuard, BOOKMARKS, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
 import { BookPageComponent } from './containers/book-page/book-page.component';
+import { BookmarksPageComponent } from './containers/bookmarks-page/bookmarks-page.component';
 import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
 import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
 import { EditBookResolver } from './resolvers/edit-book.resolver';
@@ -49,6 +50,33 @@ export const routes: Routes = [
     path: 'buy/:author/:slug',
     component: BookPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'favourite',
+    component: BookmarksPageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Favourite Books',
+      type: BOOKMARKS.FAVOURITE
+    }
+  },
+  {
+    path: 'mustread',
+    component: BookmarksPageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Must Read Titles',
+      type: BOOKMARKS.MUSTREAD
+    }
+  },
+  {
+    path: 'wishlist',
+    component: BookmarksPageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Wishlist',
+      type: BOOKMARKS.WISHLIST
+    }
   }
 ];
 
@@ -59,16 +87,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'favourite',
-    component: FavouriteBooksComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'mustread',
-    component: MustreadBooksComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'reading/:author/:slug',
     component: ReadingBookComponent,
     canActivate: [AuthGuard]
@@ -76,11 +94,6 @@ export const routes: Routes = [
   {
     path: 'reading',
     component: ReadingBookComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'wishlist',
-    component: WishlistBooksComponent,
     canActivate: [AuthGuard]
   },
 */

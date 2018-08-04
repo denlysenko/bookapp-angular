@@ -26,7 +26,6 @@ import { RatingModule } from '@web/ui/rating/rating.module';
 
 import { routes } from './books.routes';
 import { components } from './components';
-import { BookCommentsComponent } from './components/book-comments/book-comments.component';
 import { containers } from './containers';
 import { EditBookResolver } from './resolvers/edit-book.resolver';
 
@@ -54,7 +53,7 @@ import { EditBookResolver } from './resolvers/edit-book.resolver';
     InfiniteScrollModule,
     LoaderModule
   ],
-  declarations: [...containers, ...components, BookCommentsComponent],
+  declarations: [...containers, ...components],
   providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,

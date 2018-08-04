@@ -23,12 +23,12 @@ export const navs: MenuItem[] = [
   },
   {
     label: 'Favourite',
-    path: 'favourite',
+    path: 'books/favourite',
     icon: 'star'
   },
   {
     label: 'Wishlist',
-    path: 'wishlist',
+    path: 'books/wishlist',
     icon: 'list'
   },
   {
@@ -41,7 +41,7 @@ export const navs: MenuItem[] = [
 export const categories: MenuItem[] = [
   {
     label: 'Must Read Titles',
-    path: 'mustread',
+    path: 'books/mustread',
     icon: 'fiber_manual_record',
     color: '#e64c66'
   },

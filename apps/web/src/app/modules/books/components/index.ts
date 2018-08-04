@@ -1,3 +1,4 @@
+import { BookCommentsComponent } from './book-comments/book-comments.component';
 import { BookFilterComponent } from './book-filter/book-filter.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
@@ -9,5 +10,6 @@ export const components: any[] = [
   BookFilterComponent,
   BookListComponent,
   BookListItemComponent,
-  BookViewComponent
+  BookViewComponent,
+  BookCommentsComponent
 ];

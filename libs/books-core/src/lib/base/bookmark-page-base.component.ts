@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { Bookmark, BookmarksResponse, BookRateEvent } from '@bookapp-angular/books-core';
+import { Book, Bookmark, BookmarksResponse, BookRateEvent } from '@bookapp-angular/books-core';
 import { BaseComponent, LIMIT } from '@bookapp-angular/core';
 import { BOOKMARKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
@@ -10,10 +10,11 @@ import { Apollo, QueryRef } from 'apollo-angular';
 export abstract class BookmarksPageBaseComponent extends BaseComponent
   implements OnInit {
   bookmarks: Bookmark[];
+  books: Book[];
   count: number;
   isLoading: boolean;
 
-  protected abstract type: boolean;
+  protected abstract type: string;
   protected abstract apollo: Apollo;
 
   private bookmarksQueryRef: QueryRef<BookmarksResponse>;
@@ -60,8 +61,8 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
           return {
             bookmarks: {
               count,
-              rows: [...previousResult.bookmarks.rows, ...rows]
-              // __typename: 'BookResponse'
+              rows: [...previousResult.bookmarks.rows, ...rows],
+              __typename: 'BookmarksResponse'
             }
           };
         }
@@ -123,6 +124,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
         }
 
         this.bookmarks = data.bookmarks.rows;
+        this.books = this.bookmarks.map(bookmark => bookmark.book);
         this.count = data.bookmarks.count;
       });
   }
