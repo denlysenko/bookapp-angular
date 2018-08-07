@@ -1,3 +1,7 @@
-<p>
-  history-page works!
-</p>
+<ba-loader [visible]="isLoading"></ba-loader>
+<mat-toolbar>
+  <span>History</span>
+</mat-toolbar>
+<div class="view-content">
+  <ba-history-list></ba-history-list>
+</div>

@@ -25,7 +25,8 @@ export class HistoryService {
           skip,
           first,
           orderBy
-        }
+        },
+        fetchPolicy: 'network-only'
       })
       .pipe(map(res => res.data.logs));
   }
