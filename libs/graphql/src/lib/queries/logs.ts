@@ -8,9 +8,11 @@ export const LOGS_QUERY = gql`
         action
         createdAt
         book {
+          id
           title
           author
           url
+          paid
         }
       }
     }
