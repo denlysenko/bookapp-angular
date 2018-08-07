@@ -1,29 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PageEvent, Sort } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
 
-import { Log } from '@bookapp-angular/history-core';
+import { HistoryPageBaseComponent } from '@bookapp-angular/history-core';
+import { Apollo } from 'apollo-angular';
 
 @Component({
   templateUrl: './history-page.component.html',
   styleUrls: ['./history-page.component.scss']
 })
-export class HistoryPageComponent implements OnInit {
-  logs: Log[];
-  totalCount: number;
-
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.logs = this.route.snapshot.data.logs.rows;
-    this.totalCount = this.route.snapshot.data.logs.count;
+export class HistoryPageComponent extends HistoryPageBaseComponent {
+  constructor(protected apollo: Apollo) {
+    super();
   }
 
   sort(event: Sort) {
-    console.log(event);
+    this.logsQueryRef.refetch({
+      orderBy: `${event.active}_${event.direction}`
+    });
   }
 
   paginate(event: PageEvent) {
-    console.log(event);
+    this.logsQueryRef.refetch({
+      skip: event.pageIndex * event.pageSize,
+      first: event.pageSize
+    });
   }
 }

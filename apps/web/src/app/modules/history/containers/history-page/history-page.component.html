@@ -4,7 +4,7 @@
 </mat-toolbar>
 <div class="view-content">
   <ba-history-list [logs]="logs"
-                   [totalCount]="totalCount"
+                   [totalCount]="count"
                    (onSort)="sort($event)"
                    (onPageChange)="paginate($event)"></ba-history-list>
 </div>

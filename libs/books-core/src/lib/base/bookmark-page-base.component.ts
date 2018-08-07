@@ -35,7 +35,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
       notifyOnNetworkStatusChange: true
     });
 
-    this.subscribeToBookQuery();
+    this.subscribeToBookmarksQuery();
   }
 
   loadMore() {
@@ -115,7 +115,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
     return this.bookmarks.length < this.count;
   }
 
-  private subscribeToBookQuery() {
+  private subscribeToBookmarksQuery() {
     this.bookmarksQueryRef.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ data, loading }) => {
