@@ -30,6 +30,11 @@ export const routes: Route[] = [
         path: 'books',
         loadChildren: './modules/books/books.module#BooksModule',
         canLoad: [AuthGuard]
+      },
+      {
+        path: 'history',
+        loadChildren: './modules/history/history.module#HistoryModule',
+        canLoad: [AuthGuard]
       }
     ]
   },
