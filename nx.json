@@ -24,6 +24,9 @@
     },
     "books-core": {
       "tags": []
+    },
+    "history-core": {
+      "tags": []
     }
   }
 }

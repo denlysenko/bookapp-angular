@@ -284,6 +284,31 @@
           }
         }
       }
+    },
+    "history-core": {
+      "root": "libs/history-core",
+      "sourceRoot": "libs/history-core/src",
+      "projectType": "library",
+      "prefix": "ba",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/history-core/tsconfig.spec.json",
+            "karmaConfig": "libs/history-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/history-core/tsconfig.lib.json",
+              "libs/history-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
