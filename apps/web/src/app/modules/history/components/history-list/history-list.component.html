@@ -10,7 +10,6 @@
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell
             mat-sort-header
-            class="date"
             *matHeaderCellDef>Created</th>
         <td mat-cell
             *matCellDef="let element">{{ element.createdAt | date: 'dd.MM.yyyy HH:mm:ss' }}</td>
@@ -21,7 +20,7 @@
           Action
         </th>
         <td mat-cell
-            *matCellDef="let element">{{ element.action }}</td>
+            *matCellDef="let element">{{ actions[element.action] }}</td>
       </ng-container>
       <ng-container matColumnDef="book">
         <th mat-header-cell

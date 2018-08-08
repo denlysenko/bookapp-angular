@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { MatPaginatorModule, MatSortModule, MatTableModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
-import { HistoryCoreModule } from '@bookapp-angular/history-core';
 import { LoaderModule } from '@web/ui/loader/loader.module';
 
 import { components } from './components';
@@ -14,7 +13,6 @@ import { routes } from './history.routes';
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    HistoryCoreModule.forRoot(),
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

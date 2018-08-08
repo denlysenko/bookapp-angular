@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { PageEvent, Sort } from '@angular/material';
 
 import { LIMIT } from '@bookapp-angular/core';
-import { Log } from '@bookapp-angular/history-core';
+import { Log, LOG_ACTIONS } from '@bookapp-angular/history-core';
 
 @Component({
   selector: 'ba-history-list',
@@ -13,6 +13,7 @@ import { Log } from '@bookapp-angular/history-core';
 export class HistoryListComponent {
   readonly displayedColumns: string[] = ['createdAt', 'action', 'book'];
   readonly defaultLimit = LIMIT;
+  readonly actions = LOG_ACTIONS;
 
   sorting = {
     active: 'createdAt',
