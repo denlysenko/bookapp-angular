@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { Book, BookFilter, BookFilterInput, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
+import { Book, BookFilter, BookFilterInput, BookRateEvent, BooksResponse } from '@bookapp-angular/books-core';
 import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
 import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
@@ -51,7 +51,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   sort(sortValue: 'id_desc' | 'views_desc' | 'createdAt_desc') {
     this.skip = 0;
 
-    const { filterInput, skip, paid } = this;
+    const { skip, paid } = this;
 
     this.filter = {
       ...this.filter,
@@ -64,10 +64,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     );
 
     this.bookQueryRef.refetch({
-      paid,
-      filter: filterInput,
-      skip: skip,
-      first: LIMIT,
+      skip,
       orderBy: this.filter.sortValue
     });
   }
@@ -75,7 +72,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   search(searchQuery: string) {
     this.skip = 0;
 
-    const { filterInput, filter: { sortValue }, skip, paid } = this;
+    const { filterInput, skip, paid } = this;
 
     this.filter = {
       ...this.filter,
@@ -88,16 +85,13 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     );
 
     this.filterInput = {
-      ...this.filterInput,
+      ...filterInput,
       search: searchQuery
     };
 
     this.bookQueryRef.refetch({
-      paid,
-      filter: filterInput,
-      skip: skip,
-      first: LIMIT,
-      orderBy: sortValue
+      filter: this.filterInput,
+      skip
     });
   }
 
@@ -135,7 +129,12 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   }
 
   rate(event: BookRateEvent) {
-    const { filterInput, filter: { sortValue }, skip, paid } = this;
+    const {
+      filterInput,
+      filter: { sortValue },
+      skip,
+      paid
+    } = this;
     const variables = {
       paid,
       filter: filterInput,

@@ -133,9 +133,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     });
 
     this.bookQueryRef.refetch({
-      paid,
       skip,
-      first: LIMIT,
       orderBy: sortValue
     });
 

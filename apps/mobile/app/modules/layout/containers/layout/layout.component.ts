@@ -29,12 +29,14 @@ export class LayoutComponent extends BaseComponent
   implements OnInit, OnDestroy {
   user: User;
   selectedPage: string;
-  navItems = navs;
-  categoryItems = categories;
-  userMenuItems = userMenu;
   isUserMenuOpen = false;
 
-  @ViewChild('drawer') drawerComponent: RadSideDrawerComponent;
+  readonly navItems = navs;
+  readonly categoryItems = categories;
+  readonly userMenuItems = userMenu;
+
+  @ViewChild('drawer')
+  drawerComponent: RadSideDrawerComponent;
 
   private _sideDrawerTransition: DrawerTransitionBase;
 
