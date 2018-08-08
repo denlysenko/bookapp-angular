@@ -5,6 +5,7 @@ import { AuthGuard, BOOKMARKS } from '@bookapp-angular/core';
 import { BookmarksPageComponent } from './containers/bookmarks-page/bookmarks-page.component';
 import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
 import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
+import { BestBooksPageComponent } from './containers/best-books-page/best-books-page.component';
 
 export const routes: Route[] = [
   {
@@ -40,10 +41,10 @@ export const routes: Route[] = [
     data: {
       type: BOOKMARKS.WISHLIST
     }
+  },
+  {
+    path: 'best',
+    component: BestBooksPageComponent,
+    canActivate: [AuthGuard]
   }
-  // {
-  //   path: 'best',
-  //   component: BestBooksPageComponent,
-  //   canActivate: [AuthGuard]
-  // }
 ];
