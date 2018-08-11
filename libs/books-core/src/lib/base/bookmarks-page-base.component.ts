@@ -122,19 +122,4 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
   protected hasMoreItems(): boolean {
     return this.bookmarks.length < this.count;
   }
-
-  // private subscribeToBookmarksQuery() {
-  //   this.bookmarksQueryRef.valueChanges
-  //     .pipe(takeUntil(this.destroy$))
-  //     .subscribe(({ data, loading }) => {
-  //       this.isLoading = loading;
-  //       if (loading) {
-  //         return;
-  //       }
-  //
-  //       this.bookmarks = data.bookmarks.rows;
-  //       this.books = this.bookmarks.map(bookmark => bookmark.book);
-  //       this.count = data.bookmarks.count;
-  //     });
-  // }
 }
