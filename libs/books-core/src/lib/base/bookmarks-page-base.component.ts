@@ -1,51 +1,30 @@
-import { OnInit, ViewChild } from '@angular/core';
+import { OnInit } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
-
-import { Book, Bookmark, BookmarksResponse, BookRateEvent } from '@bookapp-angular/books-core';
 import { BaseComponent, LIMIT } from '@bookapp-angular/core';
 import { BOOKMARKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
+
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Color } from 'color';
-import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
-import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { isIOS } from 'platform';
-import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
-import { LoaderService } from '~/modules/core/services/loader.service';
+import { ApolloQueryResult } from 'apollo-client';
+import { takeUntil } from 'rxjs/operators';
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
+
+import { Book, Bookmark, BookmarksResponse, BookRateEvent } from '../models';
 
 export abstract class BookmarksPageBaseComponent extends BaseComponent
   implements OnInit {
   bookmarks: Bookmark[];
-  books: ObservableArray<Book>;
+  books: Book[] | ObservableArray<Book>;
   count: number;
-
-  set isLoading(value: boolean) {
-    this._loading = value;
-    if (this._loading) {
-      this.loaderService.start();
-    } else {
-      this.loaderService.stop();
-    }
-  }
-  get isLoading(): boolean {
-    return this._loading;
-  }
-
-  @ViewChild('listView')
-  listViewComponent: RadListViewComponent;
+  isLoading: boolean;
 
   protected abstract type: string;
   protected abstract apollo: Apollo;
-  protected abstract loaderService: LoaderService;
 
   private bookmarksQueryRef: QueryRef<BookmarksResponse>;
   private skip = 0;
-  private _loading: boolean;
 
   ngOnInit() {
     const { type, skip } = this;
-
-    this.listViewComponent.listView.loadOnDemandBufferSize = 1;
 
     this.bookmarksQueryRef = this.apollo.watchQuery<BookmarksResponse>({
       query: BOOKMARKS_QUERY,
@@ -58,14 +37,9 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
       notifyOnNetworkStatusChange: true
     });
 
-    this.subscribeToBookmarksQuery();
-  }
-
-  onItemLoading(args) {
-    if (isIOS) {
-      const newcolor = new Color('#eeeeee');
-      args.ios.backgroundView.backgroundColor = newcolor.ios;
-    }
+    this.bookmarksQueryRef.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(this.handleBookmarksChanges.bind(this));
   }
 
   loadMore() {
@@ -141,37 +115,26 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
       .subscribe();
   }
 
-  private hasMoreItems(): boolean {
+  protected abstract handleBookmarksChanges(
+    result: ApolloQueryResult<BookmarksResponse>
+  ): void;
+
+  protected hasMoreItems(): boolean {
     return this.bookmarks.length < this.count;
   }
 
-  private subscribeToBookmarksQuery() {
-    this.bookmarksQueryRef.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ data, loading }) => {
-        this.isLoading = loading;
-        if (loading) {
-          return;
-        }
-
-        this.bookmarks = data.bookmarks.rows;
-        this.books = new ObservableArray(
-          this.bookmarks.map(bookmark => bookmark.book)
-        );
-        this.count = data.bookmarks.count;
-
-        this.updateLoadOnDemandMode();
-        this.listViewComponent.listView.notifyLoadOnDemandFinished();
-      });
-  }
-
-  private updateLoadOnDemandMode() {
-    if (this.hasMoreItems()) {
-      this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.Auto];
-    } else {
-      this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
-    }
-  }
+  // private subscribeToBookmarksQuery() {
+  //   this.bookmarksQueryRef.valueChanges
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(({ data, loading }) => {
+  //       this.isLoading = loading;
+  //       if (loading) {
+  //         return;
+  //       }
+  //
+  //       this.bookmarks = data.bookmarks.rows;
+  //       this.books = this.bookmarks.map(bookmark => bookmark.book);
+  //       this.count = data.bookmarks.count;
+  //     });
+  // }
 }

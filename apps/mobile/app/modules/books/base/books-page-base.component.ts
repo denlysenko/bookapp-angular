@@ -1,20 +1,36 @@
 import { OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
+import {
+  Book,
+  BookRateEvent,
+  BookService,
+  BooksResponse
+} from '@bookapp-angular/books-core';
+import {
+  BaseComponent,
+  FILTER_KEYS,
+  LIMIT,
+  RouterExtensions,
+  StoreService
+} from '@bookapp-angular/core';
+import {
+  FREE_BOOKS_QUERY,
+  PAID_BOOKS_QUERY,
+  RATE_BOOK_MUTATION
+} from '@bookapp-angular/graphql';
 
-import { Book, BookRateEvent, BookService, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, FILTER_KEYS, LIMIT, RouterExtensions, StoreService } from '@bookapp-angular/core';
-import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Color } from 'color';
-import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
-import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
-import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { isIOS } from 'platform';
+import {
+  ModalDialogOptions,
+  ModalDialogService
+} from 'nativescript-angular/modal-dialog';
+import { takeUntil } from 'rxjs/operators';
 import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
 import { SegmentedBarItem } from 'ui/segmented-bar';
+
 import { LoaderService } from '~/modules/core/services/loader.service';
 
+import { BookListComponent } from '../../books/components/book-list/book-list.component';
 import { BookSearchComponent } from '../components/book-search/book-search.component';
 
 export abstract class BooksPageBaseComponent extends BaseComponent
@@ -36,7 +52,18 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     return this._loading;
   }
 
-  @ViewChild('listView') listViewComponent: RadListViewComponent;
+  @ViewChild(BookListComponent)
+  bookListView: BookListComponent;
+
+  protected abstract paid: boolean;
+
+  protected abstract viewContainerRef: ViewContainerRef;
+  protected abstract modalService: ModalDialogService;
+  protected abstract storeService: StoreService;
+  protected abstract apollo: Apollo;
+  protected abstract bookService: BookService;
+  protected abstract loaderService: LoaderService;
+  protected abstract routerExtensions: RouterExtensions;
 
   private sortOptions = [
     {
@@ -52,17 +79,6 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       label: 'Most popular'
     }
   ];
-
-  protected abstract paid: boolean;
-
-  protected abstract viewContainerRef: ViewContainerRef;
-  protected abstract modalService: ModalDialogService;
-  protected abstract storeService: StoreService;
-  protected abstract apollo: Apollo;
-  protected abstract bookService: BookService;
-  protected abstract loaderService: LoaderService;
-  protected abstract routerExtensions: RouterExtensions;
-
   private skip = 0;
   private sortValue = this.sortOptions[0].value;
   private bookQueryRef: QueryRef<BooksResponse>;
@@ -71,8 +87,6 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   ngOnInit() {
     this.sortItems = this.genSortItems();
     this.setInitialSorting();
-
-    this.listViewComponent.listView.loadOnDemandBufferSize = 1;
 
     this.bookQueryRef = this.apollo.watchQuery<BooksResponse>({
       query: this.paid ? PAID_BOOKS_QUERY : FREE_BOOKS_QUERY,
@@ -86,13 +100,6 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     });
 
     this.subscribeToBookQuery();
-  }
-
-  onItemLoading(args) {
-    if (isIOS) {
-      const newcolor = new Color('#eeeeee');
-      args.ios.backgroundView.backgroundColor = newcolor.ios;
-    }
   }
 
   async onSearchButtonTap() {
@@ -125,9 +132,9 @@ export abstract class BooksPageBaseComponent extends BaseComponent
     this.skip = 0;
 
     const { value } = this.sortOptions[this.selectedOption];
+    this.sortValue = value;
     const { sortValue, skip, paid } = this;
 
-    this.sortValue = value;
     this.storeService.set(FILTER_KEYS[paid ? 'BUY_BOOKS' : 'BROWSE_BOOKS'], {
       sortValue: value
     });
@@ -137,7 +144,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       orderBy: sortValue
     });
 
-    this.listViewComponent.listView.scrollToIndex(0);
+    this.bookListView.scrollToIndex(0);
   }
 
   loadMore() {
@@ -248,23 +255,11 @@ export abstract class BooksPageBaseComponent extends BaseComponent
 
         this.books = new ObservableArray(data.books.rows);
         this.count = data.books.count;
-
-        this.updateLoadOnDemandMode();
-        this.listViewComponent.listView.notifyLoadOnDemandFinished();
+        this.bookListView.updateLoadOnDemandMode(this.hasMoreItems());
       });
   }
 
   private hasMoreItems(): boolean {
     return this.books.length < this.count;
-  }
-
-  private updateLoadOnDemandMode() {
-    if (this.hasMoreItems()) {
-      this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.Auto];
-    } else {
-      this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
-    }
   }
 }

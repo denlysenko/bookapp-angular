@@ -11,23 +11,6 @@
                 [selectedIndex]="selectedOption"
                 (selectedIndexChange)="onSelectedIndexChange($event)"></SegmentedBar>
 </StackLayout>
-<GridLayout class="p-5 list">
-  <RadListView #listView
-               loadOnDemandMode="Auto"
-               backgroundColor="transparent"
-               [items]="books"
-               (itemLoading)="onItemLoading($event)"
-               (loadMoreDataRequested)="loadMore($event)">
-    <ListViewGridLayout tkListViewLayout
-                        scrollDirection="Vertical"
-                        spanCount="2"
-                        [itemHeight]="paid ? '330' : '315'"></ListViewGridLayout>
-    <ng-template tkListItemTemplate
-                 let-book="item">
-      <StackLayout class="list-item">
-        <ba-book-list-item [book]="book"
-                           (onRate)="rate($event)"></ba-book-list-item>
-      </StackLayout>
-    </ng-template>
-  </RadListView>
-</GridLayout>
+<ba-book-list [books]="books"
+              (onRate)="rate($event)"
+              (onLoadMore)="loadMore()"></ba-book-list>

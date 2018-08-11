@@ -62,6 +62,7 @@
     "ngx-image-cropper": "^1.0.1",
     "rxjs": "6.2.2",
     "subscriptions-transport-ws": "^0.9.14",
+    "tns-core-modules": "^4.2.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

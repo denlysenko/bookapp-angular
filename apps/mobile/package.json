@@ -60,7 +60,7 @@
     "rxjs": "file:../../node_modules/rxjs",
     "rxjs-compat": "^6.1.0",
     "subscriptions-transport-ws": "file:../../node_modules/subscriptions-transport-ws",
-    "tns-core-modules": "~4.2.0",
+    "tns-core-modules": "file:../../node_modules/tns-core-modules",
     "zen-observable-ts": "file:../../node_modules/zen-observable-ts",
     "zone.js": "file:../../node_modules/zone.js"
   },
