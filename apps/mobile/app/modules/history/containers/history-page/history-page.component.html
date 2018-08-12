@@ -1,0 +1,8 @@
+<ActionBarExtension>
+  <ActionItem ios.position="right"
+              icon="res://filter"
+              android.position="actionBar"
+              (tap)="onFilterTap()"></ActionItem>
+</ActionBarExtension>
+<ba-history-list [logs]="logs"
+                 (onLoadMore)="loadMore()"></ba-history-list>

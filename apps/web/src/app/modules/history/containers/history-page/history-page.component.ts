@@ -25,4 +25,13 @@ export class HistoryPageComponent extends HistoryPageBaseComponent {
       first: event.pageSize
     });
   }
+
+  protected handleLogsChanges({ data, loading }) {
+    if (loading) {
+      return;
+    }
+
+    this.logs = data.logs.rows;
+    this.count = data.logs.count;
+  }
 }

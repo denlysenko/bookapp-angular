@@ -1,10 +1,12 @@
 import { OnInit } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
-
 import { BaseComponent, LIMIT } from '@bookapp-angular/core';
 import { LOGS_QUERY } from '@bookapp-angular/graphql';
+
 import { Apollo, QueryRef } from 'apollo-angular';
+import { ApolloQueryResult } from 'apollo-client';
+import { takeUntil } from 'rxjs/operators';
+import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
 
 import { Log, LogsResponse } from '../models';
 
@@ -13,7 +15,7 @@ const DEFAULT_ORDER_BY = 'createdAt_desc';
 
 export abstract class HistoryPageBaseComponent extends BaseComponent
   implements OnInit {
-  logs: Log[];
+  logs: Log[] | ObservableArray<Log>;
   count: number;
   isLoading: boolean;
 
@@ -33,20 +35,12 @@ export abstract class HistoryPageBaseComponent extends BaseComponent
       notifyOnNetworkStatusChange: true
     });
 
-    this.subscribeToLogsQuery();
-  }
-
-  private subscribeToLogsQuery() {
     this.logsQueryRef.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe(({ data, loading }) => {
-        this.isLoading = loading;
-        if (loading) {
-          return;
-        }
-
-        this.logs = data.logs.rows;
-        this.count = data.logs.count;
-      });
+      .subscribe(this.handleLogsChanges.bind(this));
   }
+
+  protected abstract handleLogsChanges(
+    result: ApolloQueryResult<LogsResponse>
+  ): void;
 }

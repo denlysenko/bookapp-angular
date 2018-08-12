@@ -29,11 +29,11 @@ export class BestBooksPageComponent extends BestBooksPageBaseComponent {
   @ViewChild(BookListComponent)
   bookListView: BookListComponent;
 
+  private _loading: boolean;
+
   constructor(protected apollo: Apollo, private loaderService: LoaderService) {
     super();
   }
-
-  private _loading: boolean;
 
   protected handleBooksChanges({ data, loading }) {
     this.isLoading = loading;

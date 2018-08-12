@@ -7,7 +7,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Book, BookRateEvent } from '@bookapp-angular/books-core';
+import { Log } from '@bookapp-angular/history-core';
 
 import { Color } from 'color';
 import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
@@ -17,20 +17,17 @@ import { ObservableArray } from 'tns-core-modules/data/observable-array/observab
 
 @Component({
   moduleId: module.id,
-  selector: 'ba-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss'],
+  selector: 'ba-history-list',
+  templateUrl: './history-list.component.html',
+  styleUrls: ['./history-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookListComponent {
+export class HistoryListComponent {
   @Input()
-  books: ObservableArray<Book>;
+  logs: ObservableArray<Log>;
 
   @Output()
   onLoadMore = new EventEmitter<void>();
-
-  @Output()
-  onRate = new EventEmitter<BookRateEvent>();
 
   @ViewChild('listView')
   listViewComponent: RadListViewComponent;

@@ -1,0 +1,18 @@
+<GridLayout class="p-5 list">
+  <RadListView #listView
+               loadOnDemandMode="Auto"
+               backgroundColor="transparent"
+               [items]="logs"
+               (itemLoading)="onItemLoading($event)"
+               (loadMoreDataRequested)="onLoadMore.emit()">
+    <ListViewLinearLayout tkListViewLayout
+                          scrollDirection="Vertical"
+                          itemHeight="130"></ListViewLinearLayout>
+    <ng-template tkListItemTemplate
+                 let-log="item">
+      <StackLayout class="list-item">
+        <ba-history-list-item [log]="log"></ba-history-list-item>
+      </StackLayout>
+    </ng-template>
+  </RadListView>
+</GridLayout>
