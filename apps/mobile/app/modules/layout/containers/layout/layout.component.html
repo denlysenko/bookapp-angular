@@ -55,6 +55,7 @@
             <ba-app-menu [navItems]="navItems"
                          [categoryItems]="categoryItems"
                          [selectedPage]="selectedPage"
+                         [logs]="logs$ | async"
                          (itemSelected)="selectPageAndNavigate($event)"></ba-app-menu>
           </StackLayout>
           <StackLayout [@state]="isUserMenuOpen ? 'in' : 'out'"

@@ -54,7 +54,8 @@ export class LayoutComponent extends BaseComponent
     });
 
     this.logs$ = this.lastLogsQuery.valueChanges.pipe(
-      map(({ data }) => data.logs.rows)
+      map(({ data }) => data.logs.rows),
+      takeUntil(this.destroy$)
     );
   }
 
@@ -65,7 +66,10 @@ export class LayoutComponent extends BaseComponent
 
   ngOnDestroy() {
     this.mobileQuery.removeListener(this.mobileQueryListener);
-    this.unsubscribeFromNewLogs();
+    if (this.unsubscribeFromNewLogs) {
+      this.unsubscribeFromNewLogs();
+      this.unsubscribeFromNewLogs = null;
+    }
     super.ngOnDestroy();
   }
 

@@ -1,15 +1,40 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
+import {
+  AuthService,
+  User,
+  UserSelfResponse
+} from '@bookapp-angular/auth-core';
+import {
+  BaseComponent,
+  categories,
+  MenuItem,
+  navs,
+  userMenu
+} from '@bookapp-angular/core';
+import {
+  LAST_LOGS_QUERY,
+  LOG_CREATED_SUBSCRIPTION,
+  ME_QUERY
+} from '@bookapp-angular/graphql';
+import { Log, LogsResponse } from '@bookapp-angular/history-core';
 
-import { AuthService, User, UserSelfResponse } from '@bookapp-angular/auth-core';
-import { BaseComponent, categories, MenuItem, navs, userMenu } from '@bookapp-angular/core';
-import { ME_QUERY } from '@bookapp-angular/graphql';
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef } from 'apollo-angular';
 import { RouterExtensions } from 'nativescript-angular/router/router-extensions';
-import { DrawerTransitionBase, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
+import {
+  DrawerTransitionBase,
+  SlideInOnTopTransition
+} from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
+import { Observable } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
@@ -30,6 +55,8 @@ export class LayoutComponent extends BaseComponent
   user: User;
   selectedPage: string;
   isUserMenuOpen = false;
+  lastLogsQuery: QueryRef<LogsResponse>;
+  logs$: Observable<Log[]>;
 
   readonly navItems = navs;
   readonly categoryItems = categories;
@@ -39,6 +66,7 @@ export class LayoutComponent extends BaseComponent
   drawerComponent: RadSideDrawerComponent;
 
   private _sideDrawerTransition: DrawerTransitionBase;
+  private unsubscribeFromNewLogs: () => void;
 
   constructor(
     private apollo: Apollo,
@@ -61,28 +89,26 @@ export class LayoutComponent extends BaseComponent
           } }
         `);
     }
+
     this._sideDrawerTransition = new SlideInOnTopTransition();
+    this.subscribeToMeQuery();
 
-    this.apollo
-      .watchQuery<UserSelfResponse>({
-        query: ME_QUERY
-      })
-      .valueChanges.pipe(takeUntil(this.destroy$))
-      .subscribe(
-        ({ data, errors }) => {
-          if (data) {
-            this.user = data.me;
-            this.selectPageAndNavigate(this.navItems[1]);
-          }
+    this.lastLogsQuery = this.apollo.watchQuery<LogsResponse>({
+      query: LAST_LOGS_QUERY
+    });
 
-          if (errors) {
-            this.logout();
-          }
-        },
-        () => {
-          this.logout();
-        }
-      );
+    this.logs$ = this.lastLogsQuery.valueChanges.pipe(
+      map(({ data }) => data.logs.rows),
+      takeUntil(this.destroy$)
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.unsubscribeFromNewLogs) {
+      this.unsubscribeFromNewLogs();
+      this.unsubscribeFromNewLogs = null;
+    }
+    super.ngOnDestroy();
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {
@@ -106,6 +132,7 @@ export class LayoutComponent extends BaseComponent
   }
 
   logout() {
+    this.ngOnDestroy();
     this.authService.logout();
     this.routerExtensions.navigate(['/auth'], {
       clearHistory: true,
@@ -113,6 +140,56 @@ export class LayoutComponent extends BaseComponent
         name: 'flip',
         duration: 300,
         curve: 'linear'
+      }
+    });
+  }
+
+  private subscribeToMeQuery() {
+    this.apollo
+      .watchQuery<UserSelfResponse>({
+        query: ME_QUERY
+      })
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(
+        ({ data, errors }) => {
+          if (data) {
+            this.user = data.me;
+
+            if (!this.unsubscribeFromNewLogs) {
+              this.subscribeToNewLogs();
+            }
+
+            this.selectPageAndNavigate(this.navItems[1]);
+          }
+
+          if (errors) {
+            this.logout();
+          }
+        },
+        () => {
+          this.logout();
+        }
+      );
+  }
+
+  private subscribeToNewLogs() {
+    this.unsubscribeFromNewLogs = this.lastLogsQuery.subscribeToMore({
+      document: LOG_CREATED_SUBSCRIPTION,
+      variables: { userId: this.user.id },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          return prev;
+        }
+
+        const newLogs = [subscriptionData.data.logCreated, ...prev.logs.rows];
+        newLogs.pop();
+
+        return {
+          logs: {
+            rows: newLogs,
+            __typename: 'LogsResponse'
+          }
+        };
       }
     });
   }

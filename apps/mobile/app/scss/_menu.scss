@@ -3,9 +3,13 @@
 .menu-item {
   padding: 10 15;
 
-  Label {
+  label {
     font-size: 16;
     vertical-align: center;
+  }
+
+  .note {
+    font-size: 12;
   }
 
   .mdi {
@@ -15,7 +19,7 @@
   &.selected {
     background-color: $light-blue;
 
-    Label {
+    label {
       color: white;
     }
   }

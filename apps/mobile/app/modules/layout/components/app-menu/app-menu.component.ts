@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 
 import { MenuItem } from '@bookapp-angular/core';
+import { Log, LOG_ACTIONS } from '@bookapp-angular/history-core';
+
 import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
 
 @Component({
@@ -17,9 +19,20 @@ import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMenuComponent extends MenuBaseComponent {
-  @Input() navItems: MenuItem[];
-  @Input() categoryItems: MenuItem[];
-  @Input() selectedPage: string;
+  readonly actions = LOG_ACTIONS;
 
-  @Output() itemSelected = new EventEmitter<MenuItem>();
+  @Input()
+  navItems: MenuItem[];
+
+  @Input()
+  categoryItems: MenuItem[];
+
+  @Input()
+  selectedPage: string;
+
+  @Input()
+  logs: Log[];
+
+  @Output()
+  itemSelected = new EventEmitter<MenuItem>();
 }

@@ -25,4 +25,21 @@
            [text]="item.label"
            class="p-r-10"></Label>
   </GridLayout>
+  <StackLayout class="divider"></StackLayout>
+  <GridLayout *ngFor="let log of logs"
+              columns="auto, *"
+              class="menu-item">
+    <Label col="0"
+           text="access_time"
+           class="mdi"></Label>
+    <StackLayout col="1"
+                 class="p-r-10">
+      <Label [text]="actions[log.action]"
+             textWrap="true"></Label>
+      <Label [text]="log.book.title + ' by ' + log.book.author"
+             class="note"></Label>
+      <Label [text]="log.createdAt | dateToPeriod"
+             class="note"></Label>
+    </StackLayout>
+  </GridLayout>
 </StackLayout>

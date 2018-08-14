@@ -34,7 +34,9 @@ export class AuthService {
       .pipe(
         tap(({ data }) => {
           if (data) {
-            const { login: { token } } = data;
+            const {
+              login: { token }
+            } = data;
             this.storagePlatformService.setItem(AUTH_TOKEN, token);
           }
         })
@@ -52,7 +54,9 @@ export class AuthService {
       .pipe(
         tap(({ data }) => {
           if (data) {
-            const { login: { token } } = data;
+            const {
+              login: { token }
+            } = data;
             this.storagePlatformService.setItem(AUTH_TOKEN, token);
           }
         })
@@ -67,8 +71,8 @@ export class AuthService {
       .subscribe();
   }
 
-  logout() {
+  async logout() {
     this.storagePlatformService.removeItem(AUTH_TOKEN);
-    this.apollo.getClient().resetStore();
+    await this.apollo.getClient().resetStore();
   }
 }

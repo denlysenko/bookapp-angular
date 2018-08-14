@@ -249,7 +249,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
       .subscribe(({ data, loading }) => {
         this.isLoading = loading;
 
-        if (loading) {
+        if (loading || !data) {
           return;
         }
 
