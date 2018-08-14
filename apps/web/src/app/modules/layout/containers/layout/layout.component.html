@@ -11,7 +11,8 @@
                  [fixedInViewport]="mobileQuery.matches"
                  fixedTopGap="56"
                  fixedBottomGap="56">
-      <ba-nav [user]="user"></ba-nav>
+      <ba-nav [user]="user"
+              [logs]="logs$ | async"></ba-nav>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet class="router-flex"></router-outlet>

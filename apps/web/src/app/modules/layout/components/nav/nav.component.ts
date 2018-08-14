@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { User } from '@bookapp-angular/auth-core';
 import { ADMIN_ROLE, categories, navs } from '@bookapp-angular/core';
+import { Log, LOG_ACTIONS } from '@bookapp-angular/history-core';
 
 @Component({
   selector: 'ba-nav',
@@ -10,8 +11,10 @@ import { ADMIN_ROLE, categories, navs } from '@bookapp-angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavComponent {
-  navs = navs;
-  categories = categories;
+  readonly navs = navs;
+  readonly categories = categories;
+  readonly actions = LOG_ACTIONS;
+
   isAdmin: boolean;
 
   @Input()
@@ -20,4 +23,7 @@ export class NavComponent {
       this.isAdmin = value.roles.includes(ADMIN_ROLE);
     }
   }
+
+  @Input()
+  logs: Log[];
 }

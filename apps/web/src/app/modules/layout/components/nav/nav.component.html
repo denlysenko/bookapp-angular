@@ -29,3 +29,22 @@
       {{ link.icon }}
     </i> {{ link.label }}</a>
 </mat-nav-list>
+<div class="divider"></div>
+<mat-list class="logs">
+  <mat-list-item *ngFor="let log of logs">
+    <i class="material-icons"
+       matListIcon>
+      access_time
+    </i>
+    <p matLine
+       class="action">{{ actions[log.action] }}</p>
+    <p matLine
+       class="footnote">
+      <span>{{ log.book.title }}</span>
+      <span> by {{ log.book.author }}</span>
+    </p>
+    <p matLine
+       class="footnote">{{ log.createdAt | dateToPeriod }}</p>
+  </mat-list-item>
+</mat-list>
+<div class="divider"></div>

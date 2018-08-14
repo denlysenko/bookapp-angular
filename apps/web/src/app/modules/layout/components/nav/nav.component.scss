@@ -15,6 +15,22 @@
   .material-icons {
     margin-right: 10px;
     font-size: 20px;
+
+    &.mat-list-icon {
+      margin-right: 0;
+    }
+  }
+
+  /deep/ .mat-list-text {
+    padding-left: 0 !important;
+  }
+
+  .footnote {
+    font-size: 12px;
+  }
+
+  .mat-line.action {
+    white-space: normal;
   }
 }
 
@@ -26,4 +42,3 @@
   border-top: inset 1px rgba(0, 0, 0, 0.3);
   border-bottom: inset 1px rgba(0, 0, 0, 0.3);
 }
-

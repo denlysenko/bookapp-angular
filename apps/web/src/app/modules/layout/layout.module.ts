@@ -10,6 +10,8 @@ import {
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
+import { DateToPeriodPipe } from '@bookapp-angular/core';
+
 import { components } from './components';
 import { containers } from './containers';
 
@@ -24,7 +26,7 @@ import { containers } from './containers';
     MatMenuModule,
     MatCardModule
   ],
-  declarations: [...containers, ...components],
+  declarations: [...containers, ...components, DateToPeriodPipe],
   exports: [...containers]
 })
 export class LayoutModule {}
