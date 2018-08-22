@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { AuthGuard, BOOKMARKS, CanDeactivateGuard, RolesGuard } from '@bookapp-angular/core';
+import {
+  AuthGuard,
+  BOOKMARKS,
+  CanDeactivateGuard,
+  RolesGuard
+} from '@bookapp-angular/core';
 
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
 import { BestBooksPageComponent } from './containers/best-books-page/best-books-page.component';
@@ -8,7 +13,10 @@ import { BookPageComponent } from './containers/book-page/book-page.component';
 import { BookmarksPageComponent } from './containers/bookmarks-page/bookmarks-page.component';
 import { BrowseBooksPageComponent } from './containers/browse-books-page/browse-books-page.component';
 import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-page.component';
+import { ReadBookPageComponent } from './containers/read-book-page/read-book-page.component';
+
 import { EditBookResolver } from './resolvers/edit-book.resolver';
+import { ReadBookResolver } from './resolvers/read-book.resolver';
 
 export const routes: Routes = [
   {
@@ -83,18 +91,13 @@ export const routes: Routes = [
     path: 'best',
     component: BestBooksPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'read/:author?/:slug?',
+    component: ReadBookPageComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      reading: ReadBookResolver
+    }
   }
 ];
-
-/*
-  {
-    path: 'reading/:author/:slug',
-    component: ReadingBookComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'reading',
-    component: ReadingBookComponent,
-    canActivate: [AuthGuard]
-  },
-*/

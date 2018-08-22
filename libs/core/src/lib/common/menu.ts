@@ -8,7 +8,7 @@ export interface MenuItem {
 export const navs: MenuItem[] = [
   {
     label: 'Now Reading',
-    path: 'reading',
+    path: 'books/read',
     icon: 'book'
   },
   {

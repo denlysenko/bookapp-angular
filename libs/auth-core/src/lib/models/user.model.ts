@@ -6,7 +6,12 @@ export interface User {
   displayName?: string;
   avatar?: string;
   roles?: string[];
-  reading?: any;
+  reading?: Reading;
+}
+
+export interface Reading {
+  epubUrl: string;
+  bookmark: string;
 }
 
 export interface UserSelfResponse {
