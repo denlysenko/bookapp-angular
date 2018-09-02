@@ -42,8 +42,18 @@
             "polyfills": "apps/web/src/polyfills.ts",
             "tsConfig": "apps/web/tsconfig.app.json",
             "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
-            "styles": ["apps/web/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "node_modules/epubjs-reader/reader/css/main.css",
+              "node_modules/epubjs-reader/reader/css/popup.css",
+              "apps/web/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/epubjs-reader/reader/js/libs/jquery.min.js",
+              "node_modules/epubjs-reader/reader/js/libs/zip.min.js",
+              "node_modules/epubjs-reader/reader/js/libs/screenfull.min.js",
+              "node_modules/epubjs-reader/reader/js/epub.min.js",
+              "node_modules/epubjs-reader/reader/js/reader.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateToPeriodPipe implements PipeTransform {
   transform(value: string): string {
-    const diff = Math.ceil((Date.now() - new Date(value).getTime()) / 60000);
+    const diff = Math.ceil((Date.now() - new Date(value).getTime()) / 1000);
 
     if (diff < 60) {
       return `${diff} minutes ago`;

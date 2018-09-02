@@ -55,7 +55,7 @@
     "apollo-link-ws": "^1.0.8",
     "apollo-utilities": "^1.0.17",
     "core-js": "^2.5.4",
-    "epubjs": "^0.3.66",
+    "epubjs-reader": "github:futurepress/epubjs-reader",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.10",

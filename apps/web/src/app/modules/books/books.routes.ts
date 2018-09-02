@@ -93,7 +93,15 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'read/:author?/:slug?',
+    path: 'read/:author/:slug',
+    component: ReadBookPageComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      reading: ReadBookResolver
+    }
+  },
+  {
+    path: 'read',
     component: ReadBookPageComponent,
     canActivate: [AuthGuard],
     resolve: {
