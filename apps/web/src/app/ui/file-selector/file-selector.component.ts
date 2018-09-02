@@ -23,8 +23,11 @@ export class FileSelectorComponent extends FileSelectorBaseComponent {
       return;
     }
 
-    this.upload(this.imageChangedEvent.target.files[0]).subscribe(res => {
-      this.dialogRef.close(res.Location);
-    }, () => (this.imageChangedEvent = null));
+    this.upload(this.imageChangedEvent.target.files[0]).subscribe(
+      res => {
+        this.dialogRef.close(res.publicUrl);
+      },
+      () => (this.imageChangedEvent = null)
+    );
   }
 }

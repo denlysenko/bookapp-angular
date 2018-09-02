@@ -25,9 +25,9 @@
   <image-cropper [style.display]="cropperReady ? null : 'none'"
                  [imageChangedEvent]="imageChangedEvent"
                  [maintainAspectRatio]="maintainAspectRatio"
-                 (imageCropped)="imageCropped($event)"
+                 (imageCroppedBase64)="imageCropped($event)"
                  (imageLoaded)="cropperReady = true"
-                 (loadImageFailed)="loadImageFailed()"></image-cropper>
+                 (loadImageFailed)="onLoadImageFail()"></image-cropper>
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>

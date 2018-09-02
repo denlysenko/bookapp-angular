@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core';
+import {
+  AUTH_TOKEN,
+  environment,
+  StoragePlatformService
+} from '@bookapp-angular/core';
 
 @Injectable()
 export class UploadService {
@@ -26,7 +30,7 @@ export class UploadService {
           'progress',
           (e: ProgressEvent) => {
             if (e.lengthComputable) {
-              this.progress.next(Math.round(e.loaded * 100 / e.total));
+              this.progress.next(Math.round((e.loaded * 100) / e.total));
             }
           },
           false

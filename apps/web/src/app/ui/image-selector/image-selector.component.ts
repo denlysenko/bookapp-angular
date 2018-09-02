@@ -46,8 +46,11 @@ export class ImageSelectorComponent extends FileSelectorBaseComponent {
       return;
     }
 
-    this.upload(dataURIToBlob(this.croppedImage)).subscribe(res => {
-      this.dialogRef.close(res.Location);
-    }, () => (this.cropperReady = false));
+    this.upload(dataURIToBlob(this.croppedImage)).subscribe(
+      res => {
+        this.dialogRef.close(res.publicUrl);
+      },
+      () => (this.cropperReady = false)
+    );
   }
 }
