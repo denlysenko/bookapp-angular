@@ -2,9 +2,25 @@ import { OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
 
-import { Book, BookFilter, BookFilterInput, BookRateEvent, BooksResponse } from '@bookapp-angular/books-core';
-import { BaseComponent, DEFAULT_SORT_VALUE, FILTER_KEYS, LIMIT, StoreService } from '@bookapp-angular/core';
-import { FREE_BOOKS_QUERY, PAID_BOOKS_QUERY, RATE_BOOK_MUTATION } from '@bookapp-angular/graphql';
+import {
+  Book,
+  BookFilter,
+  BookFilterInput,
+  BookRateEvent,
+  BooksResponse
+} from '@bookapp-angular/books-core';
+import {
+  BaseComponent,
+  DEFAULT_SORT_VALUE,
+  FILTER_KEYS,
+  LIMIT,
+  StoreService
+} from '@bookapp-angular/core';
+import {
+  FREE_BOOKS_QUERY,
+  PAID_BOOKS_QUERY,
+  RATE_BOOK_MUTATION
+} from '@bookapp-angular/graphql';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 export abstract class BooksPageBaseComponent extends BaseComponent
@@ -12,7 +28,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   filter: BookFilter;
   books: Book[];
   count: number;
-  isLoading: boolean;
+  isLoading = true;
 
   protected abstract paid: boolean;
 

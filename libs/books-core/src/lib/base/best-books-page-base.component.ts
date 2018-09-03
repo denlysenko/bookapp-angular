@@ -18,7 +18,7 @@ export abstract class BestBooksPageBaseComponent extends BaseComponent
   implements OnInit {
   books: Book[] | ObservableArray<Book>;
   count: number;
-  isLoading: boolean;
+  isLoading = true;
 
   protected abstract apollo: Apollo;
 

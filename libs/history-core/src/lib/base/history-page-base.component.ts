@@ -17,7 +17,7 @@ export abstract class HistoryPageBaseComponent extends BaseComponent
   implements OnInit {
   logs: Log[] | ObservableArray<Log>;
   count: number;
-  isLoading: boolean;
+  isLoading = true;
 
   protected abstract apollo: Apollo;
 

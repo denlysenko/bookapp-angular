@@ -27,6 +27,7 @@ export class HistoryPageComponent extends HistoryPageBaseComponent {
   }
 
   protected handleLogsChanges({ data, loading }) {
+    this.isLoading = loading;
     if (loading) {
       return;
     }

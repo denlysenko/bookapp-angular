@@ -15,7 +15,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
   bookmarks: Bookmark[];
   books: Book[] | ObservableArray<Book>;
   count: number;
-  isLoading: boolean;
+  isLoading = true;
 
   protected abstract type: string;
   protected abstract apollo: Apollo;
