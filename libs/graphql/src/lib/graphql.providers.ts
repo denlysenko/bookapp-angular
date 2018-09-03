@@ -1,6 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
+import { InjectionToken } from '@angular/core';
 
-import { AUTH_TOKEN, environment, StoragePlatformService } from '@bookapp-angular/core';
+import {
+  AUTH_TOKEN,
+  environment,
+  StoragePlatformService
+} from '@bookapp-angular/core';
+
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
@@ -26,54 +32,58 @@ const defaultOptions = {
   }
 };
 
-export function createApolloFactory(webSocketImpl) {
-  return function(httpLink: HttpLink, storageService: StoragePlatformService) {
-    const http = httpLink.create({
-      uri: environment.endpointUrl
-    });
+export const WebSocketImpl = new InjectionToken('WebSocketImpl');
 
-    const ws = new WebSocketLink({
-      uri: environment.subscriptionsEndpoint,
-      options: {
-        reconnect: true,
-        connectionParams: {
-          authToken: storageService.getItem(AUTH_TOKEN)
-        }
-      },
-      webSocketImpl
-    });
+export function createApolloFactory(
+  httpLink: HttpLink,
+  storageService: StoragePlatformService,
+  webSocketImpl: any
+) {
+  const http = httpLink.create({
+    uri: environment.endpointUrl
+  });
 
-    const auth = setContext(() => {
-      const token = storageService.getItem(AUTH_TOKEN);
-      if (!token) {
-        return {};
-      } else {
-        return {
-          headers: new HttpHeaders().append('Authorization', `Bearer ${token}`)
-        };
+  const ws = new WebSocketLink({
+    uri: environment.subscriptionsEndpoint,
+    options: {
+      reconnect: true,
+      connectionParams: {
+        authToken: storageService.getItem(AUTH_TOKEN)
       }
-    });
+    },
+    webSocketImpl
+  });
 
-    const link = split(
-      ({ query }) => {
-        const { kind, operation }: Definintion = getMainDefinition(query);
-        return kind === 'OperationDefinition' && operation === 'subscription';
-      },
-      ws,
-      auth.concat(http)
-    );
+  const auth = setContext(() => {
+    const token = storageService.getItem(AUTH_TOKEN);
+    if (!token) {
+      return {};
+    } else {
+      return {
+        headers: new HttpHeaders().append('Authorization', `Bearer ${token}`)
+      };
+    }
+  });
 
-    const errorLink = onError(({ networkError }) => {
-      // TODO add handler to show snackbar
-      if (networkError) {
-        console.log(`[Network error]`, networkError);
-      }
-    });
+  const link = split(
+    ({ query }) => {
+      const { kind, operation }: Definintion = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    ws,
+    auth.concat(http)
+  );
 
-    return {
-      link: errorLink.concat(link),
-      cache: new InMemoryCache(),
-      defaultOptions
-    };
+  const errorLink = onError(({ networkError }) => {
+    // TODO add handler to show snackbar
+    if (networkError) {
+      console.log(`[Network error]`, networkError);
+    }
+  });
+
+  return {
+    link: errorLink.concat(link),
+    cache: new InMemoryCache(),
+    defaultOptions
   };
 }

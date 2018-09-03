@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   endpointUrl:
     'https://api-bookapp-api.7e14.starter-us-west-2.openshiftapps.com/graphql', // 10.0.2.2 - android
   subscriptionsEndpoint:

@@ -41,7 +41,7 @@
             "main": "apps/web/src/main.ts",
             "polyfills": "apps/web/src/polyfills.ts",
             "tsConfig": "apps/web/tsconfig.app.json",
-            "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
+            "assets": ["apps/web/src/_redirects", "apps/web/src/assets"],
             "styles": [
               "node_modules/epubjs-reader/reader/css/main.css",
               "node_modules/epubjs-reader/reader/css/popup.css",
@@ -57,12 +57,6 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/web/src/environments/environment.ts",
-                  "with": "apps/web/src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

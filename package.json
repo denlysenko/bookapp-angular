@@ -8,6 +8,7 @@
     "start:ios": "cd apps/mobile && tns run ios --emulator",
     "start:android": "cd apps/mobile && tns run android --emulator",
     "build": "ng build",
+    "build:web": "ng build web --prod --configuration=production ",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",
