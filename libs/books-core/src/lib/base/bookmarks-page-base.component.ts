@@ -15,7 +15,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
   bookmarks: Bookmark[];
   books: Book[] | ObservableArray<Book>;
   count: number;
-  isLoading = true;
+  isLoading: boolean;
 
   protected abstract type: string;
   protected abstract apollo: Apollo;
@@ -24,6 +24,7 @@ export abstract class BookmarksPageBaseComponent extends BaseComponent
   private skip = 0;
 
   ngOnInit() {
+    this.isLoading = true;
     const { type, skip } = this;
 
     this.bookmarksQueryRef = this.apollo.watchQuery<BookmarksResponse>({

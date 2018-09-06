@@ -18,7 +18,7 @@ export abstract class BestBooksPageBaseComponent extends BaseComponent
   implements OnInit {
   books: Book[] | ObservableArray<Book>;
   count: number;
-  isLoading = true;
+  isLoading: boolean;
 
   protected abstract apollo: Apollo;
 
@@ -26,6 +26,7 @@ export abstract class BestBooksPageBaseComponent extends BaseComponent
   private skip = 0;
 
   ngOnInit() {
+    this.isLoading = true;
     const { skip } = this;
 
     this.bestBooksQueryRef = this.apollo.watchQuery<BestBooksResponse>({

@@ -25,13 +25,14 @@ export abstract class BookPageBaseComponent extends BaseComponent
   implements OnInit {
   book$: Observable<Book>;
   bookmarks$: Observable<string[]>;
-  isLoading = true;
+  isLoading: boolean;
 
   protected abstract apollo: Apollo;
   protected abstract route: ActivatedRoute;
   protected abstract bookService: BookService;
 
   ngOnInit() {
+    this.isLoading = true;
     const slug = this.route.snapshot.paramMap.get('slug');
     // as I could not find another way to pass bookId through navigation, using query params
     const bookId = this.route.snapshot.queryParamMap.get('bookId');

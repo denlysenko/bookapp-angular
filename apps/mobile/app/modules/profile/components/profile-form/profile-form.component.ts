@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -45,7 +52,8 @@ export class ProfileFormComponent extends ProfileFormBaseComponent
     return this._user;
   }
 
-  @Output() backTapped = new EventEmitter<void>();
+  @Output()
+  backTapped = new EventEmitter<void>();
 
   private _user: User;
 
@@ -119,7 +127,7 @@ export class ProfileFormComponent extends ProfileFormBaseComponent
           this.isUploading = false;
           this.onFormSubmit.emit({
             id: this.user.id,
-            user: { avatar: response.Location }
+            user: { avatar: response.publicUrl }
           });
         } catch (err) {
           this.isUploading = false;
