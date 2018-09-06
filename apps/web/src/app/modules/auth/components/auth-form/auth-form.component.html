@@ -1,7 +1,8 @@
 <div class="auth-form">
   <mat-card>
     <form [formGroup]="form"
-          (submit)="submit()">
+          (submit)="submit()"
+          novalidate>
       <mat-card-header>
         <mat-card-title>{{ isLoggingIn ? 'Login into account' : 'Create account' }}</mat-card-title>
       </mat-card-header>
@@ -25,7 +26,8 @@
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput
+            <input type="email"
+                   matInput
                    placeholder="Email"
                    formControlName="email">
             <mat-error>{{ getEmailError() }}</mat-error>
