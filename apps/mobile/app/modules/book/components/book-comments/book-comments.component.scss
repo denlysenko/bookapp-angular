@@ -18,13 +18,11 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
-Button.mdi {
-  width: 40;
-  height: 40;
+.button {
+  width: 50;
+  height: 50;
   border-radius: 50%;
   color: $orange;
-  font-size: 24;
-  margin-left: 10;
 }
 
 .input.input-padding {

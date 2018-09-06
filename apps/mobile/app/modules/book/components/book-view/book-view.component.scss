@@ -13,12 +13,11 @@
 .actions {
   margin: 10 0;
 
-  Button {
-    width: 40;
-    height: 40;
+  button {
+    width: 50;
+    height: 50;
     border-radius: 50%;
     color: $orange;
-    font-size: 24;
   }
 }
 

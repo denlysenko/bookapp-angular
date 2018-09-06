@@ -57,6 +57,7 @@ export class BookPageComponent extends BookPageBaseComponent {
 
   onIndexChanged(args) {
     const tabView = <TabView>args.object;
-    this.selectedIndex = tabView.selectedIndex;
+    this.selectedIndex =
+      tabView.selectedIndex === -1 ? 0 : tabView.selectedIndex;
   }
 }

@@ -17,13 +17,14 @@ export abstract class HistoryPageBaseComponent extends BaseComponent
   implements OnInit {
   logs: Log[] | ObservableArray<Log>;
   count: number;
-  isLoading = true;
+  isLoading: boolean;
 
   protected abstract apollo: Apollo;
 
   protected logsQueryRef: QueryRef<LogsResponse>;
 
   ngOnInit() {
+    this.isLoading = true;
     this.logsQueryRef = this.apollo.watchQuery<LogsResponse>({
       query: LOGS_QUERY,
       variables: {

@@ -1,6 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 
-import { Book, BookRateEvent, BookViewBaseComponent } from '@bookapp-angular/books-core';
+import {
+  Book,
+  BookRateEvent,
+  BookViewBaseComponent
+} from '@bookapp-angular/books-core';
 
 @Component({
   moduleId: module.id,
@@ -31,7 +41,8 @@ export class BookViewComponent extends BookViewBaseComponent
 
   private _book: Book;
 
-  @ViewChild('rating') ratingElemRef: ElementRef;
+  @ViewChild('rating')
+  ratingElemRef: ElementRef;
 
   ngAfterViewInit() {
     this.ratingElemRef.nativeElement.value = this._book.rating;

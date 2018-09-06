@@ -18,7 +18,6 @@ import { containers } from './containers';
     NativeScriptFormsModule,
     RouterModule.forChild(routes),
     BooksCoreModule.forRoot(),
-    // NativeScriptRouterModule,
     NgShadowModule
   ],
   declarations: [...containers, ...components],

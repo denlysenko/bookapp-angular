@@ -13,6 +13,7 @@
                  nsRouterLink="{{ book.paid ? '/buy/' + book.url : '/browse/' + book.url }}"
                  [queryParams]="{ bookId: book.id }">
       <Label class="title"
+             textWrap="true"
              [text]="book.title">
       </Label>
       <Label class="author"

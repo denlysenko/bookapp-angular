@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { NativeScriptRouterModule } from 'nativescript-angular';
@@ -20,6 +20,7 @@ import { routes } from './history.routing';
     NativeScriptUIListViewModule,
     NativeScriptRouterModule
   ],
-  declarations: [...containers, ...components]
+  declarations: [...containers, ...components],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class HistoryModule {}

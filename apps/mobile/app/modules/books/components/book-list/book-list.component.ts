@@ -51,7 +51,15 @@ export class BookListComponent {
         ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
     }
 
-    this.listViewComponent.listView.notifyLoadOnDemandFinished();
+    /* RadListView throws an exception on Android:
+    * JS: ERROR TypeError: Cannot read property 'notifyLoadingFinished' of null
+    * and causes app crashes
+    * this might be fixed in next versions
+    * for now use try/catch
+    */
+    try {
+      this.listViewComponent.listView.notifyLoadOnDemandFinished();
+    } catch (e) {}
   }
 
   scrollToIndex(index: number) {

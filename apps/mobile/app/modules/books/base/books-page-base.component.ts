@@ -85,6 +85,7 @@ export abstract class BooksPageBaseComponent extends BaseComponent
   private _loading: boolean;
 
   ngOnInit() {
+    this.isLoading = true;
     this.sortItems = this.genSortItems();
     this.setInitialSorting();
 

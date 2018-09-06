@@ -5,7 +5,7 @@ export const LOG_ACTIONS = {
   BOOK_RATED: 'You rated a Book',
   BOOK_ADDED_TO_MUSTREAD: 'You added a Book to Must Read Titles',
   BOOK_ADDED_TO_WISHLIST: 'You added a Book to Wishlist',
-  BOOK_ADDED_TO_FAVOURITE: 'You added a Book to Favourites',
+  BOOK_ADDED_TO_FAVOURITES: 'You added a Book to Favourites',
   BOOK_REMOVED_FROM_MUSTREAD: 'You removed a Book from Must Read Titles',
   BOOK_REMOVED_FROM_WISHLIST: 'You removed a Book from Wishlist',
   BOOK_REMOVED_FROM_FAVOURITE: 'You removed a Book from Favourites',

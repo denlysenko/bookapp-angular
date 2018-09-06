@@ -22,26 +22,41 @@
               <FlexboxLayout class="actions"
                              justifyContent="center">
                 <Button *ngIf="!book.paid"
-                        nsRouterLink="/reading/{{ book.url }}"
-                        text="book"
-                        class="mdi">
+                        nsRouterLink="/reading/{{ book.url }}">
+                  <FormattedString>
+                    <Span class="mdi"
+                          fontSize="24"
+                          text="book"></Span>
+                  </FormattedString>
+                </Button>
+                <Button *ngIf="book.paid">
+                  <FormattedString>
+                    <Span class="mdi"
+                          fontSize="24"
+                          text="credit_card"></Span>
+                  </FormattedString>
+                </Button>
+                <Button (tap)="(inFavourites ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.FAVOURITE, bookId: book.id })">
+                  <FormattedString>
+                    <Span class="mdi"
+                          fontSize="24"
+                          [text]="inFavourites ? 'star' : 'star_border'"></Span>
+                  </FormattedString>
                 </Button>
                 <Button *ngIf="book.paid"
-                        text="credit_card"
-                        class="mdi">
-                </Button>
-                <Button class="mdi"
-                        [text]="inFavourites ? 'star' : 'star_border'"
-                        (tap)="(inFavourites ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.FAVOURITE, bookId: book.id })">
-                </Button>
-                <Button *ngIf="book.paid"
-                        class="mdi"
-                        [text]="inWishlist ? 'favorite' : 'favorite_border'"
                         (tap)="(inWishlist ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.WISHLIST, bookId: book.id })">
+                  <FormattedString>
+                    <Span class="mdi"
+                          fontSize="24"
+                          [text]="inWishlist ? 'favorite' : 'favorite_border'"></Span>
+                  </FormattedString>
                 </Button>
-                <Button class="mdi"
-                        [text]="inMustread ? 'bookmark': 'bookmark_border'"
-                        (tap)="(inMustread ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.MUSTREAD, bookId: book.id })">
+                <Button (tap)="(inMustread ? onRemoveBookmark : onAddBookmark).emit({ type: BOOKMARKS.MUSTREAD, bookId: book.id })">
+                  <FormattedString>
+                    <Span class="mdi"
+                          fontSize="24"
+                          [text]="inMustread ? 'bookmark': 'bookmark_border'"></Span>
+                  </FormattedString>
                 </Button>
               </FlexboxLayout>
               <FlexboxLayout class="view-num">

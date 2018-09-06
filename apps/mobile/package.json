@@ -7,6 +7,9 @@
     "id": "org.nativescript.bookapp",
     "tns-ios": {
       "version": "4.2.0"
+    },
+    "tns-android": {
+      "version": "4.2.0"
     }
   },
   "dependencies": {
@@ -55,7 +58,7 @@
     "nativescript-star-ratings": "^1.0.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-ui-dataform": "^3.6.2",
-    "nativescript-ui-listview": "^3.5.11",
+    "nativescript-ui-listview": "^3.6.1",
     "nativescript-ui-sidedrawer": "^4.2.1",
     "nativescript-websockets": "^1.5.1",
     "reflect-metadata": "~0.1.8",

@@ -3,11 +3,10 @@
   <Label class="action-bar-title"
          text="Book Details"></Label>
 </ActionBar>
-<GridLayout>
+<GridLayout *ngIf="(book$ | async) as book">
   <TabView [(ngModel)]="selectedIndex"
            androidTabsPosition="bottom"
            (selectedIndexChange)="onIndexChanged($event)">
-    <ng-container *ngIf="(book$ | async) as book">
       <StackLayout *tabItem="{ title: 'Details', iconSource: 'res://details' }">
         <ba-book-view [book]="book"
                       [bookmarks]="bookmarks$ | async"
@@ -20,6 +19,5 @@
                           [loading]="isLoading"
                           (onCommentAdded)="submitComment(book.id, $event, book.slug)"></ba-book-comments>
       </StackLayout>
-    </ng-container>
   </TabView>
 </GridLayout>

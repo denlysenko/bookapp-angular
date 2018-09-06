@@ -36,10 +36,15 @@
                     [(ngModel)]="text"
                     hint="Write a short comment"
                     class="input input-border input-padding"></TextView>
-          <Button class="mdi"
+          <Button class="button"
                   col="1"
-                  text="send"
-                  (tap)="submitComment()"></Button>
+                  (tap)="submitComment()">
+            <FormattedString>
+              <Span class="mdi"
+                    fontSize="24"
+                    text="send"></Span>
+            </FormattedString>
+          </Button>
         </GridLayout>
       </StackLayout>
     </FlexboxLayout>

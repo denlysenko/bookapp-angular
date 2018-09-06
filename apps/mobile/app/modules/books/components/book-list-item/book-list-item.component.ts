@@ -6,10 +6,16 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 
 import { Book, BookRateEvent } from '@bookapp-angular/books-core';
+
+/**
+ * TODO customize star size https://github.com/triniwiz/nativescript-star-ratings/issues/7
+ * and customize star empty border color on Android
+ * https://github.com/triniwiz/nativescript-star-ratings/issues/13
+ **/
 
 @Component({
   moduleId: module.id,
@@ -38,9 +44,11 @@ export class BookListItemComponent implements AfterViewInit {
     return this._book;
   }
 
-  @ViewChild('rating') ratingElemRef: ElementRef;
+  @ViewChild('rating')
+  ratingElemRef: ElementRef;
 
-  @Output() onRate = new EventEmitter<BookRateEvent>();
+  @Output()
+  onRate = new EventEmitter<BookRateEvent>();
 
   private _book: Book;
 
