@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { UserSelfResponse, Reading } from '@bookapp-angular/auth-core';
-import { BookResponse } from '@bookapp-angular/books-core';
+import { Reading, UserSelfResponse } from '@bookapp-angular/auth-core';
 import { BOOK_QUERY, ME_QUERY } from '@bookapp-angular/graphql';
 
 import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { BookResponse } from '../models';
 
 @Injectable()
 export class ReadBookResolver implements Resolve<Reading> {

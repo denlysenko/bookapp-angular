@@ -34,7 +34,6 @@ import { routes } from './books.routes';
 import { components } from './components';
 import { containers } from './containers';
 import { EditBookResolver } from './resolvers/edit-book.resolver';
-import { ReadBookResolver } from './resolvers/read-book.resolver';
 
 @NgModule({
   imports: [
@@ -61,12 +60,7 @@ import { ReadBookResolver } from './resolvers/read-book.resolver';
     LoaderModule
   ],
   declarations: [...containers, ...components],
-  providers: [
-    RolesGuard,
-    CanDeactivateGuard,
-    EditBookResolver,
-    ReadBookResolver
-  ],
+  providers: [RolesGuard, CanDeactivateGuard, EditBookResolver],
   entryComponents: [
     ImageSelectorComponent,
     FileSelectorComponent,

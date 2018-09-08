@@ -22,7 +22,7 @@
               <FlexboxLayout class="actions"
                              justifyContent="center">
                 <Button *ngIf="!book.paid"
-                        nsRouterLink="/reading/{{ book.url }}">
+                        nsRouterLink="/books/read/{{ book.url }}">
                   <FormattedString>
                     <Span class="mdi"
                           fontSize="24"

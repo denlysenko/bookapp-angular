@@ -3,7 +3,10 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { BooksCoreModule } from '@bookapp-angular/books-core';
-import { NativeScriptFormsModule } from 'nativescript-angular';
+import {
+  NativeScriptFormsModule,
+  NativeScriptRouterModule
+} from 'nativescript-angular';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NgShadowModule } from 'nativescript-ng-shadow';
 
@@ -16,6 +19,7 @@ import { containers } from './containers';
     CommonModule,
     NativeScriptCommonModule,
     NativeScriptFormsModule,
+    NativeScriptRouterModule,
     RouterModule.forChild(routes),
     BooksCoreModule.forRoot(),
     NgShadowModule

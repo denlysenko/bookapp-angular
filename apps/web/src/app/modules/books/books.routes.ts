@@ -7,6 +7,8 @@ import {
   RolesGuard
 } from '@bookapp-angular/core';
 
+import { ReadBookResolver } from '@bookapp-angular/books-core';
+
 import { AddBookPageComponent } from './containers/add-book-page/add-book-page.component';
 import { BestBooksPageComponent } from './containers/best-books-page/best-books-page.component';
 import { BookPageComponent } from './containers/book-page/book-page.component';
@@ -16,7 +18,6 @@ import { BuyBooksPageComponent } from './containers/buy-books-page/buy-books-pag
 import { ReadBookPageComponent } from './containers/read-book-page/read-book-page.component';
 
 import { EditBookResolver } from './resolvers/edit-book.resolver';
-import { ReadBookResolver } from './resolvers/read-book.resolver';
 
 export const routes: Routes = [
   {

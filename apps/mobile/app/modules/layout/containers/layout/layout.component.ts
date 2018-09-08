@@ -74,9 +74,6 @@ export class LayoutComponent extends BaseComponent
     private routerExtensions: RouterExtensions
   ) {
     super();
-  }
-
-  ngOnInit() {
     // iPhone X fix height
     if (
       isIOS &&
@@ -101,6 +98,33 @@ export class LayoutComponent extends BaseComponent
       map(({ data }) => data.logs.rows),
       takeUntil(this.destroy$)
     );
+
+    // this.selectPageAndNavigate(this.navItems[1]);
+  }
+
+  ngOnInit() {
+    // iPhone X fix height
+    // if (
+    //   isIOS &&
+    //   application.ios.window.safeAreaInsets &&
+    //   application.ios.window.safeAreaInsets.bottom > 0
+    // ) {
+    //   application.addCss(`
+    //       RadSideDrawer { margin-bottom: -${
+    //         application.ios.window.safeAreaInsets.bottom
+    //       } }
+    //     `);
+    // }
+    // this._sideDrawerTransition = new SlideInOnTopTransition();
+    // this.subscribeToMeQuery();
+    // this.lastLogsQuery = this.apollo.watchQuery<LogsResponse>({
+    //   query: LAST_LOGS_QUERY
+    // });
+    // this.logs$ = this.lastLogsQuery.valueChanges.pipe(
+    //   map(({ data }) => data.logs.rows),
+    //   takeUntil(this.destroy$)
+    // );
+    // this.selectPageAndNavigate(this.navItems[1]);
   }
 
   ngOnDestroy() {
@@ -159,7 +183,7 @@ export class LayoutComponent extends BaseComponent
               this.subscribeToNewLogs();
             }
 
-            this.selectPageAndNavigate(this.navItems[1]);
+            // this.selectPageAndNavigate(this.navItems[1]);
           }
 
           if (errors) {

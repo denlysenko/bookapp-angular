@@ -61,6 +61,7 @@
     "nativescript-ui-listview": "^3.6.1",
     "nativescript-ui-sidedrawer": "^4.2.1",
     "nativescript-websockets": "^1.5.1",
+    "nativescript-webview-interface": "^1.4.2",
     "reflect-metadata": "~0.1.8",
     "rxjs": "file:../../node_modules/rxjs",
     "rxjs-compat": "^6.1.0",

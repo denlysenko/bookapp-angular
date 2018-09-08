@@ -1,2 +1,3 @@
 <ba-book-reader [src]="epubUrl"
-                [bookmark]="bookmark"></ba-book-reader>
+                [bookmark]="bookmark"
+                (onLocationChange)="currentLocation = $event"></ba-book-reader>

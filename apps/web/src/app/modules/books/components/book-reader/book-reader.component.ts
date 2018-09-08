@@ -1,14 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  OnDestroy,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
-
-import { Reading } from '@bookapp-angular/auth-core';
-
-import { Subject } from 'rxjs';
 
 declare var ePubReader: any;
 
@@ -18,14 +15,15 @@ declare var ePubReader: any;
   styleUrls: ['./book-reader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookReaderComponent implements OnInit, OnDestroy {
-  destroy$: Subject<Reading> = new Subject();
-
+export class BookReaderComponent implements OnInit {
   @Input()
   src: string;
 
   @Input()
   bookmark: string;
+
+  @Output()
+  onLocationChange = new EventEmitter<string>();
 
   private reader: any;
 
@@ -34,13 +32,8 @@ export class BookReaderComponent implements OnInit, OnDestroy {
     if (this.bookmark) {
       this.reader.rendition.display(this.bookmark);
     }
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next({
-      epubUrl: this.src,
-      bookmark: this.reader.rendition.currentLocation().start.cfi
+    this.reader.rendition.on('locationChanged', ({ start }) => {
+      this.onLocationChange.emit(start);
     });
-    this.destroy$.complete();
   }
 }
