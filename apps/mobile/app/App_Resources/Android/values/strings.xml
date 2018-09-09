@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">BookApp</string>
     <string name="title_activity_kimera">BookApp</string>
+    <string name="shortcut_reading">Now Reading</string>
+    <string name="shortcut_browse">Browse Books</string>
+    <string name="shortcut_buy">Buy Books</string>
 </resources>

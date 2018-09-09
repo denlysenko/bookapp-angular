@@ -47,6 +47,7 @@
     "graphql": "file:../../node_modules/graphql",
     "graphql-tag": "file:../../node_modules/graphql-tag",
     "nativescript-angular": "~6.1.0",
+    "nativescript-app-shortcuts": "^2.1.0",
     "nativescript-background-http": "^3.3.0",
     "nativescript-camera": "^4.0.2",
     "nativescript-feedback": "^1.2.0",

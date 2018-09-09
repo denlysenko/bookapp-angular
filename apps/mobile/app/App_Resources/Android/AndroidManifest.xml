@@ -33,6 +33,8 @@
 			android:theme="@style/LaunchScreenTheme">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
+      <meta-data android:name="android.app.shortcuts"
+             android:resource="@xml/shortcuts" />
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

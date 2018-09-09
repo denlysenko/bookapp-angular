@@ -43,5 +43,32 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+  <key>UIApplicationShortcutItems</key>
+  <array>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>book</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>Now Reading</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>reading</string>
+    </dict>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>language</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>Browse Books</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>browse</string>
+    </dict>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>shopping_cart</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>Buy Books</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>buy</string>
+    </dict>
+  </array>
 </dict>
 </plist>
