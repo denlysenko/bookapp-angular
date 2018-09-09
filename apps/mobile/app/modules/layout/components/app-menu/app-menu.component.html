@@ -2,8 +2,9 @@
   <GridLayout *ngFor="let item of navItems"
               columns="auto, *"
               class="menu-item"
-              [class.selected]="isSelected(item.label)"
-              (tap)="select(item)">
+              [nsRouterLink]="'/' + item.path"
+              nsRouterLinkActive="selected"
+              pageTransition="fade">
     <Label col="0"
            [text]="item.icon"
            class="mdi"></Label>
@@ -15,8 +16,9 @@
   <GridLayout *ngFor="let item of categoryItems"
               columns="auto, *"
               class="menu-item"
-              [class.selected]="isSelected(item.label)"
-              (tap)="select(item)">
+              [nsRouterLink]="'/' + item.path"
+              nsRouterLinkActive="selected"
+              pageTransition="fade">
     <Label col="0"
            [text]="item.icon"
            class="mdi"

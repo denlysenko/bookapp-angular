@@ -8,7 +8,7 @@
 		android:smallScreens="true"
 		android:normalScreens="true"
 		android:largeScreens="true"
-		android:xlargeScreens="true"/>
+		android:xlargeScreens="false"/>
 
 	<uses-sdk
 		android:minSdkVersion="17"
@@ -30,6 +30,7 @@
 			android:label="@string/title_activity_kimera"
 			android:configChanges="keyboardHidden|orientation|screenSize"
 			android:windowSoftInputMode="adjustResize"
+      android:screenOrientation="portrait"
 			android:theme="@style/LaunchScreenTheme">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />

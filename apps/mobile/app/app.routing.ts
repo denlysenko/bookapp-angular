@@ -5,6 +5,7 @@ import { AuthGuard } from '@bookapp-angular/core';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { AuthPageComponent } from '~/modules/auth/containers/auth-page/auth-page.component';
 import { LayoutComponent } from '~/modules/layout/containers/layout/layout.component';
+import { HomePageComponent } from '~/modules/layout/containers/home-page/home-page.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,14 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: HomePageComponent,
+        canActivate: [AuthGuard],
+        data: {
+          title: 'Welcome to BookApp'
+        }
+      },
       {
         path: 'books',
         loadChildren: '~/modules/books/books.module#BooksModule',

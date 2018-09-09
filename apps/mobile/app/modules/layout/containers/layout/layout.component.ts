@@ -5,7 +5,8 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
 import {
   AuthService,
@@ -15,7 +16,6 @@ import {
 import {
   BaseComponent,
   categories,
-  MenuItem,
   navs,
   userMenu
 } from '@bookapp-angular/core';
@@ -32,9 +32,14 @@ import {
   DrawerTransitionBase,
   SlideInOnTopTransition
 } from 'nativescript-ui-sidedrawer';
-import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
+import {
+  RadSideDrawerComponent,
+  SideDrawerType
+} from 'nativescript-ui-sidedrawer/angular';
+
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
@@ -50,10 +55,9 @@ import { isIOS } from 'tns-core-modules/platform';
     ])
   ]
 })
-export class LayoutComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class LayoutComponent extends BaseComponent implements OnDestroy {
   user: User;
-  selectedPage: string;
+  selectedPageTitle: string;
   isUserMenuOpen = false;
   lastLogsQuery: QueryRef<LogsResponse>;
   logs$: Observable<Log[]>;
@@ -66,12 +70,19 @@ export class LayoutComponent extends BaseComponent
   drawerComponent: RadSideDrawerComponent;
 
   private _sideDrawerTransition: DrawerTransitionBase;
+
+  private get drawer(): SideDrawerType {
+    return this.drawerComponent.sideDrawer;
+  }
+
   private unsubscribeFromNewLogs: () => void;
 
   constructor(
     private apollo: Apollo,
     private authService: AuthService,
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     super();
     // iPhone X fix height
@@ -99,32 +110,12 @@ export class LayoutComponent extends BaseComponent
       takeUntil(this.destroy$)
     );
 
-    // this.selectPageAndNavigate(this.navItems[1]);
-  }
-
-  ngOnInit() {
-    // iPhone X fix height
-    // if (
-    //   isIOS &&
-    //   application.ios.window.safeAreaInsets &&
-    //   application.ios.window.safeAreaInsets.bottom > 0
-    // ) {
-    //   application.addCss(`
-    //       RadSideDrawer { margin-bottom: -${
-    //         application.ios.window.safeAreaInsets.bottom
-    //       } }
-    //     `);
-    // }
-    // this._sideDrawerTransition = new SlideInOnTopTransition();
-    // this.subscribeToMeQuery();
-    // this.lastLogsQuery = this.apollo.watchQuery<LogsResponse>({
-    //   query: LAST_LOGS_QUERY
-    // });
-    // this.logs$ = this.lastLogsQuery.valueChanges.pipe(
-    //   map(({ data }) => data.logs.rows),
-    //   takeUntil(this.destroy$)
-    // );
-    // this.selectPageAndNavigate(this.navItems[1]);
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(e => {
+      if (e instanceof NavigationEnd && this.drawer) {
+        this.drawer.closeDrawer();
+        this.updateRouteTitle();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -143,18 +134,6 @@ export class LayoutComponent extends BaseComponent
     this.drawerComponent.sideDrawer.toggleDrawerState();
   }
 
-  selectPageAndNavigate(navItem: MenuItem) {
-    this.selectedPage = navItem.label;
-    this.drawerComponent.sideDrawer.closeDrawer();
-    this.routerExtensions.navigate([navItem.path], {
-      transition: {
-        name: 'fade',
-        duration: 300,
-        curve: 'linear'
-      }
-    });
-  }
-
   logout() {
     this.ngOnDestroy();
     this.authService.logout();
@@ -166,6 +145,28 @@ export class LayoutComponent extends BaseComponent
         curve: 'linear'
       }
     });
+  }
+
+  private updateRouteTitle() {
+    let route = this.route.firstChild;
+    let child = route;
+
+    while (child) {
+      if (child.firstChild) {
+        child = child.firstChild;
+        route = child;
+      } else {
+        child = null;
+      }
+    }
+
+    const { title } = route.snapshot.data;
+
+    if (title) {
+      this.selectedPageTitle = title;
+    } else {
+      this.selectedPageTitle = '';
+    }
   }
 
   private subscribeToMeQuery() {
@@ -182,8 +183,6 @@ export class LayoutComponent extends BaseComponent
             if (!this.unsubscribeFromNewLogs) {
               this.subscribeToNewLogs();
             }
-
-            // this.selectPageAndNavigate(this.navItems[1]);
           }
 
           if (errors) {

@@ -1,15 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { MenuItem } from '@bookapp-angular/core';
 import { Log, LOG_ACTIONS } from '@bookapp-angular/history-core';
-
-import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +10,7 @@ import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
   styleUrls: ['./app-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppMenuComponent extends MenuBaseComponent {
+export class AppMenuComponent {
   readonly actions = LOG_ACTIONS;
 
   @Input()
@@ -28,11 +20,5 @@ export class AppMenuComponent extends MenuBaseComponent {
   categoryItems: MenuItem[];
 
   @Input()
-  selectedPage: string;
-
-  @Input()
   logs: Log[];
-
-  @Output()
-  itemSelected = new EventEmitter<MenuItem>();
 }

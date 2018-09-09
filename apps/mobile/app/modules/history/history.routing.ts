@@ -8,6 +8,9 @@ export const routes: Routes = [
   {
     path: '',
     component: HistoryPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      title: 'History'
+    }
   }
 ];

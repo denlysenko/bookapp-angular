@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import { MenuItem } from '@bookapp-angular/core';
-import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
 
 @Component({
   moduleId: module.id,
@@ -16,14 +15,10 @@ import { MenuBaseComponent } from '~/modules/core/base/MenuBaseComponent';
   styleUrls: ['./user-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserMenuComponent extends MenuBaseComponent {
-  @Input() items: MenuItem[];
-  @Input() selectedPage: string;
+export class UserMenuComponent {
+  @Input()
+  items: MenuItem[];
 
-  @Output() itemSelected = new EventEmitter<MenuItem>();
-  @Output() onLogout = new EventEmitter<void>();
-
-  logout() {
-    this.onLogout.emit();
-  }
+  @Output()
+  onLogout = new EventEmitter<void>();
 }

@@ -9,7 +9,7 @@
               ios.position="left">
   </ActionItem>
   <Label class="action-bar-title"
-         [text]="selectedPage"></Label>
+         [text]="selectedPageTitle"></Label>
 </ActionBar>
 <RadSideDrawer #drawer
                showOverNavigation="true"
@@ -55,15 +55,11 @@
                        [visibility]="!isUserMenuOpen ? 'visible' : 'collapsed'">
             <ba-app-menu [navItems]="navItems"
                          [categoryItems]="categoryItems"
-                         [selectedPage]="selectedPage"
-                         [logs]="logs$ | async"
-                         (itemSelected)="selectPageAndNavigate($event)"></ba-app-menu>
+                         [logs]="logs$ | async"></ba-app-menu>
           </StackLayout>
           <StackLayout [@state]="isUserMenuOpen ? 'in' : 'out'"
                        [visibility]="isUserMenuOpen ? 'visible' : 'collapsed'">
             <ba-user-menu [items]="userMenuItems"
-                          [selectedPage]="selectedPage"
-                          (itemSelected)="selectPageAndNavigate($event)"
                           (onLogout)="logout()"></ba-user-menu>
           </StackLayout>
         </StackLayout>

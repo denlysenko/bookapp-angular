@@ -13,19 +13,26 @@ export const routes: Route[] = [
   {
     path: 'browse',
     component: BrowseBooksPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Browse Books'
+    }
   },
   {
     path: 'buy',
     component: BuyBooksPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Buy Books'
+    }
   },
   {
     path: 'favourite',
     component: BookmarksPageComponent,
     canActivate: [AuthGuard],
     data: {
-      type: BOOKMARKS.FAVOURITE
+      type: BOOKMARKS.FAVOURITE,
+      title: 'Favourite Books'
     }
   },
   {
@@ -33,7 +40,8 @@ export const routes: Route[] = [
     component: BookmarksPageComponent,
     canActivate: [AuthGuard],
     data: {
-      type: BOOKMARKS.MUSTREAD
+      type: BOOKMARKS.MUSTREAD,
+      title: 'Must Read Titles'
     }
   },
   {
@@ -41,13 +49,17 @@ export const routes: Route[] = [
     component: BookmarksPageComponent,
     canActivate: [AuthGuard],
     data: {
-      type: BOOKMARKS.WISHLIST
+      type: BOOKMARKS.WISHLIST,
+      title: 'Wishlist'
     }
   },
   {
     path: 'best',
     component: BestBooksPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      title: 'List of the Best'
+    }
   },
   {
     path: 'read/:author/:slug',
@@ -55,6 +67,9 @@ export const routes: Route[] = [
     canActivate: [AuthGuard],
     resolve: {
       reading: ReadBookResolver
+    },
+    data: {
+      title: 'Now Reading'
     }
   },
   {
@@ -63,6 +78,9 @@ export const routes: Route[] = [
     canActivate: [AuthGuard],
     resolve: {
       reading: ReadBookResolver
+    },
+    data: {
+      title: 'Now Reading'
     }
   }
 ];
