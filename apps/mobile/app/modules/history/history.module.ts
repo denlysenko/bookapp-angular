@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { NativeScriptRouterModule } from 'nativescript-angular';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { NgShadowModule } from 'nativescript-ng-shadow';
+import { NgShadowModule } from 'nativescript-ngx-shadow';
 import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
 import { components } from './components';

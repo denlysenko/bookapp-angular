@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthCoreModule } from '@bookapp-angular/auth-core';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
-import { NgShadowModule } from 'nativescript-ng-shadow';
+import { NgShadowModule } from 'nativescript-ngx-shadow';
 
 import { components } from './components';
 import { containers } from './containers';

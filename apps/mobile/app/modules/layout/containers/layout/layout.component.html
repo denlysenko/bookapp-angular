@@ -12,6 +12,7 @@
          [text]="selectedPageTitle"></Label>
 </ActionBar>
 <RadSideDrawer #drawer
+               class="drawer"
                showOverNavigation="true"
                [drawerTransition]="sideDrawerTransition">
   <StackLayout tkDrawerContent
@@ -67,7 +68,7 @@
     </GridLayout>
   </StackLayout>
   <StackLayout class="page page-content"
-              tkMainContent>
+               tkMainContent>
     <router-outlet></router-outlet>
   </StackLayout>
 </RadSideDrawer>

@@ -15,7 +15,7 @@ import {
   StoragePlatformService,
   StoreService
 } from '@bookapp-angular/core';
-import { GraphQLModule } from '@bookapp-angular/graphql';
+import { GraphQLModule, WebSocketImpl } from '@bookapp-angular/graphql';
 
 import { FeedbackService } from './services/feedback.service';
 import { StorageService } from './services/storage.service';
@@ -33,6 +33,10 @@ import { StorageService } from './services/storage.service';
     RouterExtensions,
     AuthGuard,
     StoreService,
+    {
+      provide: WebSocketImpl,
+      useValue: null
+    },
     {
       provide: StoragePlatformService,
       useClass: StorageService

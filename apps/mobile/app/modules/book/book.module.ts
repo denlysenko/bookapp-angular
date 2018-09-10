@@ -8,7 +8,7 @@ import {
   NativeScriptRouterModule
 } from 'nativescript-angular';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { NgShadowModule } from 'nativescript-ng-shadow';
+import { NgShadowModule } from 'nativescript-ngx-shadow';
 
 import { routes } from './book.routing';
 import { components } from './components';

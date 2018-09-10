@@ -7,7 +7,7 @@ import { NativeScriptFormsModule } from 'nativescript-angular';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { registerElement } from 'nativescript-angular/element-registry';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
-import { NgShadowModule } from 'nativescript-ng-shadow';
+import { NgShadowModule } from 'nativescript-ngx-shadow';
 import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
 import { routes } from './books.routing';

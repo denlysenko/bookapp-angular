@@ -5,9 +5,9 @@ import {
   FeedbackPlatformService,
   RouterExtensions,
   StoragePlatformService,
-  StoreService,
+  StoreService
 } from '@bookapp-angular/core';
-import { GraphQLModule } from '@bookapp-angular/graphql';
+import { GraphQLModule, WebSocketImpl } from '@bookapp-angular/graphql';
 import { NativeScriptAnimationsModule } from 'nativescript-angular/animations';
 import { registerElement } from 'nativescript-angular/element-registry';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
@@ -34,12 +34,17 @@ registerElement(
     TNSFontIconModule.forRoot({
       mdi: 'material-design-icons.css'
     }),
-    GraphQLModule.forRoot(WebSocket)
+    GraphQLModule.forRoot()
   ],
   providers: [
     AuthGuard,
     StoreService,
     LoaderService,
+    // https://github.com/angular/angular-cli/issues/9358#issuecomment-373053053
+    {
+      provide: WebSocketImpl,
+      useValue: WebSocket
+    },
     {
       provide: StoragePlatformService,
       useClass: StorageService

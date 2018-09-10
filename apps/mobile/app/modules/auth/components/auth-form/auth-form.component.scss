@@ -1,4 +1,4 @@
-@import '~/scss/variables';
+@import 'scss/variables';
 
 .mat-header {
   text-align: center;
@@ -6,7 +6,7 @@
   padding: 16;
   background-color: $primary-color;
 
-  Label {
+  label {
     text-transform: uppercase;
     color: $dark-primary-text;
   }

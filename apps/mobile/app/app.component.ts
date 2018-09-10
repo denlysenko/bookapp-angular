@@ -3,8 +3,9 @@ import { AppShortcuts } from 'nativescript-app-shortcuts';
 import { RouterExtensions } from '@bookapp-angular/core';
 
 @Component({
+  moduleId: module.id,
   selector: 'ba-root',
-  templateUrl: 'app.component.html'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   constructor(

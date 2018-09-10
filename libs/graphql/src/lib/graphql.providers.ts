@@ -15,6 +15,8 @@ import { onError } from 'apollo-link-error';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
+export const WebSocketImpl = new InjectionToken('WebSocketImpl');
+
 interface Definintion {
   kind: string;
   operation?: string;
@@ -31,8 +33,6 @@ const defaultOptions = {
     errorPolicy: 'all'
   }
 };
-
-export const WebSocketImpl = new InjectionToken('WebSocketImpl');
 
 export function createApolloFactory(
   httpLink: HttpLink,

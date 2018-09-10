@@ -92,10 +92,10 @@ export class LayoutComponent extends BaseComponent implements OnDestroy {
       application.ios.window.safeAreaInsets.bottom > 0
     ) {
       application.addCss(`
-          RadSideDrawer { margin-bottom: -${
-            application.ios.window.safeAreaInsets.bottom
-          } }
-        `);
+        .drawer { margin-bottom: -${
+          application.ios.window.safeAreaInsets.bottom
+        } }
+      `);
     }
 
     this._sideDrawerTransition = new SlideInOnTopTransition();
