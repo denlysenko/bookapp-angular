@@ -32,7 +32,7 @@ registerElement(
     NativeScriptHttpClientModule,
     NativeScriptAnimationsModule,
     TNSFontIconModule.forRoot({
-      mdi: 'material-design-icons.css'
+      mdi: './assets/material-design-icons.css'
     }),
     GraphQLModule.forRoot()
   ],
