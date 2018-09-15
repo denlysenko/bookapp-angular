@@ -52,7 +52,7 @@ export class AuthService {
         tap(({ data }) => {
           if (data) {
             const {
-              login: { token }
+              signup: { token }
             } = data;
             this.storagePlatformService.setItem(AUTH_TOKEN, token);
           }
