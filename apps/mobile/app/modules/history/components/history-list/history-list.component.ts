@@ -42,10 +42,10 @@ export class HistoryListComponent {
   updateLoadOnDemandMode(hasMoreItems: boolean) {
     if (hasMoreItems) {
       this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.Auto];
+        ListViewLoadOnDemandMode.Auto;
     } else {
       this.listViewComponent.listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
+        ListViewLoadOnDemandMode.None;
     }
 
     /* RadListView throws an exception on Android:

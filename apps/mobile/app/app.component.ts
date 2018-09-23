@@ -1,13 +1,16 @@
-import { Component, NgZone } from '@angular/core';
-import { AppShortcuts } from 'nativescript-app-shortcuts';
+import { Component, NgZone, OnInit } from '@angular/core';
+
 import { RouterExtensions } from '@bookapp-angular/core';
+
+import { AppShortcuts } from 'nativescript-app-shortcuts';
+import * as application from 'tns-core-modules/application';
 
 @Component({
   moduleId: module.id,
   selector: 'ba-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private routerExtensions: RouterExtensions,
     private zone: NgZone
@@ -27,11 +30,22 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+    application.on(application.exitEvent, () => {
+      this.unsubscribeAll();
+    });
+  }
+
   private deeplink(to: string) {
     this.zone.run(() => {
       this.routerExtensions.navigate([to], {
         animated: false
       });
     });
+  }
+
+  private unsubscribeAll() {
+    application.off(application.suspendEvent);
+    application.off(application.exitEvent);
   }
 }

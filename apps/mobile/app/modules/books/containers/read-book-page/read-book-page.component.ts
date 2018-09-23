@@ -3,7 +3,8 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  NgZone
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,6 +13,7 @@ import { ReadBookPageBaseComponent } from '@bookapp-angular/books-core';
 import { Apollo } from 'apollo-angular';
 import { WebViewInterface } from 'nativescript-webview-interface';
 import { EventData } from 'tns-core-modules/ui/page/page';
+import * as application from 'tns-core-modules/application';
 import { WebView } from 'ui/web-view';
 
 @Component({
@@ -30,7 +32,11 @@ export class ReadBookPageComponent extends ReadBookPageBaseComponent
 
   private webViewInterface: WebViewInterface;
 
-  constructor(protected route: ActivatedRoute, protected apollo: Apollo) {
+  constructor(
+    protected route: ActivatedRoute,
+    protected apollo: Apollo,
+    private zone: NgZone
+  ) {
     super();
   }
 
@@ -67,11 +73,19 @@ export class ReadBookPageComponent extends ReadBookPageBaseComponent
     this.webViewInterface.on('locationChanged', (data: string) => {
       this.currentLocation = data;
     });
+
+    application.on(application.suspendEvent, () => {
+      // only need to save current page, which is happening in Base's OnDestroy
+      this.zone.run(() => {
+        super.ngOnDestroy();
+      });
+    });
   }
 
   ngOnDestroy() {
     super.ngOnDestroy();
     this.webViewInterface.destroy();
     this.webViewInterface = null;
+    application.off(application.suspendEvent);
   }
 }

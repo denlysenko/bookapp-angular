@@ -2,14 +2,12 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Reading, UserSelfResponse } from '@bookapp-angular/auth-core';
-import { BaseComponent } from '@bookapp-angular/core';
 import { ME_QUERY, UPDATE_USER_MUTATION } from '@bookapp-angular/graphql';
 
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 
-export abstract class ReadBookPageBaseComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export abstract class ReadBookPageBaseComponent implements OnInit, OnDestroy {
   epubUrl: string;
   bookmark: string;
   currentLocation: string;
@@ -28,6 +26,14 @@ export abstract class ReadBookPageBaseComponent extends BaseComponent
       })
       .pipe(map(res => res.data.me.id))
       .subscribe(id => (this.userId = id));
+  }
+
+  ngOnDestroy() {
+    const { epubUrl, currentLocation } = this;
+    this.saveReading({
+      epubUrl,
+      bookmark: currentLocation
+    });
   }
 
   private saveReading(reading: Reading) {
@@ -52,14 +58,5 @@ export abstract class ReadBookPageBaseComponent extends BaseComponent
         }
       })
       .subscribe();
-  }
-
-  ngOnDestroy() {
-    const { epubUrl, currentLocation } = this;
-    this.saveReading({
-      epubUrl,
-      bookmark: currentLocation
-    });
-    super.ngOnDestroy();
   }
 }
