@@ -1,7 +1,7 @@
-import { tap } from 'rxjs/operators';
-
 import { AuthForm, AuthService, Credentials } from '@bookapp-angular/auth-core';
 import { RouterExtensions } from '@bookapp-angular/core';
+
+import { finalize } from 'rxjs/operators';
 
 export abstract class AuthPageBaseComponent {
   error: any;
@@ -25,7 +25,7 @@ export abstract class AuthPageBaseComponent {
     return this.authService
       .login(email, password)
       .pipe(
-        tap(() => {
+        finalize(() => {
           this.isLoading = false;
         })
       )
@@ -54,7 +54,7 @@ export abstract class AuthPageBaseComponent {
     return this.authService
       .signup(credentials)
       .pipe(
-        tap(() => {
+        finalize(() => {
           this.isLoading = false;
         })
       )

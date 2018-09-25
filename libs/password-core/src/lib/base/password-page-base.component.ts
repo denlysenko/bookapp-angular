@@ -1,6 +1,6 @@
-import { tap } from 'rxjs/operators';
-
 import { FeedbackPlatformService } from '@bookapp-angular/core';
+
+import { finalize } from 'rxjs/operators';
 
 import { PasswordForm } from '../models';
 import { PasswordService } from '../services';
@@ -20,7 +20,7 @@ export abstract class PasswordPageBaseComponent {
     return this.passwordService
       .changePassword(newPassword, oldPassword)
       .pipe(
-        tap(() => {
+        finalize(() => {
           this.isLoading = false;
         })
       )

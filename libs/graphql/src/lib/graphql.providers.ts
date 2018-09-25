@@ -4,14 +4,17 @@ import { InjectionToken } from '@angular/core';
 import {
   AUTH_TOKEN,
   environment,
-  StoragePlatformService
+  StoragePlatformService,
+  FeedbackPlatformService,
+  HTTP_STATUS
 } from '@bookapp-angular/core';
 
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { split } from 'apollo-link';
+import { split, ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+import { RetryLink } from 'apollo-link-retry';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
@@ -37,7 +40,8 @@ const defaultOptions = {
 export function createApolloFactory(
   httpLink: HttpLink,
   storageService: StoragePlatformService,
-  webSocketImpl: any
+  webSocketImpl: any,
+  feedbackService: FeedbackPlatformService
 ) {
   const http = httpLink.create({
     uri: environment.endpointUrl
@@ -75,14 +79,45 @@ export function createApolloFactory(
   );
 
   const errorLink = onError(({ networkError }) => {
-    // TODO add handler to show snackbar
     if (networkError) {
-      console.log(`[Network error]`, networkError);
+      let msg: string;
+
+      switch (networkError['status']) {
+        case HTTP_STATUS.NO_CONNECTION:
+          msg = 'No connection. Please, try again later.';
+          break;
+        case HTTP_STATUS.SERVICE_UNAVAILABLE:
+        case HTTP_STATUS.GATEWAY_TIMEOUT:
+          msg = `${networkError['statusText']}. Retrying...`;
+          break;
+        case HTTP_STATUS.INTERNAL_SERVER_ERROR:
+        case HTTP_STATUS.BAD_GATEWAY:
+          msg = `${networkError['statusText']}.`;
+          break;
+      }
+
+      if (msg) {
+        feedbackService.error(msg);
+      }
+    }
+  });
+
+  const retryLink = new RetryLink({
+    delay: {
+      initial: 1000,
+      max: Infinity,
+      jitter: true
+    },
+    attempts: {
+      max: 5,
+      retryIf: error =>
+        error.status === HTTP_STATUS.SERVICE_UNAVAILABLE ||
+        error.status === HTTP_STATUS.GATEWAY_TIMEOUT
     }
   });
 
   return {
-    link: errorLink.concat(link),
+    link: ApolloLink.from([errorLink, retryLink, link]),
     cache: new InMemoryCache(),
     defaultOptions
   };

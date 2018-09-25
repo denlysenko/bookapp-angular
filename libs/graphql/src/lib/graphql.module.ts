@@ -1,6 +1,9 @@
-import { ModuleWithProviders, NgModule, InjectionToken } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { StoragePlatformService } from '@bookapp-angular/core';
+import {
+  StoragePlatformService,
+  FeedbackPlatformService
+} from '@bookapp-angular/core';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 
@@ -17,7 +20,12 @@ export class GraphQLModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: createApolloFactory,
-          deps: [HttpLink, StoragePlatformService, WebSocketImpl]
+          deps: [
+            HttpLink,
+            StoragePlatformService,
+            WebSocketImpl,
+            FeedbackPlatformService
+          ]
         }
       ]
     };

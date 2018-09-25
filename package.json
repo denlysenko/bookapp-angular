@@ -54,6 +54,7 @@
     "apollo-link": "^1.2.3",
     "apollo-link-context": "^1.0.9",
     "apollo-link-error": "^1.1.1",
+    "apollo-link-retry": "^2.2.5",
     "apollo-link-ws": "^1.0.9",
     "apollo-utilities": "^1.0.21",
     "core-js": "^2.5.4",
