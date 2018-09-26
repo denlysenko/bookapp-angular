@@ -6,6 +6,7 @@
 //}
 
 android {  
+  compileSdkVersion 27
   defaultConfig {  
     generatedDensities = []
     applicationId = "org.nativescript.bookapp"  
