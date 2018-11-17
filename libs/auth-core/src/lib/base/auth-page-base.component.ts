@@ -1,7 +1,7 @@
-import { AuthForm, AuthService, Credentials } from '@bookapp-angular/auth-core';
-import { RouterExtensions } from '@bookapp-angular/core';
-
 import { finalize } from 'rxjs/operators';
+
+import { AuthService, Credentials } from '@bookapp-angular/auth-core';
+import { RouterExtensions } from '@bookapp-angular/core';
 
 export abstract class AuthPageBaseComponent {
   error: any;
@@ -10,8 +10,7 @@ export abstract class AuthPageBaseComponent {
   protected abstract authService: AuthService;
   protected abstract routerExtensions: RouterExtensions;
 
-  submit($event: AuthForm) {
-    const { isLoggingIn, credentials } = $event;
+  submit({ isLoggingIn, credentials }) {
     this.error = null;
 
     isLoggingIn
