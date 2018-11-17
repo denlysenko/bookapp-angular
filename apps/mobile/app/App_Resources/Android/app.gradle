@@ -5,13 +5,13 @@
 //	compile 'com.android.support:recyclerview-v7:+'
 //}
 
-android {  
-  compileSdkVersion 27
-  defaultConfig {  
+android {
+  compileSdkVersion 28
+  defaultConfig {
     generatedDensities = []
-    applicationId = "org.nativescript.bookapp"  
-  }  
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
-} 
+    applicationId = "org.nativescript.bookapp"
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
