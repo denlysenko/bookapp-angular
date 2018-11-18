@@ -5,8 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start:web": "ng serve --port=4500",
-    "start:ios": "cd apps/mobile && tns run ios --bundle --env.uglify --env.aot",
-    "start:android": "cd apps/mobile && tns run android --bundle --env.uglify --env.aot --env.snapshot",
+    "start:ios": "cd apps/mobile && tns run ios --hmr",
+    "start:android": "cd apps/mobile && tns run android --hmr",
+    "build:android": "cd apps/mobile && tns build android --bundle --env.uglify --env.aot --env.snapshot",
     "prepare:ios": "cd apps/mobile && tns prepare ios --bundle --env.aot --env.uglify",
     "build": "ng build",
     "build:web": "ng build web --prod --configuration=production",
